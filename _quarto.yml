@@ -1,3 +1,24 @@
 project:
-  type: website
+  type: book
   output-dir: docs
+
+book:
+  title: "Powering IR with R"
+  author: "Thomas Jay Benjamin & Lynzee Murray"
+  date: "9/27/2023"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+
+
