@@ -2,4 +2,6 @@
 
 This is a Quarto book.
 
+This is a test.
+
 To learn more about Quarto books visit <https://quarto.org/docs/books>.
