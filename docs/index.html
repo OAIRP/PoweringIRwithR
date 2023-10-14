@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Thomas Jay Benjamin &amp; Lynzee Murray">
-<meta name="dcterms.date" content="2023-09-27">
+<meta name="author" content="Thomas Jay Benjamin">
+<meta name="author" content="Lynzee Murray">
+<meta name="dcterms.date" content="2023-10-19">
 
 <title>Powering IR with R</title>
 <style>
@@ -63,6 +64,15 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
+<meta name="citation_title" content="Powering IR with R">
+<meta name="citation_author" content="Thomas Jay Benjamin">
+<meta name="citation_author" content="Lynzee Murray">
+<meta name="citation_publication_date" content="2023-10-19">
+<meta name="citation_cover_date" content="2023-10-19">
+<meta name="citation_year" content="2023">
+<meta name="citation_online_date" content="2023-10-19">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -90,6 +100,27 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Powering IR with R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/oairp/PoweringIRwithR" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Powering-IR-with-R.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -129,6 +160,23 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">References</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acknowledgements</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -152,20 +200,39 @@ ul.task-list li input[type="checkbox"] {
 </div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">Thomas Jay Benjamin </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.lorainccc.edu">
+            Lorain County Community College
+            </a>
+          </p>
+      </div>
+      <div class="quarto-title-meta-contents">
+    <p class="author">Lynzee Murray </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.cscc.edu">
+            Columbus State Community College
+            </a>
+          </p>
+      </div>
+    </div>
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Thomas Jay Benjamin &amp; Lynzee Murray </p>
-          </div>
-  </div>
-    
+      
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 27, 2023</p>
+      <p class="date">October 19, 2023</p>
     </div>
   </div>
   
@@ -179,19 +246,17 @@ ul.task-list li input[type="checkbox"] {
 <h1 class="unnumbered">Preface</h1>
 <p>This online reference guide has been developed to accompany the October 19, 2023 <a href="https://oairp.org/event-5382943">workshop at the Ohio Association for Institutional Research and Planning</a>.</p>
 <p>The workshop will follow a timeline aligned to the sections of this reference guide:</p>
-<ol type="1">
-<li>Software set-up and overview</li>
+<ul>
+<li><a href="intro.html"><span>Chapter&nbsp;1</span></a>: Software set-up and overview</li>
 <li>Importing and cleaning data</li>
 <li>Statistical analyses &amp; data visualizations</li>
 <li>Building parameterized reports</li>
 <li>Collaborating on code and Q&amp;A.</li>
-</ol>
+</ul>
 <p>The guide and workshop were developed by:</p>
 <p><strong>Thomas Jay Benjamin</strong> is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.</p>
 <p><strong>Lynzee Murray</strong> serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master’s program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.</p>
 <p><a href="https://oairp.org/Sys/PublicProfile/61938198/5655464">Thomas</a> and <a href="https://oairp.org/Sys/PublicProfile/66831830/5655464">Lynzee</a> can be contacted through the OAIRP Membership Portal.</p>
-<p>Thomas &amp; Lynzee thank the <a href="https://oairp.org/Sys/PublicProfile/66831830/5655464">OAIRP Executive Committee</a> for their support in hosting this workshop and guide.</p>
-<p>This reference guide was developed in Quarto. To learn more about Quarto books visit <a href="https://quarto.org/docs/books" class="uri">https://quarto.org/docs/books</a>.</p>
 
 
 </section>

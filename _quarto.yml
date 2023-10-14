@@ -4,14 +4,35 @@ project:
 
 book:
   title: "Powering IR with R"
-  author: "Thomas Jay Benjamin & Lynzee Murray"
-  date: "9/27/2023"
+  author: 
+    - name: Thomas Jay Benjamin
+      affiliation: 
+        - name: Lorain County Community College
+          department: Institutional Research
+          city: Elyria
+          state: OH
+          country: US
+          url: https://www.lorainccc.edu
+    - name: Lynzee Murray
+      affiliation: Columbus State Community College
+      affiliation-url: https://www.cscc.edu
+  date: "10/19/2023"
   chapters:
     - index.qmd
     - intro.qmd
     - collaboration.qmd
     - summary.qmd
     - references.qmd
+  appendices:
+    - acknowledgements.qmd
+  page-navigation: true
+  repo-url: https://github.com/oairp/PoweringIRwithR
+  downloads: [pdf]
+  sharing: [twitter, facebook]
+
+citation: true
+appendix-cite-as: display
+google-scholar: true
 
 bibliography: references.bib
 
