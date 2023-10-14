@@ -96,5 +96,12 @@
     "title": "1  Software Set-up and Overview",
     "section": "1.5 Extras",
     "text": "1.5 Extras\n\n1.5.1 Keeping R up-to-date\n\n\n1.5.2 R Profile and Environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "collaboration.html#setting-up-git",
+    "href": "collaboration.html#setting-up-git",
+    "title": "2  Collaborating on Code",
+    "section": "2.1 Setting up Git",
+    "text": "2.1 Setting up Git\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
   }
 ]
