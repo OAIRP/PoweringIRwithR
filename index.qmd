@@ -1,7 +1,23 @@
 # Preface {.unnumbered}
 
-This is a Quarto book.
+This online reference guide has been developed to accompany the October 19, 2023 [workshop at the Ohio Association for Institutional Research and Planning](https://oairp.org/event-5382943).
 
-This is a test.
+The workshop will follow a timeline aligned to the sections of this reference guide:
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+1. Software set-up and overview
+2. Importing and cleaning data
+3. Statistical analyses & data visualizations
+4. Building parameterized reports
+5. Collaborating on code and Q&A.
+
+The guide and workshop were developed by:
+
+**Thomas Jay Benjamin** is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.
+
+**Lynzee Murray** serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master's program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.
+
+[Thomas](https://oairp.org/Sys/PublicProfile/61938198/5655464) and [Lynzee](https://oairp.org/Sys/PublicProfile/66831830/5655464) can be contacted through the OAIRP Membership Portal.
+
+Thomas & Lynzee thank the [OAIRP Executive Committee](https://oairp.org/Sys/PublicProfile/66831830/5655464) for their support in hosting this workshop and guide.
+
+This reference guide was developed in Quarto.  To learn more about Quarto books visit <https://quarto.org/docs/books>.

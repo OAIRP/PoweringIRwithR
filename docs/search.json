@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Powering IR with R",
     "section": "",
-    "text": "Preface\nThis is a Quarto book.\nThis is a test.\nTo learn more about Quarto books visit https://quarto.org/docs/books."
+    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nSoftware set-up and overview\nImporting and cleaning data\nStatistical analyses & data visualizations\nBuilding parameterized reports\nCollaborating on code and Q&A.\n\nThe guide and workshop were developed by:\nThomas Jay Benjamin is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.\nLynzee Murray serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master’s program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.\nThomas and Lynzee can be contacted through the OAIRP Membership Portal.\nThomas & Lynzee thank the OAIRP Executive Committee for their support in hosting this workshop and guide.\nThis reference guide was developed in Quarto. To learn more about Quarto books visit https://quarto.org/docs/books."
   },
   {
     "objectID": "intro.html",
@@ -26,5 +26,75 @@
     "title": "References",
     "section": "",
     "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "intro.html#installation",
+    "href": "intro.html#installation",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.1 Installation",
+    "text": "1.1 Installation"
+  },
+  {
+    "objectID": "intro.html#using-the-r-terminal",
+    "href": "intro.html#using-the-r-terminal",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.2 Using the R Terminal",
+    "text": "1.2 Using the R Terminal"
+  },
+  {
+    "objectID": "intro.html#using-an-ide",
+    "href": "intro.html#using-an-ide",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.3 Using an IDE",
+    "text": "1.3 Using an IDE"
+  },
+  {
+    "objectID": "intro.html#keeping-r-up-to-date",
+    "href": "intro.html#keeping-r-up-to-date",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.4 Keeping R up-to-date",
+    "text": "1.4 Keeping R up-to-date"
+  },
+  {
+    "objectID": "intro.html#section",
+    "href": "intro.html#section",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.5 ",
+    "text": "1.5 \nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "intro.html#installing-r-packages",
+    "href": "intro.html#installing-r-packages",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.4 Installing R packages",
+    "text": "1.4 Installing R packages"
+  },
+  {
+    "objectID": "intro.html#for-later-keeping-r-up-to-date",
+    "href": "intro.html#for-later-keeping-r-up-to-date",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.5 For later: Keeping R up-to-date",
+    "text": "1.5 For later: Keeping R up-to-date"
+  },
+  {
+    "objectID": "intro.html#for-later-editing-the-r-profile-and-r-environment",
+    "href": "intro.html#for-later-editing-the-r-profile-and-r-environment",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.6 For later: Editing the R profile and R environment",
+    "text": "1.6 For later: Editing the R profile and R environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "intro.html#for-later-r-profile-and-environment",
+    "href": "intro.html#for-later-r-profile-and-environment",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.6 For later: R Profile and Environment",
+    "text": "1.6 For later: R Profile and Environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+  },
+  {
+    "objectID": "intro.html#extras",
+    "href": "intro.html#extras",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.5 Extras",
+    "text": "1.5 Extras\n\n1.5.1 Keeping R up-to-date\n\n\n1.5.2 R Profile and Environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
   }
 ]

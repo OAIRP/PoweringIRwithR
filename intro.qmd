@@ -1,4 +1,24 @@
-# Introduction
+# Software Set-up and Overview
+
+## Installation
+
+
+## Using the R Terminal
+
+
+## Using an IDE
+
+
+## Installing R packages
+
+
+## Extras
+
+### Keeping R up-to-date
+
+
+
+### R Profile and Environment
 
 This is a book created from markdown and executable code.
 
