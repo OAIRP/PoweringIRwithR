@@ -12,14 +12,113 @@
 ## Installing R packages
 
 
-## Extras
 
-### Keeping R up-to-date
+![](screenshots/selectCRAN.png){#fig-CRANmirrors fig-alt="A listing of CRAN mirrors."}
+
+The `USA (OH) [https]` CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity).  Its web address is <https://cran.case.edu>.
+
+::: {.callout-tip}
+  See @sec-rprofile for details on how to set your default CRAN repository.
+:::
+
+## Writing an R script
 
 
+## Exersices {.unnumbered}
 
-### R Profile and Environment
+## Extras {.unnumbered}
 
-This is a book created from markdown and executable code.
+### Keeping R up-to-date {.unnumbered}
 
-See @knuth84 for additional discussion of literate programming.
+#### Updating R packages
+
+In the terminal, run:
+
+```{R}
+#| eval: false
+update.packages()
+```
+
+Packages with new updates will be detected and you will be prompted to respond `Y` or `yes` to accept.
+
+If you want all packages updated without your confirmation, you can add the `ask = FALSE` argument:
+
+```{R}
+#| eval: false
+update.packages(ask = FALSE)
+```
+
+::: {.callout-warning}
+You will see a warning when packages are built under a different version of R than you are running.  If you see this, you likely want to update your version of R.
+:::
+
+#### Updating R
+
+The `installr` package can assist with keeping the R installation up-to-date.  In the terminal, run the following:
+
+```{R}
+#| eval: false
+installr::updateR()
+```
+
+::: {.callout-tip}
+You will be prompted as to whether you'd like to copy over all packages from the current version of R.  This is a good idea!
+:::
+
+### R Profile and Environment {.unnumbered}
+
+R will read certain options from special files that you can modify:
+
+#### R profile {#sec-rprofile}
+
+Your R *profile* can contain a range of settings to customize how you interact with R.
+
+The `usethis` package can be used to edit your R profile:
+
+```{R}
+#| eval: false
+usethis::edit_r_profile()
+```
+
+A new window will open with your R profile file that you can edit.
+
+For example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well.  Add the following line to your R profile file:
+
+```{R}
+#| eval: false
+options(repos=c(CRAN="https://cran.case.edu/"))
+```
+
+When done, save the file, then close all R terminals and reopen them.
+
+
+#### R environment
+
+The R *environment* can store variables that you can call upon using special R functions.  It is a great way to keep keys and other secrets out of your code but still accessible.
+
+The `usethis` package can be used to easily edit your R environment:
+
+```{R}
+#| eval: false
+usethis::edit_r_envrion()
+```
+
+To store a variable named `test_var`, add the following to the file:
+
+```{R}
+#| eval: false
+test_var:"this is my test value"
+```
+
+When done, save the file, then close all R terminals and reopen them.
+
+You'll be able to access such variables like so:
+
+```{R}
+#| eval: test_var
+Sys.getenv("test_var")
+```
+
+::: {.callout-warning}
+Some packages request that you store things like API keys as specified environment variables.  You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the `.Renviron` file on your computer.
+:::

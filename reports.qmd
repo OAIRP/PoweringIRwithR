@@ -1,2 +1,3 @@
 # Building parameterized reports {#sec-reports}
 
+This will require the `rmarkdown` and `knitr` packages.

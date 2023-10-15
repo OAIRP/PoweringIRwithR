@@ -20,26 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -197,10 +212,12 @@ div.csl-indent {
   <li><a href="#using-the-r-terminal" id="toc-using-the-r-terminal" class="nav-link" data-scroll-target="#using-the-r-terminal"><span class="header-section-number">1.2</span> Using the R Terminal</a></li>
   <li><a href="#using-an-ide" id="toc-using-an-ide" class="nav-link" data-scroll-target="#using-an-ide"><span class="header-section-number">1.3</span> Using an IDE</a></li>
   <li><a href="#installing-r-packages" id="toc-installing-r-packages" class="nav-link" data-scroll-target="#installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</a></li>
-  <li><a href="#extras" id="toc-extras" class="nav-link" data-scroll-target="#extras"><span class="header-section-number">1.5</span> Extras</a>
+  <li><a href="#writing-an-r-script" id="toc-writing-an-r-script" class="nav-link" data-scroll-target="#writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</a></li>
+  <li><a href="#exersices" id="toc-exersices" class="nav-link" data-scroll-target="#exersices">Exersices</a></li>
+  <li><a href="#extras" id="toc-extras" class="nav-link" data-scroll-target="#extras">Extras</a>
   <ul class="collapse">
-  <li><a href="#keeping-r-up-to-date" id="toc-keeping-r-up-to-date" class="nav-link" data-scroll-target="#keeping-r-up-to-date"><span class="header-section-number">1.5.1</span> Keeping R up-to-date</a></li>
-  <li><a href="#r-profile-and-environment" id="toc-r-profile-and-environment" class="nav-link" data-scroll-target="#r-profile-and-environment"><span class="header-section-number">1.5.2</span> R Profile and Environment</a></li>
+  <li><a href="#keeping-r-up-to-date" id="toc-keeping-r-up-to-date" class="nav-link" data-scroll-target="#keeping-r-up-to-date">Keeping R up-to-date</a></li>
+  <li><a href="#r-profile-and-environment" id="toc-r-profile-and-environment" class="nav-link" data-scroll-target="#r-profile-and-environment">R Profile and Environment</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -236,23 +253,130 @@ div.csl-indent {
 </section>
 <section id="installing-r-packages" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</h2>
-</section>
-<section id="extras" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="extras"><span class="header-section-number">1.5</span> Extras</h2>
-<section id="keeping-r-up-to-date" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="keeping-r-up-to-date"><span class="header-section-number">1.5.1</span> Keeping R up-to-date</h3>
-</section>
-<section id="r-profile-and-environment" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="r-profile-and-environment"><span class="header-section-number">1.5.2</span> R Profile and Environment</h3>
-<p>This is a book created from markdown and executable code.</p>
-<p>See <span class="citation" data-cites="knuth84">Knuth (<a href="references.html#ref-knuth84" role="doc-biblioref">1984</a>)</span> for additional discussion of literate programming.</p>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
-<div id="ref-knuth84" class="csl-entry" role="listitem">
-Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>Comput. J.</em> 27 (2): 97–111. <a href="https://doi.org/10.1093/comjnl/27.2.97">https://doi.org/10.1093/comjnl/27.2.97</a>.
+<p><img src="screenshots/selectCRAN.png" id="fig-CRANmirrors" class="img-fluid" alt="A listing of CRAN mirrors."></p>
+<p>The <code>USA (OH) [https]</code> CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity). Its web address is <a href="https://cran.case.edu" class="uri">https://cran.case.edu</a>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>See <a href="#sec-rprofile"><span>Section&nbsp;1.5.0.3</span></a> for details on how to set your default CRAN repository.</p>
+</div>
+</div>
+</section>
+<section id="writing-an-r-script" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</h2>
+</section>
+<section id="exersices" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exersices">Exersices</h2>
+</section>
+<section id="extras" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="extras">Extras</h2>
+<section id="keeping-r-up-to-date" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="keeping-r-up-to-date">Keeping R up-to-date</h3>
+<section id="updating-r-packages" class="level4">
+<h4 class="anchored" data-anchor-id="updating-r-packages">Updating R packages</h4>
+<p>In the terminal, run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Packages with new updates will be detected and you will be prompted to respond <code>Y</code> or <code>yes</code> to accept.</p>
+<p>If you want all packages updated without your confirmation, you can add the <code>ask = FALSE</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.</p>
+</div>
+</div>
+</section>
+<section id="updating-r" class="level4">
+<h4 class="anchored" data-anchor-id="updating-r">Updating R</h4>
+<p>The <code>installr</code> package can assist with keeping the R installation up-to-date. In the terminal, run the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">updateR</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!</p>
+</div>
+</div>
+</section>
+</section>
+<section id="r-profile-and-environment" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="r-profile-and-environment">R Profile and Environment</h3>
+<p>R will read certain options from special files that you can modify:</p>
+<section id="sec-rprofile" class="level4">
+<h4 class="anchored" data-anchor-id="sec-rprofile">R profile</h4>
+<p>Your R <em>profile</em> can contain a range of settings to customize how you interact with R.</p>
+<p>The <code>usethis</code> package can be used to edit your R profile:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_profile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A new window will open with your R profile file that you can edit.</p>
+<p>For example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos=</span><span class="fu">c</span>(<span class="at">CRAN=</span><span class="st">"https://cran.case.edu/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When done, save the file, then close all R terminals and reopen them.</p>
+</section>
+<section id="r-environment" class="level4">
+<h4 class="anchored" data-anchor-id="r-environment">R environment</h4>
+<p>The R <em>environment</em> can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.</p>
+<p>The <code>usethis</code> package can be used to easily edit your R environment:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_envrion</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To store a variable named <code>test_var</code>, add the following to the file:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test_var<span class="sc">:</span><span class="st">"this is my test value"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>When done, save the file, then close all R terminals and reopen them.</p>
+<p>You’ll be able to access such variables like so:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"test_var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "this is my test value"</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Some packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the <code>.Renviron</code> file on your computer.</p>
+</div>
+</div>
+
+
+</section>
 </section>
 </section>
 

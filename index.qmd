@@ -8,4 +8,4 @@ The workshop will follow a timeline aligned to the sections of this reference gu
 - @sec-data: Importing and cleaning data
 - @sec-analysis: Statistical analyses & data visualizations
 - @sec-reports: Building parameterized reports
-- @sec-collaboration: Collaborating on code and Q&A.
+- @sec-collaboration: Collaborating on code

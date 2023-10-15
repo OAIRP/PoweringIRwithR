@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Powering IR with R",
     "section": "",
-    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software set-up and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code and Q&A."
+    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software set-up and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code"
   },
   {
     "objectID": "intro.html#installation",
@@ -32,14 +32,14 @@
     "href": "intro.html#installing-r-packages",
     "title": "1  Software Set-up and Overview",
     "section": "1.4 Installing R packages",
-    "text": "1.4 Installing R packages"
+    "text": "1.4 Installing R packages\n\nThe USA (OH) [https] CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity). Its web address is https://cran.case.edu.\n\n\n\n\n\n\nTip\n\n\n\nSee Section 1.5.0.3 for details on how to set your default CRAN repository."
   },
   {
     "objectID": "intro.html#extras",
     "href": "intro.html#extras",
     "title": "1  Software Set-up and Overview",
-    "section": "1.5 Extras",
-    "text": "1.5 Extras\n\n1.5.1 Keeping R up-to-date\n\n\n1.5.2 R Profile and Environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
+    "section": "Extras",
+    "text": "Extras\n\nKeeping R up-to-date\n\nUpdating R packages\nIn the terminal, run:\n\nupdate.packages()\n\nPackages with new updates will be detected and you will be prompted to respond Y or yes to accept.\nIf you want all packages updated without your confirmation, you can add the ask = FALSE argument:\n\nupdate.packages(ask = FALSE)\n\n\n\n\n\n\n\nWarning\n\n\n\nYou will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.\n\n\n\n\nUpdating R\nThe installr package can assist with keeping the R installation up-to-date. In the terminal, run the following:\n\ninstallr::updateR()\n\n\n\n\n\n\n\nTip\n\n\n\nYou will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!\n\n\n\n\n\nR Profile and Environment\nR will read certain options from special files that you can modify:\n\nR profile\nYour R profile can contain a range of settings to customize how you interact with R.\nThe usethis package can be used to edit your R profile:\n\nusethis::edit_r_profile()\n\nA new window will open with your R profile file that you can edit.\nFor example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:\n\noptions(repos=c(CRAN=\"https://cran.case.edu/\"))\n\nWhen done, save the file, then close all R terminals and reopen them.\n\n\nR environment\nThe R environment can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.\nThe usethis package can be used to easily edit your R environment:\n\nusethis::edit_r_envrion()\n\nTo store a variable named test_var, add the following to the file:\n\ntest_var:\"this is my test value\"\n\nWhen done, save the file, then close all R terminals and reopen them.\nYou’ll be able to access such variables like so:\n\nSys.getenv(\"test_var\")\n\n[1] \"this is my test value\"\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSome packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the .Renviron file on your computer."
   },
   {
     "objectID": "workingwithdata.html#importing-data",
@@ -82,5 +82,26 @@
     "title": "Acknowledgements",
     "section": "",
     "text": "Thomas & Lynzee thank the OAIRP Executive Committee for their support in hosting this workshop and guide."
+  },
+  {
+    "objectID": "intro.html#writing-an-r-script",
+    "href": "intro.html#writing-an-r-script",
+    "title": "1  Software Set-up and Overview",
+    "section": "1.5 Writing an R script",
+    "text": "1.5 Writing an R script"
+  },
+  {
+    "objectID": "intro.html#excersizes",
+    "href": "intro.html#excersizes",
+    "title": "1  Software Set-up and Overview",
+    "section": "Excersizes",
+    "text": "Excersizes"
+  },
+  {
+    "objectID": "intro.html#exersices",
+    "href": "intro.html#exersices",
+    "title": "1  Software Set-up and Overview",
+    "section": "Exersices",
+    "text": "Exersices"
   }
 ]
