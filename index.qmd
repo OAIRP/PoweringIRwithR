@@ -4,7 +4,7 @@ This online reference guide has been developed to accompany the [October 19, 202
 
 The workshop will follow a timeline aligned to the sections of this reference guide:
 
-- @sec-introduction: Software set-up and overview
+- @sec-introduction: Software setup and overview
 - @sec-data: Importing and cleaning data
 - @sec-analysis: Statistical analyses & data visualizations
 - @sec-reports: Building parameterized reports

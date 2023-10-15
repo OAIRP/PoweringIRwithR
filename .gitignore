@@ -49,8 +49,5 @@ rsconnect/
 
 /.quarto/
 
-# pdf
-*.pdf
-
 # zip
 *.zip

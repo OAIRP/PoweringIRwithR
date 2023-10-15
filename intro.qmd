@@ -1,4 +1,4 @@
-# Software Set-up and Overview {#sec-introduction}
+# Software setup and overview {#sec-introduction}
 
 ## Installation
 
@@ -115,7 +115,6 @@ When done, save the file, then close all R terminals and reopen them.
 You'll be able to access such variables like so:
 
 ```{R}
-#| eval: test_var
 Sys.getenv("test_var")
 ```
 
