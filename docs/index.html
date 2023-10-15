@@ -144,14 +144,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></span></a>
+  <a href="./workingwithdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing and cleaning data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Summary</span></span></a>
+  <a href="./analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistical analysis &amp; data visualizations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Building parameterized reports</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collaboration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -160,23 +172,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">References</span></a>
   </div>
 </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./acknowledgements.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Acknowledgements</span></span></a>
-  </div>
-</li>
-      </ul>
-  </li>
     </ul>
     </div>
 </nav>
@@ -189,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -244,19 +239,15 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="preface" class="level1 unnumbered">
 <h1 class="unnumbered">Preface</h1>
-<p>This online reference guide has been developed to accompany the October 19, 2023 <a href="https://oairp.org/event-5382943">workshop at the Ohio Association for Institutional Research and Planning</a>.</p>
+<p>This online reference guide has been developed to accompany the <a href="https://oairp.org/event-5382943">October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning</a>.</p>
 <p>The workshop will follow a timeline aligned to the sections of this reference guide:</p>
 <ul>
 <li><a href="intro.html"><span>Chapter&nbsp;1</span></a>: Software set-up and overview</li>
-<li>Importing and cleaning data</li>
-<li>Statistical analyses &amp; data visualizations</li>
-<li>Building parameterized reports</li>
-<li>Collaborating on code and Q&amp;A.</li>
+<li><a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a>: Importing and cleaning data</li>
+<li><a href="analysis.html"><span>Chapter&nbsp;3</span></a>: Statistical analyses &amp; data visualizations</li>
+<li><a href="reports.html"><span>Chapter&nbsp;4</span></a>: Building parameterized reports</li>
+<li><a href="collaboration.html"><span>Chapter&nbsp;5</span></a>: Collaborating on code and Q&amp;A.</li>
 </ul>
-<p>The guide and workshop were developed by:</p>
-<p><strong>Thomas Jay Benjamin</strong> is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.</p>
-<p><strong>Lynzee Murray</strong> serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master’s program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.</p>
-<p><a href="https://oairp.org/Sys/PublicProfile/61938198/5655464">Thomas</a> and <a href="https://oairp.org/Sys/PublicProfile/66831830/5655464">Lynzee</a> can be contacted through the OAIRP Membership Portal.</p>
 
 
 </section>
@@ -505,6 +496,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://www.oairp.org/"><img src="https://oairp.org/resources/Pictures/oairp-lite.png" height="20"></a></div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./about.html">About the authors</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./acknowledgements.html">Acknowledgements</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">This guide was built with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
 
 
 

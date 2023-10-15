@@ -20,13 +20,23 @@ book:
   chapters:
     - index.qmd
     - intro.qmd
+    - workingwithdata.qmd
+    - analysis.qmd
+    - reports.qmd
     - collaboration.qmd
-    - summary.qmd
     - references.qmd
-  appendices:
-    - acknowledgements.qmd
   page-navigation: true
+  page-footer:
+    background: light
+    left: Proudly supported by [![](https://oairp.org/resources/Pictures/oairp-lite.png){height=20px}](https://www.oairp.org/)
+    center:
+      - text: "About the authors"
+        href: about.qmd
+      - text: "Acknowledgements"
+        href: acknowledgements.qmd
+    right: This guide was built with [Quarto](https://quarto.org)
   repo-url: https://github.com/oairp/PoweringIRwithR
+  repo-actions: [issue]
   downloads: [pdf]
   sharing: [twitter, facebook]
 

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Powering IR with R",
     "section": "",
-    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software set-up and overview\nImporting and cleaning data\nStatistical analyses & data visualizations\nBuilding parameterized reports\nCollaborating on code and Q&A.\n\nThe guide and workshop were developed by:\nThomas Jay Benjamin is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.\nLynzee Murray serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master’s program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.\nThomas and Lynzee can be contacted through the OAIRP Membership Portal."
+    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software set-up and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code and Q&A."
   },
   {
     "objectID": "intro.html#installation",
@@ -42,18 +42,25 @@
     "text": "1.5 Extras\n\n1.5.1 Keeping R up-to-date\n\n\n1.5.2 R Profile and Environment\nThis is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
   },
   {
-    "objectID": "collaboration.html#setting-up-git",
-    "href": "collaboration.html#setting-up-git",
-    "title": "2  Collaborating on Code",
-    "section": "2.1 Setting up Git",
-    "text": "2.1 Setting up Git\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
+    "objectID": "workingwithdata.html#importing-data",
+    "href": "workingwithdata.html#importing-data",
+    "title": "2  Importing and cleaning data",
+    "section": "2.1 Importing data",
+    "text": "2.1 Importing data\n\n2.1.1 From a local file\n\n\n2.1.2 From an online file\n\n\n2.1.3 From a database"
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "3  Summary",
-    "section": "",
-    "text": "In summary, this book has no content whatsoever."
+    "objectID": "workingwithdata.html#tidy-data",
+    "href": "workingwithdata.html#tidy-data",
+    "title": "2  Importing and cleaning data",
+    "section": "2.2 Tidy data",
+    "text": "2.2 Tidy data"
+  },
+  {
+    "objectID": "collaboration.html#setting-up-git",
+    "href": "collaboration.html#setting-up-git",
+    "title": "5  Collaborating on Code",
+    "section": "5.1 Setting up Git",
+    "text": "5.1 Setting up Git\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
   },
   {
     "objectID": "references.html",
@@ -63,17 +70,17 @@
     "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97."
   },
   {
-    "objectID": "index.html#acknowledgements",
-    "href": "index.html#acknowledgements",
-    "title": "Powering IR with R",
-    "section": "Acknowledgements",
-    "text": "Acknowledgements\nThomas & Lynzee thank the OAIRP Executive Committee for their support in hosting this workshop and guide.\nThis reference guide was developed in Quarto. To learn more about Quarto books visit https://quarto.org/docs/books."
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About the authors",
+    "section": "",
+    "text": "The guide and workshop were developed by:\nThomas Jay Benjamin is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.\nLynzee Murray serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master’s program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.\nThomas and Lynzee can be contacted through the OAIRP Membership Portal."
   },
   {
     "objectID": "acknowledgements.html",
     "href": "acknowledgements.html",
-    "title": "Appendix A — Acknowledgements",
+    "title": "Acknowledgements",
     "section": "",
-    "text": "Thomas & Lynzee thank the OAIRP Executive Committee for their support in hosting this workshop and guide.\nThis reference guide was developed in Quarto. To learn more about Quarto books visit https://quarto.org/docs/books."
+    "text": "Thomas & Lynzee thank the OAIRP Executive Committee for their support in hosting this workshop and guide."
   }
 ]

@@ -1,0 +1,12 @@
+# Importing and cleaning data {#sec-data}
+
+## Importing data
+
+### From a local file
+
+### From an online file
+
+### From a database
+
+
+## Tidy data

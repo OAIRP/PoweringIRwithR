@@ -1,5 +1,3 @@
 ## Acknowledgements {.appendix}
 
 Thomas & Lynzee thank the [OAIRP Executive Committee](https://oairp.org/Sys/PublicProfile/66831830/5655464) for their support in hosting this workshop and guide.
-
-This reference guide was developed in Quarto.  To learn more about Quarto books visit <https://quarto.org/docs/books>.

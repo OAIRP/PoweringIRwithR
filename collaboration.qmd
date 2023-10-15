@@ -1,4 +1,4 @@
-# Collaborating on Code
+# Collaborating on Code {#sec-collaboration}
 
 ## Setting up Git
 

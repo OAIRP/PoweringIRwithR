@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Powering IR with R - 5&nbsp; Collaborating on Code</title>
+<title>Powering IR with R - 2&nbsp; Importing and cleaning data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./references.html" rel="next">
-<link href="./reports.html" rel="prev">
+<link href="./analysis.html" rel="next">
+<link href="./intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -62,7 +62,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta name="citation_title" content="[[5]{.chapter-number}&nbsp; [Collaborating on Code]{.chapter-title}]{#sec-collaboration .quarto-section-identifier}">
+<meta name="citation_title" content="[[2]{.chapter-number}&nbsp; [Importing and cleaning data]{.chapter-title}]{#sec-data .quarto-section-identifier}">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
 </head>
@@ -76,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./collaboration.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./workingwithdata.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing and cleaning data</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -136,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./workingwithdata.html" class="sidebar-item-text sidebar-link">
+  <a href="./workingwithdata.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing and cleaning data</span></span></a>
   </div>
 </li>
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./collaboration.html" class="sidebar-item-text sidebar-link active">
+  <a href="./collaboration.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></span></a>
   </div>
 </li>
@@ -174,7 +174,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-git" id="toc-setting-up-git" class="nav-link active" data-scroll-target="#setting-up-git"><span class="header-section-number">5.1</span> Setting up Git</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link active" data-scroll-target="#importing-data"><span class="header-section-number">2.1</span> Importing data</a>
+  <ul class="collapse">
+  <li><a href="#from-a-local-file" id="toc-from-a-local-file" class="nav-link" data-scroll-target="#from-a-local-file"><span class="header-section-number">2.1.1</span> From a local file</a></li>
+  <li><a href="#from-an-online-file" id="toc-from-an-online-file" class="nav-link" data-scroll-target="#from-an-online-file"><span class="header-section-number">2.1.2</span> From an online file</a></li>
+  <li><a href="#from-a-database" id="toc-from-a-database" class="nav-link" data-scroll-target="#from-a-database"><span class="header-section-number">2.1.3</span> From a database</a></li>
+  </ul></li>
+  <li><a href="#tidy-data" id="toc-tidy-data" class="nav-link" data-scroll-target="#tidy-data"><span class="header-section-number">2.2</span> Tidy data</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -183,7 +189,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-collaboration" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></span></h1>
+<h1 class="title"><span id="sec-data" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing and cleaning data</span></span></h1>
 </div>
 
 
@@ -198,10 +204,20 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="setting-up-git" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="setting-up-git"><span class="header-section-number">5.1</span> Setting up Git</h2>
-<p><code>git config --global user.email "you@example.com"</code></p>
-<p><code>git config --global user.name "Your Name"</code></p>
+<section id="importing-data" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="importing-data"><span class="header-section-number">2.1</span> Importing data</h2>
+<section id="from-a-local-file" class="level3" data-number="2.1.1">
+<h3 data-number="2.1.1" class="anchored" data-anchor-id="from-a-local-file"><span class="header-section-number">2.1.1</span> From a local file</h3>
+</section>
+<section id="from-an-online-file" class="level3" data-number="2.1.2">
+<h3 data-number="2.1.2" class="anchored" data-anchor-id="from-an-online-file"><span class="header-section-number">2.1.2</span> From an online file</h3>
+</section>
+<section id="from-a-database" class="level3" data-number="2.1.3">
+<h3 data-number="2.1.3" class="anchored" data-anchor-id="from-a-database"><span class="header-section-number">2.1.3</span> From a database</h3>
+</section>
+</section>
+<section id="tidy-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="tidy-data"><span class="header-section-number">2.2</span> Tidy data</h2>
 
 
 </section>
@@ -442,13 +458,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./reports.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Building parameterized reports</span></span>
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Software Set-up and Overview</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./references.html" class="pagination-link">
-        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./analysis.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistical analysis &amp; data visualizations</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

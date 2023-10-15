@@ -1,0 +1,9 @@
+# About the authors {.appendix}
+
+The guide and workshop were developed by:
+
+**Thomas Jay Benjamin** is the Director for Institutional Research at Lorain County Community College. Thomas began using R following a workshop at the Spring 2019 OAIRP conference and has used it to assist with IPEDS, benchmarking, evaluation, and parameterized reporting (which he presented at the Spring 2023 OAIRP virtual conference). Most recently Thomas hosted an intern from LCCC’s Data Analytics program who learned R during his experience.
+
+**Lynzee Murray** serves as an analyst within the Office of Institutional Effectiveness at Columbus State Community College. Her introduction to R and RStudio occurred during her master's program in Data Analytics at Bowling Green State University. During her tenure at Columbus State, Lynzee has utilized R for crafting data visualizations, conducting text analysis, and constructing comparison groups through propensity score matching.
+
+[Thomas](https://oairp.org/Sys/PublicProfile/61938198/5655464) and [Lynzee](https://oairp.org/Sys/PublicProfile/66831830/5655464) can be contacted through the OAIRP Membership Portal.
