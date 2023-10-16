@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 book:
-  title: "Powering IR with R"
+  title: "Powering Institutional Research with R"
   author: 
     - name: Thomas Jay Benjamin
       affiliation: 
@@ -28,6 +28,7 @@ book:
     - collaboration.qmd
     - references.qmd
   page-navigation: true
+  reader-mode: true
   page-footer:
     background: light
     left: Proudly supported by [![](https://oairp.org/resources/Pictures/oairp-lite.png){height=20px}](https://www.oairp.org/)
@@ -40,7 +41,13 @@ book:
   repo-url: https://github.com/oairp/PoweringIRwithR
   repo-actions: [issue]
   downloads: [pdf, epub]
-  sharing: [twitter, facebook]
+  sharing: [twitter, facebook, linkedin]
+  twitter-card:
+    image: cover.png
+    card-style: summary_large_image
+    creator: "@tbenj"
+    site: "@ohioair"
+
 
 citation: true
 appendix-cite-as: display
@@ -53,7 +60,7 @@ format:
     theme: cosmo
     number-depth: 2
   pdf:
-    documentclass: scrreprt
+    documentclass: scrbook
     cover-image: cover.png
   epub:
     cover-image: cover.png

@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Powering IR with R",
+    "title": "Powering Institutional Research with R",
     "section": "",
     "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software setup and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code"
   },
