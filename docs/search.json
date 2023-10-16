@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Powering Institutional Research with R",
     "section": "",
-    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software setup and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code\n\nThis reference guide is designed for institutional researchers, by institutional researchers, so it’s chock full of examples relevant to IR and often compares R functions to what you might use in Microsoft Excel."
+    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop of the Ohio Association for Institutional Research and Planning, held at Mount Vernon, Ohio.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software setup and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code\n\nThis reference guide is designed for institutional researchers, by institutional researchers, so it’s chock full of examples relevant to IR and often compares R functions to what you might use in Microsoft Excel."
   },
   {
     "objectID": "intro.html#installation",
@@ -112,18 +112,81 @@
     "text": "Extra: Exporting data"
   },
   {
-    "objectID": "reports.html",
-    "href": "reports.html",
+    "objectID": "reports.html#installing-quarto",
+    "href": "reports.html#installing-quarto",
     "title": "4  Building parameterized reports",
-    "section": "",
-    "text": "This will require the rmarkdown and knitr packages."
+    "section": "4.1 Installing Quarto",
+    "text": "4.1 Installing Quarto\nThis will require the rmarkdown and knitr packages."
+  },
+  {
+    "objectID": "reports.html#creating-a-quarto-document",
+    "href": "reports.html#creating-a-quarto-document",
+    "title": "4  Building parameterized reports",
+    "section": "4.2 Creating a Quarto document",
+    "text": "4.2 Creating a Quarto document"
+  },
+  {
+    "objectID": "reports.html#parameterizing-your-report",
+    "href": "reports.html#parameterizing-your-report",
+    "title": "4  Building parameterized reports",
+    "section": "4.3 Parameterizing your report",
+    "text": "4.3 Parameterizing your report"
+  },
+  {
+    "objectID": "reports.html#exercises",
+    "href": "reports.html#exercises",
+    "title": "4  Building parameterized reports",
+    "section": "Exercises",
+    "text": "Exercises"
   },
   {
     "objectID": "collaboration.html#setting-up-git",
     "href": "collaboration.html#setting-up-git",
     "title": "5  Collaborating on code",
     "section": "5.1 Setting up Git",
-    "text": "5.1 Setting up Git\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
+    "text": "5.1 Setting up Git\n\n\nTerminal\n\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
+  },
+  {
+    "objectID": "collaboration.html#setting-up-github",
+    "href": "collaboration.html#setting-up-github",
+    "title": "5  Collaborating on code",
+    "section": "5.2 Setting up GitHub",
+    "text": "5.2 Setting up GitHub\nHead to https://github.com/ and create a new account if you do not already have one.\n\n\n\n\n\n\nNote\n\n\n\nThere’s no need to have multiple accounts like one for work and one for personal. In fact, GitHub recommends having just one account. You can add multiple email addresses to your GitHub account, and your GitHub account can be a member of an organization that hosts repositories."
+  },
+  {
+    "objectID": "collaboration.html#an-overview-of-github",
+    "href": "collaboration.html#an-overview-of-github",
+    "title": "5  Collaborating on code",
+    "section": "5.3 An overview of GitHub",
+    "text": "5.3 An overview of GitHub"
+  },
+  {
+    "objectID": "collaboration.html#syncing-a-project-with-github",
+    "href": "collaboration.html#syncing-a-project-with-github",
+    "title": "5  Collaborating on code",
+    "section": "5.4 Syncing a project with GitHub",
+    "text": "5.4 Syncing a project with GitHub\n\nSyncing a project started on GitHub\n\n\nSyncing a project started locally to GitHub"
+  },
+  {
+    "objectID": "collaboration.html#exercises",
+    "href": "collaboration.html#exercises",
+    "title": "5  Collaborating on code",
+    "section": "Exercises",
+    "text": "Exercises\n\nExercise 1\nLog into GitHub and navigate to the PoweringIRwithR repository. Star it!\n\n\nExercise 2\nSearch \"institutional research\" on GitHub. Find something intersting!"
+  },
+  {
+    "objectID": "collaboration.html#extra-about-github-pages",
+    "href": "collaboration.html#extra-about-github-pages",
+    "title": "5  Collaborating on code",
+    "section": "Extra: About GitHub Pages",
+    "text": "Extra: About GitHub Pages\nGitHub Pages"
+  },
+  {
+    "objectID": "collaboration.html#footnotes",
+    "href": "collaboration.html#footnotes",
+    "title": "5  Collaborating on code",
+    "section": "",
+    "text": "In our experience, most solo IR practitioners wish to be part of a team one day!↩︎"
   },
   {
     "objectID": "about.html",

@@ -1,3 +1,17 @@
 # Building parameterized reports {#sec-reports}
 
+In the previous sections of the guide, you've learned how to start using R, how to import and clean data, and how to analyze and visualize data.  You've written R scripts and generated outputs, that you can of course use to build a report using whatever software you would like.
+
+This section, however, will introduce you to an open source publishing system that works with R to easily create reports using R code in a variety of formats.
+
+## Installing Quarto
+
 This will require the `rmarkdown` and `knitr` packages.
+
+## Creating a Quarto document
+
+
+## Parameterizing your report
+
+
+## Exercises {.unnumbered}

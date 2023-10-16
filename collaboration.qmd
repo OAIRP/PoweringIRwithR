@@ -1,7 +1,53 @@
 # Collaborating on code {#sec-collaboration}
 
+Through @sec-reports you've developed a report using R code that incorporates your data analysis.  Though some IR projects are solo efforts, in many cases we want to collaborate with other institutional researchers, either now or in the future.^[In our experience, most solo IR practitioners wish to be part of a team one day!]
+
+In this section we'll discuss how you can set up your project in a way that makes it easy to collaborate, borrowing practices from software development.
+
+We'll begin by installing a version control system, **Git**, and then creating an account at **GitHub**, an online package repository and collaborative version control system using Git.
+
 ## Setting up Git
 
-`git config --global user.email "you@example.com"`
 
-`git config --global user.name "Your Name"`
+```{.bash filename="Terminal"}
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
+
+## Setting up GitHub
+
+Head to <https://github.com/> and create a new account if you do not already have one.
+
+::: {.callout-note}
+There's no need to have multiple accounts like one for work and one for personal.  In fact, [GitHub recommends](https:/docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts) having just one account.  You can add multiple email addresses to your GitHub account, and your GitHub account can be a member of an organization that hosts repositories.
+:::
+
+
+## An overview of GitHub
+
+
+
+## Syncing a project with GitHub
+
+
+### Syncing a project started on GitHub
+
+
+### Syncing a project started locally to GitHub
+
+
+## Exercises {.unnumbered}
+
+### Exercise 1
+
+Log into GitHub and navigate to the [PoweringIRwithR repository](https://github.com/oairp/PoweringIRwithR).  Star it!
+
+
+### Exercise 2
+
+Search [`"institutional research"` on GitHub](https://github.com/search?q=%22institutional+research%22&type=repositories).  Find something intersting!
+
+
+## Extra: About GitHub Pages {.unnumbered}
+
+**GitHub Pages** 

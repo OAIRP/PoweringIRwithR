@@ -1,6 +1,6 @@
 # Preface {.unnumbered}
 
-This online reference guide has been developed to accompany the [October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning](https://oairp.org/event-5382943).
+This online reference guide has been developed to accompany the [October 19, 2023 workshop](https://oairp.org/event-5382943) of the [**Ohio Association for Institutional Research and Planning**](https://oairp.org/), held at Mount Vernon, Ohio.
 
 The workshop will follow a timeline aligned to the sections of this reference guide:
 
