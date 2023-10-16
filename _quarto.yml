@@ -41,7 +41,7 @@ book:
   repo-url: https://github.com/oairp/PoweringIRwithR
   site-url: https://oairp.github.io/PoweringIRwithR/
   repo-actions: [issue]
-  downloads: [pdf, epub]
+  downloads: [epub]
   sharing: [twitter, facebook, linkedin]
   open-graph:
     image: cover.png
@@ -58,9 +58,6 @@ format:
   html:
     theme: cosmo
     number-depth: 2
-  pdf:
-    documentclass: scrbook
-    cover-image: cover.png
   epub:
     cover-image: cover.png
 
