@@ -107,6 +107,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="citation_fulltext_html_url" content="https://oairp.github.io/PoweringIRwithR//collaboration.html">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
+<meta name="citation_reference" content="citation_title=R for data science;,citation_author=Hadley Wickham;,citation_author=Mine Çetinkaya-Rundel;,citation_author=Garrett Grolemund;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://r4ds.hadley.nz/;">
+<meta name="citation_reference" content="citation_title=R: A language and environment for statistical computing;,citation_author=R Core Team;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.R-project.org/;">
+<meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
+<meta name="citation_reference" content="citation_title=Readxl: Read excel files;,citation_author=Hadley Wickham;,citation_author=Jennifer Bryan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://CRAN.R-project.org/package=readxl;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -227,14 +231,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#setting-up-git" id="toc-setting-up-git" class="nav-link active" data-scroll-target="#setting-up-git"><span class="header-section-number">5.1</span> Setting up Git</a></li>
-  <li><a href="#setting-up-github" id="toc-setting-up-github" class="nav-link" data-scroll-target="#setting-up-github"><span class="header-section-number">5.2</span> Setting up GitHub</a></li>
-  <li><a href="#an-overview-of-github" id="toc-an-overview-of-github" class="nav-link" data-scroll-target="#an-overview-of-github"><span class="header-section-number">5.3</span> An overview of GitHub</a></li>
-  <li><a href="#syncing-a-project-with-github" id="toc-syncing-a-project-with-github" class="nav-link" data-scroll-target="#syncing-a-project-with-github"><span class="header-section-number">5.4</span> Syncing a project with GitHub</a>
+  <li><a href="#setting-up-github" id="toc-setting-up-github" class="nav-link active" data-scroll-target="#setting-up-github"><span class="header-section-number">5.1</span> Setting up GitHub</a></li>
+  <li><a href="#an-overview-of-github" id="toc-an-overview-of-github" class="nav-link" data-scroll-target="#an-overview-of-github"><span class="header-section-number">5.2</span> An overview of GitHub</a></li>
+  <li><a href="#sec-Gitsetup" id="toc-sec-Gitsetup" class="nav-link" data-scroll-target="#sec-Gitsetup"><span class="header-section-number">5.3</span> Setting up Git</a></li>
+  <li><a href="#sec-syncGitHub" id="toc-sec-syncGitHub" class="nav-link" data-scroll-target="#sec-syncGitHub"><span class="header-section-number">5.4</span> Syncing a project with GitHub</a>
   <ul class="collapse">
-  <li><a href="#syncing-a-project-started-on-github" id="toc-syncing-a-project-started-on-github" class="nav-link" data-scroll-target="#syncing-a-project-started-on-github">Syncing a project started on GitHub</a></li>
-  <li><a href="#syncing-a-project-started-locally-to-github" id="toc-syncing-a-project-started-locally-to-github" class="nav-link" data-scroll-target="#syncing-a-project-started-locally-to-github">Syncing a project started locally to GitHub</a></li>
+  <li><a href="#setting-up-a-project-started-on-github-to-sync-locally" id="toc-setting-up-a-project-started-on-github-to-sync-locally" class="nav-link" data-scroll-target="#setting-up-a-project-started-on-github-to-sync-locally">Setting up a project started on GitHub to sync locally</a></li>
+  <li><a href="#setting-up-a-project-started-locally-to-sync-with-github" id="toc-setting-up-a-project-started-locally-to-sync-with-github" class="nav-link" data-scroll-target="#setting-up-a-project-started-locally-to-sync-with-github">Setting up a project started locally to sync with GitHub</a></li>
   </ul></li>
+  <li><a href="#the-basics-of-git-operations" id="toc-the-basics-of-git-operations" class="nav-link" data-scroll-target="#the-basics-of-git-operations"><span class="header-section-number">5.5</span> The basics of Git operations</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
@@ -266,19 +271,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Through <a href="reports.html"><span>Chapter&nbsp;4</span></a> you’ve developed a report using R code that incorporates your data analysis. Though some IR projects are solo efforts, in many cases we want to collaborate with other institutional researchers, either now or in the future.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>In this section we’ll discuss how you can set up your project in a way that makes it easy to collaborate, borrowing practices from software development.</p>
-<p>We’ll begin by installing a version control system, <strong>Git</strong>, and then creating an account at <strong>GitHub</strong>, an online package repository and collaborative version control system using Git.</p>
-<section id="setting-up-git" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="setting-up-git"><span class="header-section-number">5.1</span> Setting up Git</h2>
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>Terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"you@example.com"</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="setting-up-github" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="setting-up-github"><span class="header-section-number">5.2</span> Setting up GitHub</h2>
+<p>We’ll begin by creating an account at <strong>GitHub</strong>, an online package repository and collaboration tool using <strong>Git</strong>, a version control system that we’ll install.</p>
+<section id="setting-up-github" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="setting-up-github"><span class="header-section-number">5.1</span> Setting up GitHub</h2>
+<p>GitHub is a developer platform to host code and provide for collaboration. Now owned by Microsoft, it has added numerous complex features that can help in software development. As professionals focused on data analytics, we’ll just focus on the core code-hosting and collaboration tools for now.</p>
 <p>Head to <a href="https://github.com/" class="uri">https://github.com/</a> and create a new account if you do not already have one.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -293,18 +289,66 @@ Note
 <p>There’s no need to have multiple accounts like one for work and one for personal. In fact, <a href="https:/docs.github.com/en/get-started/learning-about-github/types-of-github-accounts#personal-accounts">GitHub recommends</a> having just one account. You can add multiple email addresses to your GitHub account, and your GitHub account can be a member of an organization that hosts repositories.</p>
 </div>
 </div>
+<p>Once you have your GitHub account, you’ll be able to connect it with Git when we install it in <a href="#sec-Gitsetup"><span>Section&nbsp;5.3</span></a>.</p>
 </section>
-<section id="an-overview-of-github" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="an-overview-of-github"><span class="header-section-number">5.3</span> An overview of GitHub</h2>
+<section id="an-overview-of-github" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="an-overview-of-github"><span class="header-section-number">5.2</span> An overview of GitHub</h2>
+<p>When you log into GitHub, you’ll be presented with a dashboard that may be fairly empty. You can reach your profile by clicking on the icon in the top right. It will look similar to:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshots/github-personal.png" class="img-fluid figure-img" alt="A screenshot of a GitHub personal profile page."></p>
+<figcaption class="figure-caption">A GitHub profile overview. In the center is a summary of recent contributions of code. To the left is a set of personal info that you can add in settings, plus a list of organizations that you are a member of on GitHub. At the top, you can see a menu that begins with Overview.</figcaption>
+</figure>
+</div>
+<p>A GitHub organization is a special type of GitHub account that can host code projects. Personal GitHub accounts can be added as members of the organization. Organizations can have multiple teams within the organization - you should check with others at your institution before creating one.</p>
+<p>We’ve created a GitHub Organization for the Ohio Association for Institutional Research and Planning: <a href="https://github.com/oairp" class="uri">https://github.com/oairp</a>. If you click on it, you should see the following:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshots/github-org.png" class="img-fluid figure-img" alt="A screenshot of a GitHub organization page."></p>
+<figcaption class="figure-caption">The OAIRP GitHub Organization page. It shows as hosting two repositories, or code projects: one special repository (<code>.github</code>) that holds the summary <code>README.md</code> file displayed and one for this guide. You can also see that the authors of this guide are members of the organization.</figcaption>
+</figure>
+</div>
+<p>At this point, you’ve noticed that both the personal account profile page and the organizational profile page have top navigation bars that begin with <em>Overview</em> and <em>Repositories</em>. <strong>Repositories</strong>, or <strong>repos</strong> for short, are essentially code projects.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Go ahead and click into the <a href="https://github.com/OAIRP/PoweringIRwithR">PoweringIRwithR repo</a>:</p>
+<p><img src="screenshots/github-repo.png" class="img-fluid" alt="A screenshot of a GitHub repo."></p>
+<p>Here you can see the source code for this guide, and an overview of the most recent changes to the various files. You will also notice that the repo has one branch (main), two collaborators (the authors), and a deployment to GitHub Pages. The buttons towards the top allow you to follow the project in different ways and even make a copy of the project for yourself.</p>
 </section>
-<section id="syncing-a-project-with-github" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="syncing-a-project-with-github"><span class="header-section-number">5.4</span> Syncing a project with GitHub</h2>
-<section id="syncing-a-project-started-on-github" class="level3">
-<h3 class="anchored" data-anchor-id="syncing-a-project-started-on-github">Syncing a project started on GitHub</h3>
+<section id="sec-Gitsetup" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-Gitsetup"><span class="header-section-number">5.3</span> Setting up Git</h2>
+<p><strong>Git</strong> is a free, open-source version control system. When enabled, it keeps track of changes you make to your code, and is small and fast so you won’t notice it’s enabled. Install Git at <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a> - click on Downloads then your operating system. Accept the defaults, particularly to use the <code>main</code> branch as the default branch and to enable <strong>Git Credential Manager</strong>, which will enable you to connect with GitHub.</p>
+<p>There is one thing you’ll need to do to make Git operational after you install - you’ll have to let it know who you are. This is so it can track who is making the file changes to your projects that you are working on. Run the following code in your OS terminal, but be sure to replace <code>you@example.com</code> and <code>Your Name</code> with your own information.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>Terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.email <span class="st">"you@example.com"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"Your Name"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Though Git can be used locally, a lot of the power of using Git is in connecting with an online repository and collaborative version control system like <strong>GitHub</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ll want to associate the email address you use in Git with your GitHub account, so that your edits can be properly associated with your account.</p>
+</div>
+</div>
 </section>
-<section id="syncing-a-project-started-locally-to-github" class="level3">
-<h3 class="anchored" data-anchor-id="syncing-a-project-started-locally-to-github">Syncing a project started locally to GitHub</h3>
+<section id="sec-syncGitHub" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="sec-syncGitHub"><span class="header-section-number">5.4</span> Syncing a project with GitHub</h2>
+<section id="setting-up-a-project-started-on-github-to-sync-locally" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-a-project-started-on-github-to-sync-locally">Setting up a project started on GitHub to sync locally</h3>
 </section>
+<section id="setting-up-a-project-started-locally-to-sync-with-github" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-a-project-started-locally-to-sync-with-github">Setting up a project started locally to sync with GitHub</h3>
+</section>
+</section>
+<section id="the-basics-of-git-operations" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="the-basics-of-git-operations"><span class="header-section-number">5.5</span> The basics of Git operations</h2>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
@@ -319,7 +363,10 @@ Note
 </section>
 <section id="extra-about-github-pages" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="extra-about-github-pages">Extra: About GitHub Pages</h2>
-<p><strong>GitHub Pages</strong></p>
+<p><a href="https://pages.github.com/"><strong>GitHub Pages</strong></a> is a website hosting service for GitHub accounts and <em>public</em> projects.</p>
+<p>You can use Quarto to generate the files needed for a website or ebook, publish them to GitHub, set up GitHub pages, and then view your project site live on the web!</p>
+<p>Account sites are in the format <code>username.github.io</code> while projects are hosted as <code>username.github.io/reponame</code>.</p>
+<p>This guide was created as an ebook in Quarto and is hosted by GitHub &amp; GitHub Pages. Since this guide is the <strong>PoweringIRwithR</strong> repo hosted by the <strong>OAIRP</strong> organization, the URL is <a href="https://oairp.github.io/PoweringIRwithR" class="uri">https://oairp.github.io/PoweringIRwithR</a>.</p>
 
 
 </section>
@@ -327,6 +374,7 @@ Note
 <hr>
 <ol>
 <li id="fn1"><p>In our experience, most solo IR practitioners wish to be part of a team one day!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Not to be confused with what is labeled in GitHub as <em>Projects</em>, which is a project management tool to assist with tracking tasks associated with larger code projects<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

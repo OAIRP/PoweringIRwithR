@@ -2,7 +2,7 @@
 
 ## Installation
 
-First, we'll want to install the R software.  Go to <https://r-project.org> and follow the **download** link.
+First, we'll want to install the R software [@R].  Go to <https://r-project.org> and follow the **download** link.
 
 That will take you to the [**Comprehensive R Archive Network**](https://cran.r-project.org/mirrors.html), or CRAN, which is "a network of servers that store identical, up-to-date, versions of code and documentation for R."
 
@@ -57,7 +57,7 @@ We'll choose `USA (OH) [https]`, which is the mirror hosted in Ohio by Case.
   See @sec-rprofile for details on how to set your default CRAN repository.
 :::
 
-We'll install additional packages later.
+We'll install additional packages later in @sec-installRpackages.
 
 
 Accessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the `q()` command).  R will ask you if you'd like to save the workspace image - just click "No".
@@ -95,6 +95,7 @@ Irrespective of the IDE you are using, you'll use folders on your computer to ho
 Depending on your IDE, you'll open your project by:
 
 * In R Studio, you'll first click on "Project: (None)" in the upper right, then "New Project", then "Existing Directory", then point to the folder you created.
+
 * In VS Code, you'll click "Open Folder" from the Welcome screen.
 
 ::: {.callout-tip}
@@ -121,13 +122,15 @@ Notice that the output shows the exact packages loaded as part of `tidyverse`.  
 Note that we never include an `install.packages()` command in our R script, only in the terminal.  We don't want to modify our computer using our script, and this is espeically important when we get to sharing code!
 :::
 
-Now we can add additional code to the script.  Let's create a new object `my_fav_number` and assign it the value of `2`.  Don't worry, we'll go over exactly what is happening here in @sec-data.
+Now we can add additional code to the script.  Let's create a new object `my_fav_number` and assign it the value of `2`.  We'll then ask the system to print out that object, so that we can see the value.  Don't worry, we'll go over exactly what is happening here in @sec-data.
 
 ```{R filename="script.R"}
 #| eval: false
 library("tidyverse")
 
 my_fav_number <- 2
+
+print(my_fav_number)
 ```
 
 Finally, let's add notes to ourselves so that we can remember what our code is doing.  To do this, we use **comments**.  In R, comments are denoted by the `#` symbol.  When R encounters a `#` symbol, everything in the same line after that symbol is ignored when running the code.  We always add a space between the `#` symbol and the text we'd like to use as a comment.
@@ -140,9 +143,19 @@ We can use comments at the end of a line of code to describe what is happening i
 library("tidyverse")
 
 my_fav_number <- 2  # 2 is my favorite number
+
+print(my_fav_number) # print out the stored value
 ```
 
-Now that we've written our first R script **(!)**, we can run it.  We can either run the entire script at once, or walk through the code line-by-line with {{< kbd Shift-Ctrl >}}.  Walking through code line-by-line can be a great way to develop code and test as you go.
+Now that we've written our first R script **(!)**, we can run it.  We can either run the entire script at once, or walk through the code line-by-line with {{< kbd Shift-Ctrl >}}.  Walking through code line-by-line can be a great way to develop code and test as you go.  You should see the terminal return:
+
+```{R}
+#| echo: false
+my_fav_number <- 2  # 2 is my favorite number
+
+print(my_fav_number) # print out the stored value
+```
+
 
 A few notes about keeping your code clean:
 
@@ -182,7 +195,7 @@ library("readxl") # to read data from Excel files
 
 ### Updating R packages
 
-In the terminal, run:
+In the R terminal, run:
 
 ```{R}
 #| eval: false
@@ -234,7 +247,7 @@ A new window will open with your R profile file that you can edit.
 
 For example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well.  Add the following line to your R profile file:
 
-```{R}
+```{R filename=".Rprofile"}
 #| eval: false
 options(repos=c(CRAN="https://cran.case.edu/"))
 ```
@@ -255,7 +268,7 @@ usethis::edit_r_envrion()
 
 To store a variable named `test_var`, add the following to the file:
 
-```{R}
+```{R filename=".Renviron"}
 #| eval: false
 test_var:"this is my test value"
 ```

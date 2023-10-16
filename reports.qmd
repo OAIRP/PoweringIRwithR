@@ -15,3 +15,5 @@ This will require the `rmarkdown` and `knitr` packages.
 
 
 ## Exercises {.unnumbered}
+
+## Extra: Other Quarto document types {.unnumbered}

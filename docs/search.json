@@ -11,7 +11,7 @@
     "href": "intro.html#installation",
     "title": "1  Software setup and overview",
     "section": "1.1 Installation",
-    "text": "1.1 Installation\nFirst, we’ll want to install the R software. Go to https://r-project.org and follow the download link.\nThat will take you to the Comprehensive R Archive Network, or CRAN, which is “a network of servers that store identical, up-to-date, versions of code and documentation for R.”\nThe closest CRAN mirror for Institutional Researchers working in Ohio is hosted by Case Western Reserve University. Its web address is https://cran.case.edu.\nChoose the distribution appropriate for your operating system under “Download and Install R,” then click on the link for “install R for the first time,” and then finally the larger “Download R…” link. Accept the licenses and the default settings."
+    "text": "1.1 Installation\nFirst, we’ll want to install the R software (R Core Team 2023). Go to https://r-project.org and follow the download link.\nThat will take you to the Comprehensive R Archive Network, or CRAN, which is “a network of servers that store identical, up-to-date, versions of code and documentation for R.”\nThe closest CRAN mirror for Institutional Researchers working in Ohio is hosted by Case Western Reserve University. Its web address is https://cran.case.edu.\nChoose the distribution appropriate for your operating system under “Download and Install R,” then click on the link for “install R for the first time,” and then finally the larger “Download R…” link. Accept the licenses and the default settings."
   },
   {
     "objectID": "intro.html#using-the-r-terminal",
@@ -25,7 +25,7 @@
     "href": "intro.html#sec-installRpackages",
     "title": "1  Software setup and overview",
     "section": "1.3 Installing R packages",
-    "text": "1.3 Installing R packages\nThough base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.\nCRAN includes both the base R system and an array of approved R packages.\nOne such package that we’ll be using is tidyverse, a collection of R packages that make data analysis in R better. We’ll learn more about tidyverse in Chapter 2.\nTo install the package, run the following command in the terminal:1\n\ninstall.packages(\"tidyverse\")\n\n\n\n\n\n\n\nWarning\n\n\n\nNote that the package name must be in quotes (\"\") in the install.packages() command.\n\n\nWhen you first install an R package in a session, you will be prompted to choose a CRAN mirror, like you did when you first downloaded R:\n\nWe’ll choose USA (OH) [https], which is the mirror hosted in Ohio by Case.\n\n\n\n\n\n\nTip\n\n\n\nSee Section 1.6.4.1 for details on how to set your default CRAN repository.\n\n\nWe’ll install additional packages later.\nAccessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the q() command). R will ask you if you’d like to save the workspace image - just click “No”."
+    "text": "1.3 Installing R packages\nThough base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.\nCRAN includes both the base R system and an array of approved R packages.\nOne such package that we’ll be using is tidyverse, a collection of R packages that make data analysis in R better. We’ll learn more about tidyverse in Chapter 2.\nTo install the package, run the following command in the terminal:1\n\ninstall.packages(\"tidyverse\")\n\n\n\n\n\n\n\nWarning\n\n\n\nNote that the package name must be in quotes (\"\") in the install.packages() command.\n\n\nWhen you first install an R package in a session, you will be prompted to choose a CRAN mirror, like you did when you first downloaded R:\n\nWe’ll choose USA (OH) [https], which is the mirror hosted in Ohio by Case.\n\n\n\n\n\n\nTip\n\n\n\nSee Section 1.6.5 for details on how to set your default CRAN repository.\n\n\nWe’ll install additional packages later in Section 1.3.\nAccessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the q() command). R will ask you if you’d like to save the workspace image - just click “No”."
   },
   {
     "objectID": "intro.html#using-an-ide",
@@ -46,7 +46,7 @@
     "href": "intro.html#writing-an-r-script",
     "title": "1  Software setup and overview",
     "section": "1.6 Writing an R script",
-    "text": "1.6 Writing an R script\nUp until now, we’ve entered commands directly into the R terminal. But much of the power of using R comes from writing many lines of code that work together.\nTo do this, we can create files that contain such code, as scripts.\nCreate a new .R file in your project folder. You can call it anything you’d like, such as script.R. By using the .R (or .r) extension, you’re indicating that the file is an R script.\nAt the top of the file we want to load any R packages that we’ll be using. We do this with the library() function. Let’s load tidyverse, then run our code (by clicking the Run button):\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nNotice that the output shows the exact packages loaded as part of tidyverse. Not all packages have an output, but many do display some helpful information. The conflicts section notes that certain functionality from base R (stats) is masked by the packages loaded. This means when we run a function like filter(), by default it will now use the version from dplyr, which is part of tidyverse. We can always explicitly run a certain version by entering a function in the format package::function(), like stats::filter().\n\n\n\n\n\n\nImportant\n\n\n\nNote that we never include an install.packages() command in our R script, only in the terminal. We don’t want to modify our computer using our script, and this is espeically important when we get to sharing code!\n\n\nNow we can add additional code to the script. Let’s create a new object my_fav_number and assign it the value of 2. Don’t worry, we’ll go over exactly what is happening here in Chapter 2.\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2\n\n\nFinally, let’s add notes to ourselves so that we can remember what our code is doing. To do this, we use comments. In R, comments are denoted by the # symbol. When R encounters a # symbol, everything in the same line after that symbol is ignored when running the code. We always add a space between the # symbol and the text we’d like to use as a comment.\nWe can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:\n\n\n\nscript.R\n\n# load libraries\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2  # 2 is my favorite number\n\n\nNow that we’ve written our first R script (!), we can run it. We can either run the entire script at once, or walk through the code line-by-line with Shift-Ctrl. Walking through code line-by-line can be a great way to develop code and test as you go.\nA few notes about keeping your code clean:\n\nUse blank lines to separate logically separate lines of code.\nUse spaces properly around characters and symbols.\nUse comments to keep your code comprehensible.\n\nWe’ll go over additional notes about writing clean code in the coming chapters."
+    "text": "1.6 Writing an R script\nUp until now, we’ve entered commands directly into the R terminal. But much of the power of using R comes from writing many lines of code that work together.\nTo do this, we can create files that contain such code, as scripts.\nCreate a new .R file in your project folder. You can call it anything you’d like, such as script.R. By using the .R (or .r) extension, you’re indicating that the file is an R script.\nAt the top of the file we want to load any R packages that we’ll be using. We do this with the library() function. Let’s load tidyverse, then run our code (by clicking the Run button):\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nNotice that the output shows the exact packages loaded as part of tidyverse. Not all packages have an output, but many do display some helpful information. The conflicts section notes that certain functionality from base R (stats) is masked by the packages loaded. This means when we run a function like filter(), by default it will now use the version from dplyr, which is part of tidyverse. We can always explicitly run a certain version by entering a function in the format package::function(), like stats::filter().\n\n\n\n\n\n\nImportant\n\n\n\nNote that we never include an install.packages() command in our R script, only in the terminal. We don’t want to modify our computer using our script, and this is espeically important when we get to sharing code!\n\n\nNow we can add additional code to the script. Let’s create a new object my_fav_number and assign it the value of 2. We’ll then ask the system to print out that object, so that we can see the value. Don’t worry, we’ll go over exactly what is happening here in Chapter 2.\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2\n\nprint(my_fav_number)\n\n\nFinally, let’s add notes to ourselves so that we can remember what our code is doing. To do this, we use comments. In R, comments are denoted by the # symbol. When R encounters a # symbol, everything in the same line after that symbol is ignored when running the code. We always add a space between the # symbol and the text we’d like to use as a comment.\nWe can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:\n\n\n\nscript.R\n\n# load libraries\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2  # 2 is my favorite number\n\nprint(my_fav_number) # print out the stored value\n\n\nNow that we’ve written our first R script (!), we can run it. We can either run the entire script at once, or walk through the code line-by-line with Shift-Ctrl. Walking through code line-by-line can be a great way to develop code and test as you go. You should see the terminal return:\n\n\n[1] 2\n\n\nA few notes about keeping your code clean:\n\nUse blank lines to separate logically separate lines of code.\nUse spaces properly around characters and symbols.\nUse comments to keep your code comprehensible.\n\nWe’ll go over additional notes about writing clean code in the coming chapters."
   },
   {
     "objectID": "intro.html#exersices",
@@ -60,7 +60,14 @@
     "href": "intro.html#extra-keeping-r-up-to-date",
     "title": "1  Software setup and overview",
     "section": "Extra: Keeping R up-to-date",
-    "text": "Extra: Keeping R up-to-date\n\nUpdating R packages\nIn the terminal, run:\n\nupdate.packages()\n\nPackages with new updates will be detected and you will be prompted to respond Y or yes to accept.\nIf you want all packages updated without your confirmation, you can add the ask = FALSE argument:\n\nupdate.packages(ask = FALSE)\n\n\n\n\n\n\n\nTip\n\n\n\nYou will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.\n\n\n\n\nUpdating R\nThe installr package can assist with keeping the R installation up-to-date. In the terminal, run the following:\n\ninstallr::updateR()\n\n\n\n\n\n\n\nTip\n\n\n\nYou will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!\n\n\n\n\nR Profile and Environment\nR will read certain options from special files that you can modify:\n\nR profile\nYour R profile can contain a range of settings to customize how you interact with R.\nThe usethis package can be used to edit your R profile:\n\nusethis::edit_r_profile()\n\nA new window will open with your R profile file that you can edit.\nFor example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:\n\noptions(repos=c(CRAN=\"https://cran.case.edu/\"))\n\nWhen done, save the file, then close all R terminals and reopen them.\n\n\nR environment\nThe R environment can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.\nThe usethis package can be used to easily edit your R environment:\n\nusethis::edit_r_envrion()\n\nTo store a variable named test_var, add the following to the file:\n\ntest_var:\"this is my test value\"\n\nWhen done, save the file, then close all R terminals and reopen them.\nYou’ll be able to access such variables like so:\n\nSys.getenv(\"test_var\")\n\n[1] \"this is my test value\"\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSome packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the .Renviron file on your computer."
+    "text": "Extra: Keeping R up-to-date\n\nUpdating R packages\nIn the R terminal, run:\n\nupdate.packages()\n\nPackages with new updates will be detected and you will be prompted to respond Y or yes to accept.\nIf you want all packages updated without your confirmation, you can add the ask = FALSE argument:\n\nupdate.packages(ask = FALSE)\n\n\n\n\n\n\n\nTip\n\n\n\nYou will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.\n\n\n\n\nUpdating R\nThe installr package can assist with keeping the R installation up-to-date. In the terminal, run the following:\n\ninstallr::updateR()\n\n\n\n\n\n\n\nTip\n\n\n\nYou will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!"
+  },
+  {
+    "objectID": "intro.html#extra-r-profile-and-environment",
+    "href": "intro.html#extra-r-profile-and-environment",
+    "title": "1  Software setup and overview",
+    "section": "Extra: R Profile and Environment",
+    "text": "Extra: R Profile and Environment\nR will read certain options from special files that you can modify:\n\nR profile\nYour R profile can contain a range of settings to customize how you interact with R.\nThe usethis package can be used to edit your R profile:\n\nusethis::edit_r_profile()\n\nA new window will open with your R profile file that you can edit.\nFor example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:\n\n\n\n.Rprofile\n\noptions(repos=c(CRAN=\"https://cran.case.edu/\"))\n\n\nWhen done, save the file, then close all R terminals and reopen them.\n\n\nR environment\nThe R environment can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.\nThe usethis package can be used to easily edit your R environment:\n\nusethis::edit_r_envrion()\n\nTo store a variable named test_var, add the following to the file:\n\n\n\n.Renviron\n\ntest_var:\"this is my test value\"\n\n\nWhen done, save the file, then close all R terminals and reopen them.\nYou’ll be able to access such variables like so:\n\nSys.getenv(\"test_var\")\n\n[1] \"this is my test value\"\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSome packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the .Renviron file on your computer.\n\n\n\n\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/."
   },
   {
     "objectID": "intro.html#footnotes",
@@ -74,7 +81,7 @@
     "href": "workingwithdata.html#creating-r-data-objects",
     "title": "2  Importing and cleaning data",
     "section": "2.1 Creating R data objects",
-    "text": "2.1 Creating R data objects"
+    "text": "2.1 Creating R data objects\nWickham et al. (2019)"
   },
   {
     "objectID": "workingwithdata.html#importing-data",
@@ -109,7 +116,7 @@
     "href": "workingwithdata.html#extra-exporting-data",
     "title": "2  Importing and cleaning data",
     "section": "Extra: Exporting data",
-    "text": "Extra: Exporting data"
+    "text": "Extra: Exporting data\n\n\n\n\nWickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. “Welcome to the tidyverse.” Journal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686."
   },
   {
     "objectID": "reports.html#installing-quarto",
@@ -140,32 +147,46 @@
     "text": "Exercises"
   },
   {
-    "objectID": "collaboration.html#setting-up-git",
-    "href": "collaboration.html#setting-up-git",
-    "title": "5  Collaborating on code",
-    "section": "5.1 Setting up Git",
-    "text": "5.1 Setting up Git\n\n\nTerminal\n\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\""
+    "objectID": "reports.html#extra-other-quarto-document-types",
+    "href": "reports.html#extra-other-quarto-document-types",
+    "title": "4  Building parameterized reports",
+    "section": "Extra: Other Quarto document types",
+    "text": "Extra: Other Quarto document types"
   },
   {
     "objectID": "collaboration.html#setting-up-github",
     "href": "collaboration.html#setting-up-github",
     "title": "5  Collaborating on code",
-    "section": "5.2 Setting up GitHub",
-    "text": "5.2 Setting up GitHub\nHead to https://github.com/ and create a new account if you do not already have one.\n\n\n\n\n\n\nNote\n\n\n\nThere’s no need to have multiple accounts like one for work and one for personal. In fact, GitHub recommends having just one account. You can add multiple email addresses to your GitHub account, and your GitHub account can be a member of an organization that hosts repositories."
+    "section": "5.1 Setting up GitHub",
+    "text": "5.1 Setting up GitHub\nGitHub is a developer platform to host code and provide for collaboration. Now owned by Microsoft, it has added numerous complex features that can help in software development. As professionals focused on data analytics, we’ll just focus on the core code-hosting and collaboration tools for now.\nHead to https://github.com/ and create a new account if you do not already have one.\n\n\n\n\n\n\nNote\n\n\n\nThere’s no need to have multiple accounts like one for work and one for personal. In fact, GitHub recommends having just one account. You can add multiple email addresses to your GitHub account, and your GitHub account can be a member of an organization that hosts repositories.\n\n\nOnce you have your GitHub account, you’ll be able to connect it with Git when we install it in Section 5.3."
   },
   {
     "objectID": "collaboration.html#an-overview-of-github",
     "href": "collaboration.html#an-overview-of-github",
     "title": "5  Collaborating on code",
-    "section": "5.3 An overview of GitHub",
-    "text": "5.3 An overview of GitHub"
+    "section": "5.2 An overview of GitHub",
+    "text": "5.2 An overview of GitHub\nWhen you log into GitHub, you’ll be presented with a dashboard that may be fairly empty. You can reach your profile by clicking on the icon in the top right. It will look similar to:\n\n\n\nA GitHub profile overview. In the center is a summary of recent contributions of code. To the left is a set of personal info that you can add in settings, plus a list of organizations that you are a member of on GitHub. At the top, you can see a menu that begins with Overview.\n\n\nA GitHub organization is a special type of GitHub account that can host code projects. Personal GitHub accounts can be added as members of the organization. Organizations can have multiple teams within the organization - you should check with others at your institution before creating one.\nWe’ve created a GitHub Organization for the Ohio Association for Institutional Research and Planning: https://github.com/oairp. If you click on it, you should see the following:\n\n\n\nThe OAIRP GitHub Organization page. It shows as hosting two repositories, or code projects: one special repository (.github) that holds the summary README.md file displayed and one for this guide. You can also see that the authors of this guide are members of the organization.\n\n\nAt this point, you’ve noticed that both the personal account profile page and the organizational profile page have top navigation bars that begin with Overview and Repositories. Repositories, or repos for short, are essentially code projects.2 Go ahead and click into the PoweringIRwithR repo:\n\nHere you can see the source code for this guide, and an overview of the most recent changes to the various files. You will also notice that the repo has one branch (main), two collaborators (the authors), and a deployment to GitHub Pages. The buttons towards the top allow you to follow the project in different ways and even make a copy of the project for yourself."
   },
   {
-    "objectID": "collaboration.html#syncing-a-project-with-github",
-    "href": "collaboration.html#syncing-a-project-with-github",
+    "objectID": "collaboration.html#sec-Gitsetup",
+    "href": "collaboration.html#sec-Gitsetup",
+    "title": "5  Collaborating on code",
+    "section": "5.3 Setting up Git",
+    "text": "5.3 Setting up Git\nGit is a free, open-source version control system. When enabled, it keeps track of changes you make to your code, and is small and fast so you won’t notice it’s enabled. Install Git at https://git-scm.com/ - click on Downloads then your operating system. Accept the defaults, particularly to use the main branch as the default branch and to enable Git Credential Manager, which will enable you to connect with GitHub.\nThere is one thing you’ll need to do to make Git operational after you install - you’ll have to let it know who you are. This is so it can track who is making the file changes to your projects that you are working on. Run the following code in your OS terminal, but be sure to replace you@example.com and Your Name with your own information.\n\n\nTerminal\n\ngit config --global user.email \"you@example.com\"\ngit config --global user.name \"Your Name\"\n\nThough Git can be used locally, a lot of the power of using Git is in connecting with an online repository and collaborative version control system like GitHub.\n\n\n\n\n\n\nNote\n\n\n\nYou’ll want to associate the email address you use in Git with your GitHub account, so that your edits can be properly associated with your account."
+  },
+  {
+    "objectID": "collaboration.html#sec-syncGitHub",
+    "href": "collaboration.html#sec-syncGitHub",
     "title": "5  Collaborating on code",
     "section": "5.4 Syncing a project with GitHub",
-    "text": "5.4 Syncing a project with GitHub\n\nSyncing a project started on GitHub\n\n\nSyncing a project started locally to GitHub"
+    "text": "5.4 Syncing a project with GitHub\n\nSetting up a project started on GitHub to sync locally\n\n\nSetting up a project started locally to sync with GitHub"
+  },
+  {
+    "objectID": "collaboration.html#the-basics-of-git-operations",
+    "href": "collaboration.html#the-basics-of-git-operations",
+    "title": "5  Collaborating on code",
+    "section": "5.5 The basics of Git operations",
+    "text": "5.5 The basics of Git operations"
   },
   {
     "objectID": "collaboration.html#exercises",
@@ -179,14 +200,21 @@
     "href": "collaboration.html#extra-about-github-pages",
     "title": "5  Collaborating on code",
     "section": "Extra: About GitHub Pages",
-    "text": "Extra: About GitHub Pages\nGitHub Pages"
+    "text": "Extra: About GitHub Pages\nGitHub Pages is a website hosting service for GitHub accounts and public projects.\nYou can use Quarto to generate the files needed for a website or ebook, publish them to GitHub, set up GitHub pages, and then view your project site live on the web!\nAccount sites are in the format username.github.io while projects are hosted as username.github.io/reponame.\nThis guide was created as an ebook in Quarto and is hosted by GitHub & GitHub Pages. Since this guide is the PoweringIRwithR repo hosted by the OAIRP organization, the URL is https://oairp.github.io/PoweringIRwithR."
   },
   {
     "objectID": "collaboration.html#footnotes",
     "href": "collaboration.html#footnotes",
     "title": "5  Collaborating on code",
     "section": "",
-    "text": "In our experience, most solo IR practitioners wish to be part of a team one day!↩︎"
+    "text": "In our experience, most solo IR practitioners wish to be part of a team one day!↩︎\nNot to be confused with what is labeled in GitHub as Projects, which is a project management tool to assist with tracking tasks associated with larger code projects↩︎"
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "R Core Team. 2023. R: A Language and Environment for Statistical\nComputing. Vienna, Austria: R Foundation for Statistical Computing.\nhttps://www.R-project.org/.\n\n\nWickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy\nD’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.\n“Welcome to the tidyverse.”\nJournal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686."
   },
   {
     "objectID": "about.html",
