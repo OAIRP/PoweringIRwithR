@@ -4,21 +4,21 @@
     "href": "index.html",
     "title": "Powering Institutional Research with R",
     "section": "",
-    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software setup and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code"
+    "text": "Preface\nThis online reference guide has been developed to accompany the October 19, 2023 workshop at the Ohio Association for Institutional Research and Planning.\nThe workshop will follow a timeline aligned to the sections of this reference guide:\n\nChapter 1: Software setup and overview\nChapter 2: Importing and cleaning data\nChapter 3: Statistical analyses & data visualizations\nChapter 4: Building parameterized reports\nChapter 5: Collaborating on code\n\nThis reference guide is designed for institutional researchers, by institutional researchers, so it’s chock full of examples relevant to IR and often compares R functions to what you might use in Microsoft Excel."
   },
   {
     "objectID": "intro.html#installation",
     "href": "intro.html#installation",
     "title": "1  Software setup and overview",
     "section": "1.1 Installation",
-    "text": "1.1 Installation"
+    "text": "1.1 Installation\nFirst, we’ll want to install the R software. Go to https://r-project.org and follow the download link.\nThat will take you to the Comprehensive R Archive Network, or CRAN, which is “a network of servers that store identical, up-to-date, versions of code and documentation for R.”\nThe closest CRAN mirror for Institutional Researchers working in Ohio is hosted by Case Western Reserve University. Its web address is https://cran.case.edu.\nChoose the distribution appropriate for your operating system under “Download and Install R,” then click on the link for “install R for the first time,” and then finally the larger “Download R…” link. Accept the licenses and the default settings."
   },
   {
     "objectID": "intro.html#using-the-r-terminal",
     "href": "intro.html#using-the-r-terminal",
     "title": "1  Software setup and overview",
     "section": "1.2 Using the R Terminal",
-    "text": "1.2 Using the R Terminal"
+    "text": "1.2 Using the R Terminal\nYou should now be able to find R listed among your installed programs. Go ahead and run it. You should see a screen like this:\n\nThe inner window is the R Console, also called the R Terminal, which is the R software interface:\n\nLet’s run our first command. Since R is statistical software after all, let’s use it as a calculator. Enter 1 + 1 and press Enter. You should see the following:\n\n1 + 1\n\n[1] 2\n\n\nCongrats, you’ve run your first R command!\nThis way to access R is fairly limited, so we can close out of the program (or enter the q() command). R will ask you if you’d like to save the workspace - just click “No”."
   },
   {
     "objectID": "intro.html#using-an-ide",
@@ -32,42 +32,63 @@
     "href": "intro.html#installing-r-packages",
     "title": "1  Software setup and overview",
     "section": "1.4 Installing R packages",
-    "text": "1.4 Installing R packages\n\nThe USA (OH) [https] CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity). Its web address is https://cran.case.edu.\n\n\n\n\n\n\nTip\n\n\n\nSee Section 1.5.0.3 for details on how to set your default CRAN repository."
+    "text": "1.4 Installing R packages\nWhile base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.\nCRAN includes both the base R system and an array of approved R packages.\nOne such package that we’ll be using is tidyverse, a collection of R packages that make data analysis in R better. We’ll learn more about tidyverse in Chapter 2.\nTo install the package, run the following command in the terminal:\n\ninstall.packages(\"tidyverse\")\n\n\n\n\n\n\n\nImportant\n\n\n\nNote that the package name must be in quotes (\"\") in the install.packages() command.\n\n\nWhen you first install an R package in a session, you will be prompted to choose a CRAN mirror, like you did when you first downloaded R:\n\nWe’ll choose USA (OH) [https], which is the mirror hosted in Ohio by Case.\n\n\n\n\n\n\nTip\n\n\n\nSee Section 1.5.4.1 for details on how to set your default CRAN repository.\n\n\nWe’ll install additional packages later."
   },
   {
     "objectID": "intro.html#writing-an-r-script",
     "href": "intro.html#writing-an-r-script",
     "title": "1  Software setup and overview",
     "section": "1.5 Writing an R script",
-    "text": "1.5 Writing an R script"
+    "text": "1.5 Writing an R script\nUp until now, we’ve entered commands directly into the R terminal. But much of the power of using R comes from writing many lines of code that work together.\nTo do this, we can create files that contain such code, as scripts.\nCreate a new .R file in your project folder. You can call it anything you’d like, such as script.R. By using the .R (or .r) extension, you’re indicating that the file is an R script.\nAt the top of the file we want to load any R packages that we’ll be using. We do this with the library() function. Let’s load tidyverse, then run our code:\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.3     ✔ readr     2.1.4\n✔ forcats   1.0.0     ✔ stringr   1.5.0\n✔ ggplot2   3.4.4     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.0\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nNotice that the output shows the exact packages loaded as part of tidyverse. Not all packages have an output, but many do display some helpful information. The conflicts section notes that certain functionality from base R (stats) is masked by the packages loaded. This means when we run a function like filter(), by default it will now use the version from dplyr, which is part of tidyverse. We can always explicitly run a certain version by entering a function in the format package::function(), like stats::filter().\n\n\n\n\n\n\nWarning\n\n\n\nNote that we never include an install.packages() command in our R script, only in the terminal. We don’t want to modify our computer using our script, and this is espeically important when we get to sharing code!\n\n\nNow we can add additional code to the script. Let’s create a new object my_fav_number and assign it the value of 2. Don’t worry, we’ll go over exactly what is happening here in Chapter 2.\n\n\n\nscript.R\n\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2\n\n\nFinally, let’s add notes to ourselves so that we can remember what our code is doing. To do this, we use comments. In R, comments are denoted by the # symbol. When R encounters a # symbol, everything in the same line after that symbol is ignored when running the code. We always add a space between the # symbol and the text we’d like to use as a comment.\nWe can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:\n\n\n\nscript.R\n\n# load libraries\nlibrary(\"tidyverse\")\n\nmy_fav_number &lt;- 2  # 2 is my favorite number\n\n\nNow that we’ve written our first R script (!), we can run it. We can either run the entire script at once, or walk through the code line-by-line with Shift-Ctrl. Walking through code line-by-line can be a great way to develop code and test as you go.\nA few notes about keeping your code clean:\n\nUse blank lines to separate logically separate lines of code.\nUse spaces properly around characters and symbols.\nUse comments to keep your code comprehensible.\n\nWe’ll go over additional notes about writing clean code in the coming chapters."
   },
   {
     "objectID": "intro.html#exersices",
     "href": "intro.html#exersices",
     "title": "1  Software setup and overview",
     "section": "Exersices",
-    "text": "Exersices"
+    "text": "Exersices\n\nExercise 1\nIn Chapter 2 we’ll use the package readxl to read in data from Excel files, since IR professionals often encounter data we need to work with in Excel files! How would you install the readxl package?\n\n\nCode\ninstall.packages(\"readxl\")\n\n\n\n\nExercise 2\nStart a new R script that loads the readxl package. Include a comment to remind you of what is happening.\n\n\nCode\n# load libraries\nlibrary(\"readxl\") # to read data from Excel files"
   },
   {
-    "objectID": "intro.html#extras",
-    "href": "intro.html#extras",
+    "objectID": "intro.html#extra-keeping-r-up-to-date",
+    "href": "intro.html#extra-keeping-r-up-to-date",
     "title": "1  Software setup and overview",
-    "section": "Extras",
-    "text": "Extras\n\nKeeping R up-to-date\n\nUpdating R packages\nIn the terminal, run:\n\nupdate.packages()\n\nPackages with new updates will be detected and you will be prompted to respond Y or yes to accept.\nIf you want all packages updated without your confirmation, you can add the ask = FALSE argument:\n\nupdate.packages(ask = FALSE)\n\n\n\n\n\n\n\nWarning\n\n\n\nYou will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.\n\n\n\n\nUpdating R\nThe installr package can assist with keeping the R installation up-to-date. In the terminal, run the following:\n\ninstallr::updateR()\n\n\n\n\n\n\n\nTip\n\n\n\nYou will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!\n\n\n\n\n\nR Profile and Environment\nR will read certain options from special files that you can modify:\n\nR profile\nYour R profile can contain a range of settings to customize how you interact with R.\nThe usethis package can be used to edit your R profile:\n\nusethis::edit_r_profile()\n\nA new window will open with your R profile file that you can edit.\nFor example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:\n\noptions(repos=c(CRAN=\"https://cran.case.edu/\"))\n\nWhen done, save the file, then close all R terminals and reopen them.\n\n\nR environment\nThe R environment can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.\nThe usethis package can be used to easily edit your R environment:\n\nusethis::edit_r_envrion()\n\nTo store a variable named test_var, add the following to the file:\n\ntest_var:\"this is my test value\"\n\nWhen done, save the file, then close all R terminals and reopen them.\nYou’ll be able to access such variables like so:\n\nSys.getenv(\"test_var\")\n\n[1] \"this is my test value\"\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSome packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the .Renviron file on your computer."
+    "section": "Extra: Keeping R up-to-date",
+    "text": "Extra: Keeping R up-to-date\n\nUpdating R packages\nIn the terminal, run:\n\nupdate.packages()\n\nPackages with new updates will be detected and you will be prompted to respond Y or yes to accept.\nIf you want all packages updated without your confirmation, you can add the ask = FALSE argument:\n\nupdate.packages(ask = FALSE)\n\n\n\n\n\n\n\nTip\n\n\n\nYou will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.\n\n\n\n\nUpdating R\nThe installr package can assist with keeping the R installation up-to-date. In the terminal, run the following:\n\ninstallr::updateR()\n\n\n\n\n\n\n\nTip\n\n\n\nYou will be prompted as to whether you’d like to copy over all packages from the current version of R. This is a good idea!\n\n\n\n\nR Profile and Environment\nR will read certain options from special files that you can modify:\n\nR profile\nYour R profile can contain a range of settings to customize how you interact with R.\nThe usethis package can be used to edit your R profile:\n\nusethis::edit_r_profile()\n\nA new window will open with your R profile file that you can edit.\nFor example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:\n\noptions(repos=c(CRAN=\"https://cran.case.edu/\"))\n\nWhen done, save the file, then close all R terminals and reopen them.\n\n\nR environment\nThe R environment can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.\nThe usethis package can be used to easily edit your R environment:\n\nusethis::edit_r_envrion()\n\nTo store a variable named test_var, add the following to the file:\n\ntest_var:\"this is my test value\"\n\nWhen done, save the file, then close all R terminals and reopen them.\nYou’ll be able to access such variables like so:\n\nSys.getenv(\"test_var\")\n\n[1] \"this is my test value\"\n\n\n\n\n\n\n\n\nWarning\n\n\n\nSome packages request that you store things like API keys as specified environment variables. You can also use this to store common URLs, including FTP sites, but keep in mind that they are accessible directly in the .Renviron file on your computer."
+  },
+  {
+    "objectID": "workingwithdata.html#creating-r-objects",
+    "href": "workingwithdata.html#creating-r-objects",
+    "title": "2  Importing and cleaning data",
+    "section": "2.1 Creating R objects",
+    "text": "2.1 Creating R objects"
   },
   {
     "objectID": "workingwithdata.html#importing-data",
     "href": "workingwithdata.html#importing-data",
     "title": "2  Importing and cleaning data",
-    "section": "2.1 Importing data",
-    "text": "2.1 Importing data\n\nFrom a local file\n\n\nFrom an online file\n\n\nFrom a database"
+    "section": "2.2 Importing data",
+    "text": "2.2 Importing data\n\nFrom a local file\n\n\nFrom an online file\n\n\nFrom a database"
   },
   {
     "objectID": "workingwithdata.html#tidy-data",
     "href": "workingwithdata.html#tidy-data",
     "title": "2  Importing and cleaning data",
-    "section": "2.2 Tidy data",
-    "text": "2.2 Tidy data"
+    "section": "2.3 Tidy data",
+    "text": "2.3 Tidy data"
+  },
+  {
+    "objectID": "workingwithdata.html#exercises",
+    "href": "workingwithdata.html#exercises",
+    "title": "2  Importing and cleaning data",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "workingwithdata.html#extra-exporting-data",
+    "href": "workingwithdata.html#extra-exporting-data",
+    "title": "2  Importing and cleaning data",
+    "section": "Extra: Exporting data",
+    "text": "Extra: Exporting data"
   },
   {
     "objectID": "reports.html",

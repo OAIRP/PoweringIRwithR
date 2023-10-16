@@ -1,5 +1,9 @@
 # Importing and cleaning data {#sec-data}
 
+## Creating R objects
+
+
+
 ## Importing data
 
 ### From a local file
@@ -10,3 +14,7 @@
 
 
 ## Tidy data
+
+## Exercises {.unnumbered}
+
+## Extra: Exporting data {.unnumbered}

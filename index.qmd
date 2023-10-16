@@ -9,3 +9,5 @@ The workshop will follow a timeline aligned to the sections of this reference gu
 - @sec-analysis: Statistical analyses & data visualizations
 - @sec-reports: Building parameterized reports
 - @sec-collaboration: Collaborating on code
+
+This reference guide is designed **for institutional researchers**, **by institutional researchers**, so it's chock full of examples relevant to IR and often compares R functions to what you might use in Microsoft Excel.

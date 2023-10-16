@@ -76,6 +76,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-contrib/kbd/kbd.js"></script>
+<link href="site_libs/quarto-contrib/kbd/kbd.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,13 +99,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
-<meta name="twitter:title" content="Powering Institutional Research with R - 1&nbsp; Software setup and overview">
-<meta name="twitter:description" content="">
-<meta name="twitter:image" content="cover.png">
-<meta name="twitter:creator" content="@tbenj">
-<meta name="twitter:site" content="@ohioair">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:title" content="Powering Institutional Research with R - 1&nbsp; Software setup and overview">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://oairp.github.io/PoweringIRwithR/cover.png">
+<meta property="og:site-name" content="Powering Institutional Research with R">
+<meta property="og:image:height" content="1055">
+<meta property="og:image:width" content="815">
 <meta name="citation_title" content="[[1]{.chapter-number}&nbsp; [Software setup and overview]{.chapter-title}]{#sec-introduction .quarto-section-identifier}">
+<meta name="citation_fulltext_html_url" content="https://oairp.github.io/PoweringIRwithR//intro.html">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
 </head>
@@ -247,10 +250,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-an-ide" id="toc-using-an-ide" class="nav-link" data-scroll-target="#using-an-ide"><span class="header-section-number">1.3</span> Using an IDE</a></li>
   <li><a href="#installing-r-packages" id="toc-installing-r-packages" class="nav-link" data-scroll-target="#installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</a></li>
   <li><a href="#writing-an-r-script" id="toc-writing-an-r-script" class="nav-link" data-scroll-target="#writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</a></li>
-  <li><a href="#exersices" id="toc-exersices" class="nav-link" data-scroll-target="#exersices">Exersices</a></li>
-  <li><a href="#extras" id="toc-extras" class="nav-link" data-scroll-target="#extras">Extras</a>
+  <li><a href="#exersices" id="toc-exersices" class="nav-link" data-scroll-target="#exersices">Exersices</a>
   <ul class="collapse">
-  <li><a href="#keeping-r-up-to-date" id="toc-keeping-r-up-to-date" class="nav-link" data-scroll-target="#keeping-r-up-to-date">Keeping R up-to-date</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
+  </ul></li>
+  <li><a href="#extra-keeping-r-up-to-date" id="toc-extra-keeping-r-up-to-date" class="nav-link" data-scroll-target="#extra-keeping-r-up-to-date">Extra: Keeping R up-to-date</a>
+  <ul class="collapse">
+  <li><a href="#updating-r-packages" id="toc-updating-r-packages" class="nav-link" data-scroll-target="#updating-r-packages">Updating R packages</a></li>
+  <li><a href="#updating-r" id="toc-updating-r" class="nav-link" data-scroll-target="#updating-r">Updating R</a></li>
   <li><a href="#r-profile-and-environment" id="toc-r-profile-and-environment" class="nav-link" data-scroll-target="#r-profile-and-environment">R Profile and Environment</a></li>
   </ul></li>
   </ul>
@@ -278,17 +286,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="installation" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="installation"><span class="header-section-number">1.1</span> Installation</h2>
+<p>First, we’ll want to install the R software. Go to <a href="https://r-project.org" class="uri">https://r-project.org</a> and follow the <strong>download</strong> link.</p>
+<p>That will take you to the <a href="https://cran.r-project.org/mirrors.html"><strong>Comprehensive R Archive Network</strong></a>, or CRAN, which is “a network of servers that store identical, up-to-date, versions of code and documentation for R.”</p>
+<p>The closest CRAN mirror for Institutional Researchers working in Ohio is hosted by Case Western Reserve University. Its web address is <a href="https://cran.case.edu" class="uri">https://cran.case.edu</a>.</p>
+<p>Choose the distribution appropriate for your operating system under “<strong>Download and Install R</strong>,” then click on the link for “<strong>install R for the first time</strong>,” and then finally the larger “<strong>Download R…</strong>” link. Accept the licenses and the default settings.</p>
 </section>
 <section id="using-the-r-terminal" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="using-the-r-terminal"><span class="header-section-number">1.2</span> Using the R Terminal</h2>
+<p>You should now be able to find R listed among your installed programs. Go ahead and run it. You should see a screen like this:</p>
+<p><img src="screenshots/RGui.png" class="img-fluid" alt="The R Guided User Interface (GUI)."></p>
+<p>The inner window is the <strong>R Console</strong>, also called the <strong>R Terminal</strong>, which is the R software interface:</p>
+<p><img src="screenshots/Rconsole.png" class="img-fluid" alt="The R Console (also called the R Terminal)."></p>
+<p>Let’s run our first command. Since R is statistical software after all, let’s use it as a calculator. Enter <code>1 + 1</code> and press <kbd>Enter</kbd>. You should see the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p>Congrats, you’ve run your first R command!</p>
+<p>This way to access R is fairly limited, so we can close out of the program (or enter the <code>q()</code> command). R will ask you if you’d like to save the workspace - just click “No”.</p>
 </section>
 <section id="using-an-ide" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="using-an-ide"><span class="header-section-number">1.3</span> Using an IDE</h2>
 </section>
 <section id="installing-r-packages" class="level2" data-number="1.4">
 <h2 data-number="1.4" class="anchored" data-anchor-id="installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</h2>
+<p>While base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.</p>
+<p>CRAN includes both the base R system and an array of approved R packages.</p>
+<p>One such package that we’ll be using is <a href="tidyverse.org"><code>tidyverse</code></a>, a collection of R packages that make data analysis in R better. We’ll learn more about tidyverse in <a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a>.</p>
+<p>To install the package, run the following command in the terminal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the package name must be in quotes (<code>""</code>) in the <code>install.packages()</code> command.</p>
+</div>
+</div>
+<p>When you first install an R package in a session, you will be prompted to choose a CRAN mirror, like you did when you first downloaded R:</p>
 <p><img src="screenshots/selectCRAN.png" id="fig-CRANmirrors" class="img-fluid" alt="A listing of CRAN mirrors."></p>
-<p>The <code>USA (OH) [https]</code> CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity). Its web address is <a href="https://cran.case.edu" class="uri">https://cran.case.edu</a>.</p>
+<p>We’ll choose <code>USA (OH) [https]</code>, which is the mirror hosted in Ohio by Case.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -299,31 +345,38 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See <a href="#sec-rprofile"><span>Section&nbsp;1.5.0.3</span></a> for details on how to set your default CRAN repository.</p>
+<p>See <a href="#sec-rprofile"><span>Section&nbsp;1.5.4.1</span></a> for details on how to set your default CRAN repository.</p>
 </div>
 </div>
+<p>We’ll install additional packages later.</p>
 </section>
 <section id="writing-an-r-script" class="level2" data-number="1.5">
 <h2 data-number="1.5" class="anchored" data-anchor-id="writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</h2>
-</section>
-<section id="exersices" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="exersices">Exersices</h2>
-</section>
-<section id="extras" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="extras">Extras</h2>
-<section id="keeping-r-up-to-date" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="keeping-r-up-to-date">Keeping R up-to-date</h3>
-<section id="updating-r-packages" class="level4">
-<h4 class="anchored" data-anchor-id="updating-r-packages">Updating R packages</h4>
-<p>In the terminal, run:</p>
+<p>Up until now, we’ve entered commands directly into the R terminal. But much of the power of using R comes from writing many lines of code that work together.</p>
+<p>To do this, we can create files that contain such code, as <strong>scripts</strong>.</p>
+<p>Create a new <code>.R</code> file in your project folder. You can call it anything you’d like, such as <code>script.R</code>. By using the <code>.R</code> (or <code>.r</code>) extension, you’re indicating that the file is an R script.</p>
+<p>At the top of the file we want to load any R packages that we’ll be using. We do this with the <code>library()</code> function. Let’s load <code>tidyverse</code>, then run our code:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>script.R</strong></pre>
 </div>
-<p>Packages with new updates will be detected and you will be prompted to respond <code>Y</code> or <code>yes</code> to accept.</p>
-<p>If you want all packages updated without your confirmation, you can add the <code>ask = FALSE</code> argument:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>Notice that the output shows the exact packages loaded as part of <code>tidyverse</code>. Not all packages have an output, but many do display some helpful information. The conflicts section notes that certain functionality from base R (<code>stats</code>) is masked by the packages loaded. This means when we run a function like <code>filter()</code>, by default it will now use the version from <code>dplyr</code>, which is part of <code>tidyverse</code>. We can always explicitly run a certain version by entering a function in the format <code>package::function()</code>, like <code>stats::filter()</code>.</p>
 <div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -334,15 +387,98 @@ Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p>Note that we never include an <code>install.packages()</code> command in our R script, only in the terminal. We don’t want to modify our computer using our script, and this is espeically important when we get to sharing code!</p>
+</div>
+</div>
+<p>Now we can add additional code to the script. Let’s create a new object <code>my_fav_number</code> and assign it the value of <code>2</code>. Don’t worry, we’ll go over exactly what is happening here in <a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a>.</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>script.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>my_fav_number <span class="ot">&lt;-</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Finally, let’s add notes to ourselves so that we can remember what our code is doing. To do this, we use <strong>comments</strong>. In R, comments are denoted by the <code>#</code> symbol. When R encounters a <code>#</code> symbol, everything in the same line after that symbol is ignored when running the code. We always add a space between the <code>#</code> symbol and the text we’d like to use as a comment.</p>
+<p>We can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:</p>
+<div class="cell">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>script.R</strong></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>my_fav_number <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># 2 is my favorite number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>Now that we’ve written our first R script <strong>(!)</strong>, we can run it. We can either run the entire script at once, or walk through the code line-by-line with <kbd>Shift-Ctrl</kbd>. Walking through code line-by-line can be a great way to develop code and test as you go.</p>
+<p>A few notes about keeping your code clean:</p>
+<ul>
+<li>Use <strong>blank lines</strong> to separate logically separate lines of code.</li>
+<li>Use <strong>spaces</strong> properly around characters and symbols.</li>
+<li>Use <strong>comments</strong> to keep your code comprehensible.</li>
+</ul>
+<p>We’ll go over additional notes about writing clean code in the coming chapters.</p>
+</section>
+<section id="exersices" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exersices">Exersices</h2>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
+<p>In <a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a> we’ll use the package <code>readxl</code> to read in data from Excel files, since IR professionals often encounter data we need to work with in Excel files! How would you install the <code>readxl</code> package?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
+<p>Start a new R script that loads the <code>readxl</code> package. Include a comment to remind you of what is happening.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>) <span class="co"># to read data from Excel files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="extra-keeping-r-up-to-date" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="extra-keeping-r-up-to-date">Extra: Keeping R up-to-date</h2>
+<section id="updating-r-packages" class="level3">
+<h3 class="anchored" data-anchor-id="updating-r-packages">Updating R packages</h3>
+<p>In the terminal, run:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Packages with new updates will be detected and you will be prompted to respond <code>Y</code> or <code>yes</code> to accept.</p>
+<p>If you want all packages updated without your confirmation, you can add the <code>ask = FALSE</code> argument:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">update.packages</span>(<span class="at">ask =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You will see a warning when packages are built under a different version of R than you are running. If you see this, you likely want to update your version of R.</p>
 </div>
 </div>
 </section>
-<section id="updating-r" class="level4">
-<h4 class="anchored" data-anchor-id="updating-r">Updating R</h4>
+<section id="updating-r" class="level3">
+<h3 class="anchored" data-anchor-id="updating-r">Updating R</h3>
 <p>The <code>installr</code> package can assist with keeping the R installation up-to-date. In the terminal, run the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">updateR</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">updateR</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -358,7 +494,6 @@ Tip
 </div>
 </div>
 </section>
-</section>
 <section id="r-profile-and-environment" class="level3 unnumbered">
 <h3 class="unnumbered anchored" data-anchor-id="r-profile-and-environment">R Profile and Environment</h3>
 <p>R will read certain options from special files that you can modify:</p>
@@ -367,12 +502,12 @@ Tip
 <p>Your R <em>profile</em> can contain a range of settings to customize how you interact with R.</p>
 <p>The <code>usethis</code> package can be used to edit your R profile:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_profile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_profile</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>A new window will open with your R profile file that you can edit.</p>
 <p>For example, you may want to set your default CRAN mirror to the one hosted at Case, since it is in Ohio and you may be as well. Add the following line to your R profile file:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos=</span><span class="fu">c</span>(<span class="at">CRAN=</span><span class="st">"https://cran.case.edu/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">repos=</span><span class="fu">c</span>(<span class="at">CRAN=</span><span class="st">"https://cran.case.edu/"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When done, save the file, then close all R terminals and reopen them.</p>
 </section>
@@ -381,16 +516,16 @@ Tip
 <p>The R <em>environment</em> can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.</p>
 <p>The <code>usethis</code> package can be used to easily edit your R environment:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_envrion</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">edit_r_envrion</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To store a variable named <code>test_var</code>, add the following to the file:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>test_var<span class="sc">:</span><span class="st">"this is my test value"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>test_var<span class="sc">:</span><span class="st">"this is my test value"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>When done, save the file, then close all R terminals and reopen them.</p>
 <p>You’ll be able to access such variables like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"test_var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.getenv</span>(<span class="st">"test_var"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "this is my test value"</code></pre>
 </div>

@@ -2,35 +2,148 @@
 
 ## Installation
 
+First, we'll want to install the R software.  Go to <https://r-project.org> and follow the **download** link.
+
+That will take you to the [**Comprehensive R Archive Network**](https://cran.r-project.org/mirrors.html), or CRAN, which is "a network of servers that store identical, up-to-date, versions of code and documentation for R."
+
+The closest CRAN mirror for Institutional Researchers working in Ohio is hosted by Case Western Reserve University.  Its web address is <https://cran.case.edu>.
+
+Choose the distribution appropriate for your operating system under "**Download and Install R**," then click on the link for "**install R for the first time**," and then finally the larger "**Download R...**" link.  Accept the licenses and the default settings.
 
 ## Using the R Terminal
 
+You should now be able to find R listed among your installed programs.  Go ahead and run it.  You should see a screen like this:
+
+![](screenshots/RGui.png){fig-alt="The R Guided User Interface (GUI)."}
+
+The inner window is the **R Console**, also called the **R Terminal**, which is the R software interface:
+
+![](screenshots/Rconsole.png){fig-alt="The R Console (also called the R Terminal)."}
+
+Let's run our first command.  Since R is statistical software after all, let's use it as a calculator.  Enter `1 + 1` and press {{< kbd Enter >}}.  You should see the following:
+
+```{R}
+1 + 1
+```
+
+Congrats, you've run your first R command!
+
+This way to access R is fairly limited, so we can close out of the program (or enter the `q()` command).  R will ask you if you'd like to save the workspace - just click "No".
 
 ## Using an IDE
 
 
 ## Installing R packages
 
+While base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.
 
+CRAN includes both the base R system and an array of approved R packages.
+
+One such package that we'll be using is [`tidyverse`](tidyverse.org), a collection of R packages that make data analysis in R better.  We'll learn more about tidyverse in @sec-data.
+
+To install the package, run the following command in the terminal:
+
+```{R}
+#| eval: false
+install.packages("tidyverse")
+```
+
+::: {.callout-important}
+Note that the package name must be in quotes (`""`) in the `install.packages()` command.
+:::
+
+When you first install an R package in a session, you will be prompted to choose a CRAN mirror, like you did when you first downloaded R:
 
 ![](screenshots/selectCRAN.png){#fig-CRANmirrors fig-alt="A listing of CRAN mirrors."}
 
-The `USA (OH) [https]` CRAN mirror is hosted by Case Western Reserve University and would be the most suitable for Institutional Researchers working in Ohio (due to its proximity).  Its web address is <https://cran.case.edu>.
+We'll choose `USA (OH) [https]`, which is the mirror hosted in Ohio by Case.
 
 ::: {.callout-tip}
   See @sec-rprofile for details on how to set your default CRAN repository.
 :::
 
+We'll install additional packages later.
+
 ## Writing an R script
+
+Up until now, we've entered commands directly into the R terminal.  But much of the power of using R comes from writing many lines of code that work together.
+
+To do this, we can create files that contain such code, as **scripts**.
+
+Create a new `.R` file in your project folder.  You can call it anything you'd like, such as `script.R`.  By using the `.R` (or `.r`) extension, you're indicating that the file is an R script.
+
+At the top of the file we want to load any R packages that we'll be using.  We do this with the `library()` function.  Let's load `tidyverse`, then run our code:
+
+```{R filename="script.R"}
+library("tidyverse")
+```
+
+Notice that the output shows the exact packages loaded as part of `tidyverse`.  Not all packages have an output, but many do display some helpful information.  The conflicts section notes that certain functionality from base R (`stats`) is masked by the packages loaded.  This means when we run a function like `filter()`, by default it will now use the version from `dplyr`, which is part of `tidyverse`.  We can always explicitly run a certain version by entering a function in the format `package::function()`, like `stats::filter()`.
+
+::: {.callout-warning}
+Note that we never include an `install.packages()` command in our R script, only in the terminal.  We don't want to modify our computer using our script, and this is espeically important when we get to sharing code!
+:::
+
+Now we can add additional code to the script.  Let's create a new object `my_fav_number` and assign it the value of `2`.  Don't worry, we'll go over exactly what is happening here in @sec-data.
+
+```{R filename="script.R"}
+#| eval: false
+library("tidyverse")
+
+my_fav_number <- 2
+```
+
+Finally, let's add notes to ourselves so that we can remember what our code is doing.  To do this, we use **comments**.  In R, comments are denoted by the `#` symbol.  When R encounters a `#` symbol, everything in the same line after that symbol is ignored when running the code.  We always add a space between the `#` symbol and the text we'd like to use as a comment.
+
+We can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:
+
+```{R filename="script.R"}
+#| eval: false
+# load libraries
+library("tidyverse")
+
+my_fav_number <- 2  # 2 is my favorite number
+```
+
+Now that we've written our first R script **(!)**, we can run it.  We can either run the entire script at once, or walk through the code line-by-line with {{< kbd Shift-Ctrl >}}.  Walking through code line-by-line can be a great way to develop code and test as you go.
+
+A few notes about keeping your code clean:
+
+* Use **blank lines** to separate logically separate lines of code.
+* Use **spaces** properly around characters and symbols.
+* Use **comments** to keep your code comprehensible.
+
+We'll go over additional notes about writing clean code in the coming chapters.
 
 
 ## Exersices {.unnumbered}
 
-## Extras {.unnumbered}
+### Exercise 1
 
-### Keeping R up-to-date {.unnumbered}
+In @sec-data we'll use the package `readxl` to read in data from Excel files, since IR professionals often encounter data we need to work with in Excel files!  How would you install the `readxl` package?
 
-#### Updating R packages
+```{R}
+#| eval: false
+#| code-fold: true
+install.packages("readxl")
+```
+
+
+### Exercise 2
+
+Start a new R script that loads the `readxl` package.  Include a comment to remind you of what is happening.
+
+```{R}
+#| eval: false
+#| code-fold: true
+# load libraries
+library("readxl") # to read data from Excel files
+```
+
+
+## Extra: Keeping R up-to-date {.unnumbered}
+
+### Updating R packages
 
 In the terminal, run:
 
@@ -48,11 +161,11 @@ If you want all packages updated without your confirmation, you can add the `ask
 update.packages(ask = FALSE)
 ```
 
-::: {.callout-warning}
+::: {.callout-tip}
 You will see a warning when packages are built under a different version of R than you are running.  If you see this, you likely want to update your version of R.
 :::
 
-#### Updating R
+### Updating R
 
 The `installr` package can assist with keeping the R installation up-to-date.  In the terminal, run the following:
 

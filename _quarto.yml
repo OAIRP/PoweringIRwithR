@@ -39,18 +39,17 @@ book:
         href: acknowledgements.qmd
     right: This guide was built with [Quarto](https://quarto.org)
   repo-url: https://github.com/oairp/PoweringIRwithR
+  site-url: https://oairp.github.io/PoweringIRwithR/
   repo-actions: [issue]
   downloads: [pdf, epub]
   sharing: [twitter, facebook, linkedin]
-  twitter-card:
+  open-graph:
     image: cover.png
-    card-style: summary_large_image
-    creator: "@tbenj"
-    site: "@ohioair"
+    
 
 
-citation: true
-appendix-cite-as: display
+citation:
+  type: book
 google-scholar: true
 
 bibliography: references.bib
