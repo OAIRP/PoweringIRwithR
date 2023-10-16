@@ -215,11 +215,11 @@ installr::updateR()
 You will be prompted as to whether you'd like to copy over all packages from the current version of R.  This is a good idea!
 :::
 
-### R Profile and Environment {.unnumbered}
+## Extra: R Profile and Environment {.unnumbered}
 
 R will read certain options from special files that you can modify:
 
-#### R profile {#sec-rprofile}
+### R profile {#sec-rprofile}
 
 Your R *profile* can contain a range of settings to customize how you interact with R.
 
@@ -242,7 +242,7 @@ options(repos=c(CRAN="https://cran.case.edu/"))
 When done, save the file, then close all R terminals and reopen them.
 
 
-#### R environment
+### R environment
 
 The R *environment* can store variables that you can call upon using special R functions.  It is a great way to keep keys and other secrets out of your code but still accessible.
 

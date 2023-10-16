@@ -50,4 +50,4 @@ Search [`"institutional research"` on GitHub](https://github.com/search?q=%22ins
 
 ## Extra: About GitHub Pages {.unnumbered}
 
-**GitHub Pages** 
+**GitHub Pages** is
