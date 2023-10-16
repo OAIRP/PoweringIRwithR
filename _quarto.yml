@@ -17,6 +17,8 @@ book:
       affiliation: Columbus State Community College
       affiliation-url: https://www.cscc.edu
   date: "10/19/2023"
+  cover-image: cover.png
+  favicon: favicon.ico
   chapters:
     - index.qmd
     - intro.qmd
@@ -37,7 +39,7 @@ book:
     right: This guide was built with [Quarto](https://quarto.org)
   repo-url: https://github.com/oairp/PoweringIRwithR
   repo-actions: [issue]
-  downloads: [pdf]
+  downloads: [pdf, epub]
   sharing: [twitter, facebook]
 
 citation: true
@@ -52,6 +54,9 @@ format:
     number-depth: 2
   pdf:
     documentclass: scrreprt
+    cover-image: cover.png
+  epub:
+    cover-image: cover.png
 
 
 
