@@ -1,6 +1,6 @@
 # Importing and cleaning data {#sec-data}
 
-## Creating R objects
+## Creating R data objects
 
 
 
@@ -14,6 +14,8 @@
 
 
 ## Tidy data
+
+## In Practice: Working with IPEDS data
 
 ## Exercises {.unnumbered}
 

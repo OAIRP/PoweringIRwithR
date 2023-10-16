@@ -210,7 +210,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./collaboration.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on Code</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on code</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -231,9 +231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#installation" id="toc-installation" class="nav-link active" data-scroll-target="#installation"><span class="header-section-number">1.1</span> Installation</a></li>
   <li><a href="#using-the-r-terminal" id="toc-using-the-r-terminal" class="nav-link" data-scroll-target="#using-the-r-terminal"><span class="header-section-number">1.2</span> Using the R Terminal</a></li>
-  <li><a href="#using-an-ide" id="toc-using-an-ide" class="nav-link" data-scroll-target="#using-an-ide"><span class="header-section-number">1.3</span> Using an IDE</a></li>
-  <li><a href="#installing-r-packages" id="toc-installing-r-packages" class="nav-link" data-scroll-target="#installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</a></li>
-  <li><a href="#writing-an-r-script" id="toc-writing-an-r-script" class="nav-link" data-scroll-target="#writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</a></li>
+  <li><a href="#sec-installRpackages" id="toc-sec-installRpackages" class="nav-link" data-scroll-target="#sec-installRpackages"><span class="header-section-number">1.3</span> Installing R packages</a></li>
+  <li><a href="#using-an-ide" id="toc-using-an-ide" class="nav-link" data-scroll-target="#using-an-ide"><span class="header-section-number">1.4</span> Using an IDE</a>
+  <ul class="collapse">
+  <li><a href="#r-studio" id="toc-r-studio" class="nav-link" data-scroll-target="#r-studio">R Studio</a></li>
+  <li><a href="#visual-studio-code" id="toc-visual-studio-code" class="nav-link" data-scroll-target="#visual-studio-code">Visual Studio Code</a></li>
+  </ul></li>
+  <li><a href="#creating-a-project" id="toc-creating-a-project" class="nav-link" data-scroll-target="#creating-a-project"><span class="header-section-number">1.5</span> Creating a project</a></li>
+  <li><a href="#writing-an-r-script" id="toc-writing-an-r-script" class="nav-link" data-scroll-target="#writing-an-r-script"><span class="header-section-number">1.6</span> Writing an R script</a></li>
   <li><a href="#exersices" id="toc-exersices" class="nav-link" data-scroll-target="#exersices">Exersices</a>
   <ul class="collapse">
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
@@ -289,27 +294,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Congrats, you’ve run your first R command!</p>
-<p>This way to access R is fairly limited, so we can close out of the program (or enter the <code>q()</code> command). R will ask you if you’d like to save the workspace - just click “No”.</p>
 </section>
-<section id="using-an-ide" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="using-an-ide"><span class="header-section-number">1.3</span> Using an IDE</h2>
-</section>
-<section id="installing-r-packages" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="installing-r-packages"><span class="header-section-number">1.4</span> Installing R packages</h2>
-<p>While base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.</p>
+<section id="sec-installRpackages" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-installRpackages"><span class="header-section-number">1.3</span> Installing R packages</h2>
+<p>Though base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.</p>
 <p>CRAN includes both the base R system and an array of approved R packages.</p>
 <p>One such package that we’ll be using is <a href="tidyverse.org"><code>tidyverse</code></a>, a collection of R packages that make data analysis in R better. We’ll learn more about tidyverse in <a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a>.</p>
-<p>To install the package, run the following command in the terminal:</p>
+<p>To install the package, run the following command in the terminal:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Important
+Warning
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -329,17 +330,80 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>See <a href="#sec-rprofile"><span>Section&nbsp;1.5.4.1</span></a> for details on how to set your default CRAN repository.</p>
+<p>See <a href="#sec-rprofile"><span>Section&nbsp;1.6.4.1</span></a> for details on how to set your default CRAN repository.</p>
 </div>
 </div>
 <p>We’ll install additional packages later.</p>
+<p>Accessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the <code>q()</code> command). R will ask you if you’d like to save the workspace image - just click “No”.</p>
 </section>
-<section id="writing-an-r-script" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="writing-an-r-script"><span class="header-section-number">1.5</span> Writing an R script</h2>
+<section id="using-an-ide" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="using-an-ide"><span class="header-section-number">1.4</span> Using an IDE</h2>
+<p>The better way to work with R is to use an <strong>integrated development environment</strong>, or IDE. The IDE includes the R Terminal that will show the R output, but also additional helpful features like a file editor (to work with a <strong>script</strong>), a file browser, an image viewer (to view graph and other figure output), an R object viewer, R help text, and more.</p>
+<section id="r-studio" class="level3">
+<h3 class="anchored" data-anchor-id="r-studio">R Studio</h3>
+<p>One popular IDE for R is the open source edition of <strong>R Studio</strong>, developed by <a href="https://posit.co/"><strong>posit</strong></a>, a company that contributes greatly to various R packages and tools, including Quarto which we’ll use in <a href="reports.html"><span>Chapter&nbsp;4</span></a>. It can be downloaded at <a href="https://posit.co/products/open-source/rstudio/" class="uri">https://posit.co/products/open-source/rstudio/</a>.</p>
+<p>After you install and run for the first time, and let it detect the installation of R, your screen should look like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshots/RStudio.png" class="img-fluid figure-img" alt="The R Studio IDE interface."></p>
+<figcaption class="figure-caption">On the left is the R Console, with a tab for your OS Terminal. On the top right is the R environment, an R object viewer, with additional tabs for history, etc. On the bottom right is a file viewer, with additoinal tabs for plots, packages, help, and more.</figcaption>
+</figure>
+</div>
+</section>
+<section id="visual-studio-code" class="level3">
+<h3 class="anchored" data-anchor-id="visual-studio-code">Visual Studio Code</h3>
+<p>One popular alternative to R Studio is <strong>Visual Studio Code</strong>. Visual Studio Code, or <strong>VS Code</strong>, is developed by Microsoft, and designed for a wide range of programming languages, supported by many extensions. Visual Studio Code’s source code is open source, but has additional Microsoft capabilities.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Head to <a href="https://code.visualstudio.com" class="uri">https://code.visualstudio.com</a> to download Visual Studio Code.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Since Visual Studio Code is designed to work with many languages, you’ll need to complete additional steps to configure VS Code for working with R. For this reason, it may be best to begin using R Studio and revisit VS Code at a later time. However, VS Code does include additonal features and better integration with Git and GitHub, which will be detailed in <a href="collaboration.html"><span>Chapter&nbsp;5</span></a>.</p>
+</div>
+</div>
+<p>You’ll then need to install the <a href="https://marketplace.visualstudio.com/items?itemName=REditorSupport.r"><strong>R extension for Visual Studio Code</strong></a> which can be done using the Extensions module on the far left (or using <kbd>Ctrl+Shift+X</kbd>). You’ll also need to install the <code>langugageserver</code> package and want to install the <code>httpgd</code> package so that Visual Studio Code can display help text and plots, respectively. Refer back to <a href="#sec-installRpackages"><span>Section&nbsp;1.3</span></a> for details how to install packages.</p>
+<p>Depending on how you installed R, you may need to point Visual Studio Code to your R installation. Enter Settings (File &gt; Preferences &gt; Settings or <kbd>Ctrl+,</kbd>) then type or look for <code>RTerm</code> for your operating system. Point this to your instance of R (e.g.&nbsp;<code>C:\Program Files\R\R-4.3.1\bin\R.exe</code>).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshots/VScode.png" class="img-fluid figure-img" alt="The Visual Studio Code interface."></p>
+<figcaption class="figure-caption">On the far left is a set of icons for the various modules, with the first selected for File Explorer and the R environment icon also visible. On the right is the Welcome window; this area will show file contents and view output when requested. On the bottom is a set of terminals, one of which is for R.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="creating-a-project" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="creating-a-project"><span class="header-section-number">1.5</span> Creating a project</h2>
+<p>Irrespective of the IDE you are using, you’ll use folders on your computer to hold a file or set of files for an R project. Go ahead and create a new folder in a location on your computer, such as <code>Documents\MyFirstRProject\</code>.</p>
+<p>Depending on your IDE, you’ll open your project by:</p>
+<ul>
+<li>In R Studio, you’ll first click on “Project: (None)” in the upper right, then “New Project”, then “Existing Directory”, then point to the folder you created.</li>
+<li>In VS Code, you’ll click “Open Folder” from the Welcome screen.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you end up with a lot of files, you can create folders within your project folder. This can help keep your project organized.</p>
+</div>
+</div>
+</section>
+<section id="writing-an-r-script" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="writing-an-r-script"><span class="header-section-number">1.6</span> Writing an R script</h2>
 <p>Up until now, we’ve entered commands directly into the R terminal. But much of the power of using R comes from writing many lines of code that work together.</p>
 <p>To do this, we can create files that contain such code, as <strong>scripts</strong>.</p>
 <p>Create a new <code>.R</code> file in your project folder. You can call it anything you’d like, such as <code>script.R</code>. By using the <code>.R</code> (or <code>.r</code>) extension, you’re indicating that the file is an R script.</p>
-<p>At the top of the file we want to load any R packages that we’ll be using. We do this with the <code>library()</code> function. Let’s load <code>tidyverse</code>, then run our code:</p>
+<p>At the top of the file we want to load any R packages that we’ll be using. We do this with the <code>library()</code> function. Let’s load <code>tidyverse</code>, then run our code (by clicking the Run button):</p>
 <div class="cell">
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -361,13 +425,13 @@ Tip
 </div>
 </div>
 <p>Notice that the output shows the exact packages loaded as part of <code>tidyverse</code>. Not all packages have an output, but many do display some helpful information. The conflicts section notes that certain functionality from base R (<code>stats</code>) is masked by the packages loaded. This means when we run a function like <code>filter()</code>, by default it will now use the version from <code>dplyr</code>, which is part of <code>tidyverse</code>. We can always explicitly run a certain version by entering a function in the format <code>package::function()</code>, like <code>stats::filter()</code>.</p>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Warning
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -531,6 +595,13 @@ Warning
 
 </section>
 </section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Yes, you can also use the menus to install packages, but we won’t be using this interface for long.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Check out <a href="https://vscodium.com" class="uri">https://vscodium.com</a> for a version without these Microsoft customizations.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->

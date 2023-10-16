@@ -28,27 +28,22 @@ Let's run our first command.  Since R is statistical software after all, let's u
 
 Congrats, you've run your first R command!
 
-This way to access R is fairly limited, so we can close out of the program (or enter the `q()` command).  R will ask you if you'd like to save the workspace - just click "No".
+## Installing R packages {#sec-installRpackages}
 
-## Using an IDE
-
-
-## Installing R packages
-
-While base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.
+Though base R contains all kinds of helpful functions and tools, installing R packages provide additional functionality.
 
 CRAN includes both the base R system and an array of approved R packages.
 
 One such package that we'll be using is [`tidyverse`](tidyverse.org), a collection of R packages that make data analysis in R better.  We'll learn more about tidyverse in @sec-data.
 
-To install the package, run the following command in the terminal:
+To install the package, run the following command in the terminal:^[Yes, you can also use the menus to install packages, but we won't be using this interface for long.]
 
 ```{R}
 #| eval: false
 install.packages("tidyverse")
 ```
 
-::: {.callout-important}
+::: {.callout-warning}
 Note that the package name must be in quotes (`""`) in the `install.packages()` command.
 :::
 
@@ -64,6 +59,48 @@ We'll choose `USA (OH) [https]`, which is the mirror hosted in Ohio by Case.
 
 We'll install additional packages later.
 
+
+Accessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the `q()` command).  R will ask you if you'd like to save the workspace image - just click "No".
+
+## Using an IDE
+
+The better way to work with R is to use an **integrated development environment**, or IDE.  The IDE includes the R Terminal that will show the R output, but also additional helpful features like a file editor (to work with a **script**), a file browser, an image viewer (to view graph and other figure output), an R object viewer, R help text, and more.
+
+### R Studio
+
+One popular IDE for R is the open source edition of **R Studio**, developed by [**posit**](https://posit.co/), a company that contributes greatly to various R packages and tools, including Quarto which we'll use in @sec-reports.  It can be downloaded at <https://posit.co/products/open-source/rstudio/>.
+
+After you install and run for the first time, and let it detect the installation of R, your screen should look like this:
+
+![On the left is the R Console, with a tab for your OS Terminal.  On the top right is the R environment, an R object viewer, with additional tabs for history, etc.  On the bottom right is a file viewer, with additoinal tabs for plots, packages, help, and more.](screenshots/RStudio.png){fig-alt="The R Studio IDE interface."}
+
+### Visual Studio Code
+
+One popular alternative to R Studio is **Visual Studio Code**.  Visual Studio Code, or **VS Code**, is developed by Microsoft, and designed for a wide range of programming languages, supported by many extensions.  Visual Studio Code's source code is open source, but has additional Microsoft capabilities.^[Check out <https://vscodium.com> for a version without these Microsoft customizations.]  Head to <https://code.visualstudio.com> to download Visual Studio Code.
+
+::: {.callout-note}
+Since Visual Studio Code is designed to work with many languages, you'll need to complete additional steps to configure VS Code for working with R.  For this reason, it may be best to begin using R Studio and revisit VS Code at a later time.  However, VS Code does include additonal features and better integration with Git and GitHub, which will be detailed in @sec-collaboration.
+:::
+
+You'll then need to install the [**R extension for Visual Studio Code**](https://marketplace.visualstudio.com/items?itemName=REditorSupport.r) which can be done using the Extensions module on the far left (or using {{< kbd Ctrl+Shift+X >}}).  You'll also need to install the `langugageserver` package and want to install the `httpgd` package so that Visual Studio Code can display help text and plots, respectively.  Refer back to @sec-installRpackages for details how to install packages.
+
+Depending on how you installed R, you may need to point Visual Studio Code to your R installation.  Enter Settings (File > Preferences > Settings or {{< kbd Ctrl+, >}}) then type or look for `RTerm` for your operating system.  Point this to your instance of R (e.g. `C:\Program Files\R\R-4.3.1\bin\R.exe`).
+
+![On the far left is a set of icons for the various modules, with the first selected for File Explorer and the R environment icon also visible.  On the right is the Welcome window; this area will show file contents and view output when requested.  On the bottom is a set of terminals, one of which is for R.](screenshots/VScode.png){fig-alt="The Visual Studio Code interface."}
+
+## Creating a project
+
+Irrespective of the IDE you are using, you'll use folders on your computer to hold a file or set of files for an R project.  Go ahead and create a new folder in a location on your computer, such as `Documents\MyFirstRProject\`.
+
+Depending on your IDE, you'll open your project by:
+
+* In R Studio, you'll first click on "Project: (None)" in the upper right, then "New Project", then "Existing Directory", then point to the folder you created.
+* In VS Code, you'll click "Open Folder" from the Welcome screen.
+
+::: {.callout-tip}
+If you end up with a lot of files, you can create folders within your project folder.  This can help keep your project organized.
+:::
+
 ## Writing an R script
 
 Up until now, we've entered commands directly into the R terminal.  But much of the power of using R comes from writing many lines of code that work together.
@@ -72,7 +109,7 @@ To do this, we can create files that contain such code, as **scripts**.
 
 Create a new `.R` file in your project folder.  You can call it anything you'd like, such as `script.R`.  By using the `.R` (or `.r`) extension, you're indicating that the file is an R script.
 
-At the top of the file we want to load any R packages that we'll be using.  We do this with the `library()` function.  Let's load `tidyverse`, then run our code:
+At the top of the file we want to load any R packages that we'll be using.  We do this with the `library()` function.  Let's load `tidyverse`, then run our code (by clicking the Run button):
 
 ```{R filename="script.R"}
 library("tidyverse")
@@ -80,7 +117,7 @@ library("tidyverse")
 
 Notice that the output shows the exact packages loaded as part of `tidyverse`.  Not all packages have an output, but many do display some helpful information.  The conflicts section notes that certain functionality from base R (`stats`) is masked by the packages loaded.  This means when we run a function like `filter()`, by default it will now use the version from `dplyr`, which is part of `tidyverse`.  We can always explicitly run a certain version by entering a function in the format `package::function()`, like `stats::filter()`.
 
-::: {.callout-warning}
+::: {.callout-important}
 Note that we never include an `install.packages()` command in our R script, only in the terminal.  We don't want to modify our computer using our script, and this is espeically important when we get to sharing code!
 :::
 
