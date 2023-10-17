@@ -27,6 +27,8 @@ book:
     - reports.qmd
     - collaboration.qmd
     - references.qmd
+  appendices:
+    - examplebasicquarto.qmd
   page-navigation: true
   reader-mode: true
   page-footer:

@@ -2,42 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/index.html</loc>
-    <lastmod>2023-10-16T22:11:13.937Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.472Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/intro.html</loc>
-    <lastmod>2023-10-16T22:11:13.945Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.482Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/workingwithdata.html</loc>
-    <lastmod>2023-10-16T22:11:13.948Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.486Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/analysis.html</loc>
-    <lastmod>2023-10-16T22:11:13.952Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.488Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/reports.html</loc>
-    <lastmod>2023-10-16T22:11:13.955Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.504Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/collaboration.html</loc>
-    <lastmod>2023-10-16T22:11:13.959Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.506Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/references.html</loc>
-    <lastmod>2023-10-16T22:11:13.963Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.508Z</lastmod>
+  </url>
+  <url>
+    <loc>https://oairp.github.io/PoweringIRwithR/examplebasicquarto.html</loc>
+    <lastmod>2023-10-17T01:54:07.514Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/about.html</loc>
-    <lastmod>2023-10-16T22:11:11.396Z</lastmod>
+    <lastmod>2023-10-17T01:54:04.656Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/acknowledgements.html</loc>
-    <lastmod>2023-10-16T22:11:11.774Z</lastmod>
+    <lastmod>2023-10-17T01:54:05.053Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/Powering-Institutional-Research-with-R.epub</loc>
-    <lastmod>2023-10-16T22:11:13.758Z</lastmod>
+    <lastmod>2023-10-17T01:54:07.254Z</lastmod>
   </url>
 </urlset>

@@ -6,9 +6,113 @@ This section, however, will introduce you to an open source publishing system th
 
 ## Installing Quarto
 
-This will require the `rmarkdown` and `knitr` packages.
+Quarto is built-in to **R Studio**, so there's likely nothing extra that you have to do.  For **Visual Studio Code**, you'll need to install the [**Quarto extension**](https://marketplace.visualstudio.com/items?itemName=quarto.quarto) and Quarto itself from <https://quarto.org/docs/get-started/>.  When you begin a Quarto project that includes `.pdf` output, you'll be prompted to install [TinyTex](https://yihui.org/tinytex/) by using the OS Terminal command `quarto install tinytex`.
+
+Using Quarto will require the R packages `rmarkdown` and `knitr`.
 
 ## Creating a Quarto document
+
+Quarto documents use the `.qmd` extension, since Quarto makes extensive use of the `markdown` syntax.  Markdown is a relatively simple coding scheme that is designed to be both human- and machine-readable.  
+
+::: {.callout-tip}
+Markdown is used extensively across the modern web, including at [Reddit](https://reddit.com) and [Discord](https://discord.com).  [GitHub](https://github.com), which we'll discuss in @sec-collaboration, uses Markdown for its `README.md` files to allow developers to share info about their projects in a visually appealing manner.
+:::
+
+You can create a Quarto document simply by creating a new file with the extension `.qmd`.  However, both **R Studio** and **Visual Studio Code** include menus to utilize templates that give you a great place to start.  Go ahead and start a new Quarto project.
+
+### Quarto document header
+
+The first section of a Quarto document is the header.  The header is comprised of a special series of tags that define how the document should be rendered, in a format called YAML^[YAML stands for Yet Another Markup Language, but don't worry - there's not actually much to learn].  A very simple such example is to simply define the document's title:
+
+``` yaml
+---
+title: "New Quarto Project"
+---
+```
+
+The [Quarto authoring tutorial](https://quarto.org/docs/get-started/authoring/vscode.html) introduces you to additional options that you can define in the YAML header.
+
+### Basic markdown
+
+Next, we can begin to write out the explanatory text in our document.  It is of course helpful to break our document into sections.  It is simple to arrange cascading sections by using the `#` symbol.  Using two such symbols consecutively, `##`, defines a top-level section header, while additional ones (`###`, `####`) define additional levels.
+
+Within regular text you can add links in different ways:
+
+* `<https://oairp.org/>` renders as <https://oairp.org>
+* `[the OAIRP website](https://oairp.org/)` renders as [the OAIRP website](https://oairp.org/)
+
+As well as emphasize text:
+
+* `*italics*` renders as *italics*
+* `**bold**` renders as **bold**
+
+We can use `*`, `+`, or `-` to create lists -- they just have to have a blank line between the list and any text above.
+
+The [Quarto documentation](https://quarto.org/docs/authoring/markdown-basics.html) has a great overview of the basics of Markdown.
+
+Let's use some of these to continue to build out our `.qmd` file by adding the following after the header:
+
+``` markdown
+---
+title: "New Quarto Project"
+---
+
+## Quarto
+
+Quarto is a fantastic way to get started writing reports 
+without spending **a ton of time** messing with things like: 
+
+* font sizes
+* styles
+* spacing
+
+Quarto has excellent documentation at <https://quarto.org>.
+```
+
+### Code blocks
+
+Finally, we'll get back to using R code to run some simple calculations and include the result.  We do this by adding a code block.  A code block opens and closes with the ` ``` ` sequence.  Using curly brackets after the code block opening sequence (`{}`), we define the language that the code block is running: for R, this is `{R}`.^[Quarto also works with other languages, including Python and Julia]  Inside, we'll include the code that will produce the output we'd like to show:
+
+```` markdown
+---
+title: "New Quarto Project"
+---
+
+## Quarto
+
+Quarto is a fantastic way to get started writing reports 
+without spending **a ton of time** messing with things like: 
+
+* font sizes
+* styles
+* spacing
+
+Quarto has excellent documentation at <https://quarto.org>.
+
+```{{R}}
+calc <- 1 + 1
+print(calc)
+```
+````
+
+Test this code yourself.  You should see it render like it does in [Appendix A](examplebasicquarto.qmd).
+
+::: {.callout-note}
+By default, the code block prints both the code and the result.  We can add special execution options at the start of the code block to define how it should be processed.  Those options start with a special preface `#|`.  Adding the `echo: false` execution option will suppress the code and only show the output:
+
+```` markdown
+```{{R}}
+#| echo: false
+calc <- 1 + 1
+print(calc)
+```
+````
+
+You can review additional [Execution Options](https://quarto.org/docs/computations/execution-options.html) in the Quarto guide.
+:::
+
+## In Practice: A full report build
+
 
 
 ## Parameterizing your report
@@ -16,4 +120,24 @@ This will require the `rmarkdown` and `knitr` packages.
 
 ## Exercises {.unnumbered}
 
+### Exercise 1
+
+Practice using markdown.  How would you:
+
+* Emphasize text?
+* Create a link with custom text?
+* Add an image?
+* Create a numbered list?
+
+
+### Exercise 2
+
+Branstorm a few different ways you might use parameters to create a series of reports that utilize much of the same code.
+
 ## Extra: Other Quarto document types {.unnumbered}
+
+Though you may be most interested in creating a report or article, Quarto is capable of generating other document types, including powerpoints, websites, and ebooks.
+
+Those types do get a bit more complicated, but rely on many of the basics you've learned in this section as building blocks.  The [Quarto guide] details these possibilities.
+
+This guide itself is written as a Quarto ebook, as are other resources like **R for Data Science** [@wickham2023r].  If interested in seeing examples of quarto projects in action, you can browse their code on GitHub, which we'll learn in @sec-collaboration.

@@ -1,0 +1,19 @@
+---
+title: "New Quarto Project"
+---
+
+## Quarto {.unnumbered}
+
+Quarto is a fantastic way to get started writing reports 
+without spending **a ton of time** messing with things like: 
+
+* font sizes
+* styles
+* spacing
+
+Quarto has excellent documentation at <https://quarto.org>.
+
+```{R}
+calc <- 1 + 1
+print(calc)
+```

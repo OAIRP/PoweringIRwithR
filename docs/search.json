@@ -123,35 +123,49 @@
     "href": "reports.html#installing-quarto",
     "title": "4  Building parameterized reports",
     "section": "4.1 Installing Quarto",
-    "text": "4.1 Installing Quarto\nThis will require the rmarkdown and knitr packages."
+    "text": "4.1 Installing Quarto\nQuarto is built-in to R Studio, so there’s likely nothing extra that you have to do. For Visual Studio Code, you’ll need to install the Quarto extension and Quarto itself from https://quarto.org/docs/get-started/. When you begin a Quarto project that includes .pdf output, you’ll be prompted to install TinyTex by using the OS Terminal command quarto install tinytex.\nUsing Quarto will require the R packages rmarkdown and knitr."
   },
   {
     "objectID": "reports.html#creating-a-quarto-document",
     "href": "reports.html#creating-a-quarto-document",
     "title": "4  Building parameterized reports",
     "section": "4.2 Creating a Quarto document",
-    "text": "4.2 Creating a Quarto document"
+    "text": "4.2 Creating a Quarto document\nQuarto documents use the .qmd extension, since Quarto makes extensive use of the markdown syntax. Markdown is a relatively simple coding scheme that is designed to be both human- and machine-readable.\n\n\n\n\n\n\nTip\n\n\n\nMarkdown is used extensively across the modern web, including at Reddit and Discord. GitHub, which we’ll discuss in Chapter 5, uses Markdown for its README.md files to allow developers to share info about their projects in a visually appealing manner.\n\n\nYou can create a Quarto document simply by creating a new file with the extension .qmd. However, both R Studio and Visual Studio Code include menus to utilize templates that give you a great place to start. Go ahead and start a new Quarto project.\n\nQuarto document header\nThe first section of a Quarto document is the header. The header is comprised of a special series of tags that define how the document should be rendered, in a format called YAML1. A very simple such example is to simply define the document’s title:\n---\ntitle: \"New Quarto Project\"\n---\nThe Quarto authoring tutorial introduces you to additional options that you can define in the YAML header.\n\n\nBasic markdown\nNext, we can begin to write out the explanatory text in our document. It is of course helpful to break our document into sections. It is simple to arrange cascading sections by using the # symbol. Using two such symbols consecutively, ##, defines a top-level section header, while additional ones (###, ####) define additional levels.\nWithin regular text you can add links in different ways:\n\n&lt;https://oairp.org/&gt; renders as https://oairp.org\n[the OAIRP website](https://oairp.org/) renders as the OAIRP website\n\nAs well as emphasize text:\n\n*italics* renders as italics\n**bold** renders as bold\n\nWe can use *, +, or - to create lists – they just have to have a blank line between the list and any text above.\nThe Quarto documentation has a great overview of the basics of Markdown.\nLet’s use some of these to continue to build out our .qmd file by adding the following after the header:\n---\ntitle: \"New Quarto Project\"\n---\n\n## Quarto\n\nQuarto is a fantastic way to get started writing reports \nwithout spending **a ton of time** messing with things like: \n\n* font sizes\n* styles\n* spacing\n\nQuarto has excellent documentation at &lt;https://quarto.org&gt;.\n\n\nCode blocks\nFinally, we’ll get back to using R code to run some simple calculations and include the result. We do this by adding a code block. A code block opens and closes with the ``` sequence. Using curly brackets after the code block opening sequence ({}), we define the language that the code block is running: for R, this is {R}.2 Inside, we’ll include the code that will produce the output we’d like to show:\n---\ntitle: \"New Quarto Project\"\n---\n\n## Quarto\n\nQuarto is a fantastic way to get started writing reports \nwithout spending **a ton of time** messing with things like: \n\n* font sizes\n* styles\n* spacing\n\nQuarto has excellent documentation at &lt;https://quarto.org&gt;.\n\n```{R}\ncalc &lt;- 1 + 1\nprint(calc)\n```\nTest this code yourself. You should see it render like it does in Appendix A.\n\n\n\n\n\n\nNote\n\n\n\nBy default, the code block prints both the code and the result. We can add special execution options at the start of the code block to define how it should be processed. Those options start with a special preface #|. Adding the echo: false execution option will suppress the code and only show the output:\n```{R}\n#| echo: false\ncalc &lt;- 1 + 1\nprint(calc)\n```\nYou can review additional Execution Options in the Quarto guide."
+  },
+  {
+    "objectID": "reports.html#in-practice-a-full-report-build",
+    "href": "reports.html#in-practice-a-full-report-build",
+    "title": "4  Building parameterized reports",
+    "section": "4.3 In Practice: A full report build",
+    "text": "4.3 In Practice: A full report build"
   },
   {
     "objectID": "reports.html#parameterizing-your-report",
     "href": "reports.html#parameterizing-your-report",
     "title": "4  Building parameterized reports",
-    "section": "4.3 Parameterizing your report",
-    "text": "4.3 Parameterizing your report"
+    "section": "4.4 Parameterizing your report",
+    "text": "4.4 Parameterizing your report"
   },
   {
     "objectID": "reports.html#exercises",
     "href": "reports.html#exercises",
     "title": "4  Building parameterized reports",
     "section": "Exercises",
-    "text": "Exercises"
+    "text": "Exercises\n\nExercise 1\nPractice using markdown. How would you:\n\nEmphasize text?\nCreate a link with custom text?\nAdd an image?\nCreate a numbered list?\n\n\n\nExercise 2\nBranstorm a few different ways you might use parameters to create a series of reports that utilize much of the same code."
   },
   {
     "objectID": "reports.html#extra-other-quarto-document-types",
     "href": "reports.html#extra-other-quarto-document-types",
     "title": "4  Building parameterized reports",
     "section": "Extra: Other Quarto document types",
-    "text": "Extra: Other Quarto document types"
+    "text": "Extra: Other Quarto document types\nThough you may be most interested in creating a report or article, Quarto is capable of generating other document types, including powerpoints, websites, and ebooks.\nThose types do get a bit more complicated, but rely on many of the basics you’ve learned in this section as building blocks. The [Quarto guide] details these possibilities.\nThis guide itself is written as a Quarto ebook, as are other resources like R for Data Science (Wickham, Çetinkaya-Rundel, and Grolemund 2023). If interested in seeing examples of quarto projects in action, you can browse their code on GitHub, which we’ll learn in Chapter 5.\n\n\n\n\nWickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. R for Data Science. \"O’Reilly Media, Inc.\". https://r4ds.hadley.nz/."
+  },
+  {
+    "objectID": "reports.html#footnotes",
+    "href": "reports.html#footnotes",
+    "title": "4  Building parameterized reports",
+    "section": "",
+    "text": "YAML stands for Yet Another Markup Language, but don’t worry - there’s not actually much to learn↩︎\nQuarto also works with other languages, including Python and Julia↩︎"
   },
   {
     "objectID": "collaboration.html#setting-up-github",
@@ -214,7 +228,14 @@
     "href": "references.html",
     "title": "References",
     "section": "",
-    "text": "R Core Team. 2023. R: A Language and Environment for Statistical\nComputing. Vienna, Austria: R Foundation for Statistical Computing.\nhttps://www.R-project.org/.\n\n\nWickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy\nD’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.\n“Welcome to the tidyverse.”\nJournal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686."
+    "text": "R Core Team. 2023. R: A Language and Environment for Statistical\nComputing. Vienna, Austria: R Foundation for Statistical Computing.\nhttps://www.R-project.org/.\n\n\nWickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy\nD’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019.\n“Welcome to the tidyverse.”\nJournal of Open Source Software 4 (43): 1686. https://doi.org/10.21105/joss.01686.\n\n\nWickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023.\nR for Data Science. \"O’Reilly Media, Inc.\". https://r4ds.hadley.nz/."
+  },
+  {
+    "objectID": "examplebasicquarto.html#quarto",
+    "href": "examplebasicquarto.html#quarto",
+    "title": "Appendix A — New Quarto Project",
+    "section": "Quarto",
+    "text": "Quarto\nQuarto is a fantastic way to get started writing reports without spending a ton of time messing with things like:\n\nfont sizes\nstyles\nspacing\n\nQuarto has excellent documentation at https://quarto.org.\n\ncalc &lt;- 1 + 1\nprint(calc)\n\n[1] 2"
   },
   {
     "objectID": "about.html",

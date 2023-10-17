@@ -20,7 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -187,6 +240,23 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">References</span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examplebasicquarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">New Quarto Project</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -198,9 +268,19 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#installing-quarto" id="toc-installing-quarto" class="nav-link active" data-scroll-target="#installing-quarto"><span class="header-section-number">4.1</span> Installing Quarto</a></li>
-  <li><a href="#creating-a-quarto-document" id="toc-creating-a-quarto-document" class="nav-link" data-scroll-target="#creating-a-quarto-document"><span class="header-section-number">4.2</span> Creating a Quarto document</a></li>
-  <li><a href="#parameterizing-your-report" id="toc-parameterizing-your-report" class="nav-link" data-scroll-target="#parameterizing-your-report"><span class="header-section-number">4.3</span> Parameterizing your report</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#creating-a-quarto-document" id="toc-creating-a-quarto-document" class="nav-link" data-scroll-target="#creating-a-quarto-document"><span class="header-section-number">4.2</span> Creating a Quarto document</a>
+  <ul class="collapse">
+  <li><a href="#quarto-document-header" id="toc-quarto-document-header" class="nav-link" data-scroll-target="#quarto-document-header">Quarto document header</a></li>
+  <li><a href="#basic-markdown" id="toc-basic-markdown" class="nav-link" data-scroll-target="#basic-markdown">Basic markdown</a></li>
+  <li><a href="#code-blocks" id="toc-code-blocks" class="nav-link" data-scroll-target="#code-blocks">Code blocks</a></li>
+  </ul></li>
+  <li><a href="#in-practice-a-full-report-build" id="toc-in-practice-a-full-report-build" class="nav-link" data-scroll-target="#in-practice-a-full-report-build"><span class="header-section-number">4.3</span> In Practice: A full report build</a></li>
+  <li><a href="#parameterizing-your-report" id="toc-parameterizing-your-report" class="nav-link" data-scroll-target="#parameterizing-your-report"><span class="header-section-number">4.4</span> Parameterizing your report</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise 1</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2">Exercise 2</a></li>
+  </ul></li>
   <li><a href="#extra-other-quarto-document-types" id="toc-extra-other-quarto-document-types" class="nav-link" data-scroll-target="#extra-other-quarto-document-types">Extra: Other Quarto document types</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -229,21 +309,151 @@ ul.task-list li input[type="checkbox"] {
 <p>This section, however, will introduce you to an open source publishing system that works with R to easily create reports using R code in a variety of formats.</p>
 <section id="installing-quarto" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="installing-quarto"><span class="header-section-number">4.1</span> Installing Quarto</h2>
-<p>This will require the <code>rmarkdown</code> and <code>knitr</code> packages.</p>
+<p>Quarto is built-in to <strong>R Studio</strong>, so there’s likely nothing extra that you have to do. For <strong>Visual Studio Code</strong>, you’ll need to install the <a href="https://marketplace.visualstudio.com/items?itemName=quarto.quarto"><strong>Quarto extension</strong></a> and Quarto itself from <a href="https://quarto.org/docs/get-started/" class="uri">https://quarto.org/docs/get-started/</a>. When you begin a Quarto project that includes <code>.pdf</code> output, you’ll be prompted to install <a href="https://yihui.org/tinytex/">TinyTex</a> by using the OS Terminal command <code>quarto install tinytex</code>.</p>
+<p>Using Quarto will require the R packages <code>rmarkdown</code> and <code>knitr</code>.</p>
 </section>
 <section id="creating-a-quarto-document" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="creating-a-quarto-document"><span class="header-section-number">4.2</span> Creating a Quarto document</h2>
+<p>Quarto documents use the <code>.qmd</code> extension, since Quarto makes extensive use of the <code>markdown</code> syntax. Markdown is a relatively simple coding scheme that is designed to be both human- and machine-readable.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Markdown is used extensively across the modern web, including at <a href="https://reddit.com">Reddit</a> and <a href="https://discord.com">Discord</a>. <a href="https://github.com">GitHub</a>, which we’ll discuss in <a href="collaboration.html"><span>Chapter&nbsp;5</span></a>, uses Markdown for its <code>README.md</code> files to allow developers to share info about their projects in a visually appealing manner.</p>
+</div>
+</div>
+<p>You can create a Quarto document simply by creating a new file with the extension <code>.qmd</code>. However, both <strong>R Studio</strong> and <strong>Visual Studio Code</strong> include menus to utilize templates that give you a great place to start. Go ahead and start a new Quarto project.</p>
+<section id="quarto-document-header" class="level3">
+<h3 class="anchored" data-anchor-id="quarto-document-header">Quarto document header</h3>
+<p>The first section of a Quarto document is the header. The header is comprised of a special series of tags that define how the document should be rendered, in a format called YAML<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. A very simple such example is to simply define the document’s title:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"New Quarto Project"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <a href="https://quarto.org/docs/get-started/authoring/vscode.html">Quarto authoring tutorial</a> introduces you to additional options that you can define in the YAML header.</p>
 </section>
-<section id="parameterizing-your-report" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="parameterizing-your-report"><span class="header-section-number">4.3</span> Parameterizing your report</h2>
+<section id="basic-markdown" class="level3">
+<h3 class="anchored" data-anchor-id="basic-markdown">Basic markdown</h3>
+<p>Next, we can begin to write out the explanatory text in our document. It is of course helpful to break our document into sections. It is simple to arrange cascading sections by using the <code>#</code> symbol. Using two such symbols consecutively, <code>##</code>, defines a top-level section header, while additional ones (<code>###</code>, <code>####</code>) define additional levels.</p>
+<p>Within regular text you can add links in different ways:</p>
+<ul>
+<li><code>&lt;https://oairp.org/&gt;</code> renders as <a href="https://oairp.org" class="uri">https://oairp.org</a></li>
+<li><code>[the OAIRP website](https://oairp.org/)</code> renders as <a href="https://oairp.org/">the OAIRP website</a></li>
+</ul>
+<p>As well as emphasize text:</p>
+<ul>
+<li><code>*italics*</code> renders as <em>italics</em></li>
+<li><code>**bold**</code> renders as <strong>bold</strong></li>
+</ul>
+<p>We can use <code>*</code>, <code>+</code>, or <code>-</code> to create lists – they just have to have a blank line between the list and any text above.</p>
+<p>The <a href="https://quarto.org/docs/authoring/markdown-basics.html">Quarto documentation</a> has a great overview of the basics of Markdown.</p>
+<p>Let’s use some of these to continue to build out our <code>.qmd</code> file by adding the following after the header:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "New Quarto Project"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quarto</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Quarto is a fantastic way to get started writing reports </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>without spending **a ton of time** messing with things like: </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>font sizes</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>styles</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>spacing</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>Quarto has excellent documentation at <span class="ot">&lt;https://quarto.org&gt;</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="code-blocks" class="level3">
+<h3 class="anchored" data-anchor-id="code-blocks">Code blocks</h3>
+<p>Finally, we’ll get back to using R code to run some simple calculations and include the result. We do this by adding a code block. A code block opens and closes with the <code>```</code> sequence. Using curly brackets after the code block opening sequence (<code>{}</code>), we define the language that the code block is running: for R, this is <code>{R}</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> Inside, we’ll include the code that will produce the output we’d like to show:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "New Quarto Project"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quarto</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>Quarto is a fantastic way to get started writing reports </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>without spending **a ton of time** messing with things like: </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>font sizes</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>styles</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ss">* </span>spacing</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Quarto has excellent documentation at <span class="ot">&lt;https://quarto.org&gt;</span>.</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{R}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>calc <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(calc)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Test this code yourself. You should see it render like it does in <a href="./examplebasicquarto.html">Appendix A</a>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, the code block prints both the code and the result. We can add special execution options at the start of the code block to define how it should be processed. Those options start with a special preface <code>#|</code>. Adding the <code>echo: false</code> execution option will suppress the code and only show the output:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{R}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>calc <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(calc)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can review additional <a href="https://quarto.org/docs/computations/execution-options.html">Execution Options</a> in the Quarto guide.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="in-practice-a-full-report-build" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="in-practice-a-full-report-build"><span class="header-section-number">4.3</span> In Practice: A full report build</h2>
+</section>
+<section id="parameterizing-your-report" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="parameterizing-your-report"><span class="header-section-number">4.4</span> Parameterizing your report</h2>
 </section>
 <section id="exercises" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="exercises">Exercises</h2>
+<section id="exercise-1" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1">Exercise 1</h3>
+<p>Practice using markdown. How would you:</p>
+<ul>
+<li>Emphasize text?</li>
+<li>Create a link with custom text?</li>
+<li>Add an image?</li>
+<li>Create a numbered list?</li>
+</ul>
+</section>
+<section id="exercise-2" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2">Exercise 2</h3>
+<p>Branstorm a few different ways you might use parameters to create a series of reports that utilize much of the same code.</p>
+</section>
 </section>
 <section id="extra-other-quarto-document-types" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="extra-other-quarto-document-types">Extra: Other Quarto document types</h2>
+<p>Though you may be most interested in creating a report or article, Quarto is capable of generating other document types, including powerpoints, websites, and ebooks.</p>
+<p>Those types do get a bit more complicated, but rely on many of the basics you’ve learned in this section as building blocks. The [Quarto guide] details these possibilities.</p>
+<p>This guide itself is written as a Quarto ebook, as are other resources like <strong>R for Data Science</strong> <span class="citation" data-cites="wickham2023r">(<a href="references.html#ref-wickham2023r" role="doc-biblioref">Wickham, Çetinkaya-Rundel, and Grolemund 2023</a>)</span>. If interested in seeing examples of quarto projects in action, you can browse their code on GitHub, which we’ll learn in <a href="collaboration.html"><span>Chapter&nbsp;5</span></a>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-wickham2023r" class="csl-entry" role="listitem">
+Wickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. <em>R for Data Science</em>. "O’Reilly Media, Inc.". <a href="https://r4ds.hadley.nz/">https://r4ds.hadley.nz/</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>YAML stands for Yet Another Markup Language, but don’t worry - there’s not actually much to learn<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Quarto also works with other languages, including Python and Julia<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
