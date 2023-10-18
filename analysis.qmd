@@ -1,1 +1,71 @@
 # Statistical analysis & data visualizations {#sec-analysis}
+
+## Statistical analysis
+
+R was created as a statistics-focused programming language, so it's important to at least briefly showcase how R can be used to run statistical methods and quickly produce results that can then be visualized, used in reports, and stored for future use.  However, institutional researchers come from many different backgrounds, and we don't want to assume that all IR professionals reading this guide have the same level of knowledge of statistical methods.  We'll keep this section brief, but know that if a method exists, it likely has an implementation in R.
+
+In this section we'll build off of the occupational projections data that we worked with in @sec-dataset2, which is stored as the R data object `projections_data`.
+{{< include cleanoccupationsdata.qmd >}}
+
+### Descriptive statistics
+
+During data cleaning, we utilized the `summary()` function in conjunction with `glimpse()` to quickly examine a dataset.  The `summary()` function displays basic descriptive statistics about every numeric variable in the dataset:
+
+```{R}
+summary(projections_data)
+```
+
+Here we can quickly identify some important information about the dataset:
+
+* it includes `r count(projections_data)` occupations that currently employ a range of `r min(projections_data$Current_jobs)` to `r prettyNum(max(projections_data$Current_jobs), big.mark = ",")` persons,^[Though the summary occupation lines likely cover persons in all occupations, it seems an occupation has to have 100 or more workers to be included at a detail level in these reports.]
+* the typical occupation is projected to grow `r scales::label_percent()(median(projections_data$Change_pct))` over the next ten years,
+* the median occupation will have `r median(projections_data$Tot_openings)` opening each year,^[from growth ~`r median(projections_data$Growth)`/yr, exits ~`r median(projections_data$Exits)`/yr, and transfers ~`r median(projections_data$Transfers)`/yr.  Exits are people in the occupation leaving the labor force (mainly retirements), while transfers are people moving into a different occupation.] and
+* the median occupation pays `r scales::label_dollar()(median(projections_data$annual_wage, na.rm=TRUE))`.
+
+### Inferential statistics: linear regression
+
+Now let's use linear regression to build a simple model.  Let's see whether annual wages might predict the rate at which persons leave an occupation. 
+
+We'll first need to create an additonal variable to calculate the occupational turnover rate, which we'll use as our outcome variable.
+
+Then we'll use the `lm` function provided in base R.  We'll store the regression model as an R object, so we can work with it.
+
+```{R}
+projections_data <- projections_data |>
+    mutate(
+        turnover_rate = (Exits + Transfers) / Current_jobs
+        )
+
+projections_model <- lm(turnover_rate ~ annual_wage, 
+                            data = projections_data, na.action=na.exclude)
+
+summary(projections_model)
+```
+
+You can see that annual wages does appear to be a strong predictor of occupational turnover rate, since its coefficient is statistically significant and the model explains a considerable proportion of the variance.
+
+Keen-eyed readers will note that wages may not be sufficiently normal to use as a variable in linear regression and likely needs a data transformation.  Variables with quantity often need a log transform to be treated as sufficiently normal.  We can make a quick adjustment to our code for this, without even needing a new variable:
+
+```{R}
+projections_model <- lm(turnover_rate ~ log(annual_wage), 
+                            data = projections_data, na.action=na.exclude)
+
+summary(projections_model)
+```
+
+This correction seems to have improved our model considerably, as the model now explains even more of the variance in occupational turnover rate.
+
+The residuals may be of interest, so let's pull them back into our projections_data:
+
+```{R}
+projections_data <- projections_data |>
+    mutate(residuals = residuals(projections_model))
+
+glimpse(projections_data)
+```
+
+## Data visualizations
+
+
+## Extras {.unnumbered}
+

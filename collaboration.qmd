@@ -55,15 +55,33 @@ You'll want to associate the email address you use in Git with your GitHub accou
 
 ## Syncing a project with GitHub {#sec-syncGitHub}
 
+***needs content***
 
 ### Setting up a project started on GitHub to sync locally
 
+***needs content***
 
 ### Setting up a project started locally to sync with GitHub
 
 
 ## The basics of Git operations
 
+***needs content***
+
+::: {.callout-note}
+There are additional Git concepts that may be helpful if you are working in a larger team:
+
+merge conflict
+: an issue that occurs when multiple changes are being made to the same line(s) of code.  Push/sync will return an error until resolved, typically by making changes to the file that is blocked by the merge conflict.
+
+branch
+: an additional copy of the code that can be used when a developer or team of developers are working on a set of features in development.  This ensures that the main copy is not affected during the development.
+
+merge branch
+: the process of merging new features created by a separate branch back to the main branch.
+
+The details of these are beyond the scope of this guide, but it's helpful to know about them so you know when you may want to learn more.  One resource is the Git & GitHub RStudio [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/git-github.pdf).
+:::
 
 ## Exercises {.unnumbered}
 

@@ -57,7 +57,7 @@ We'll choose `USA (OH) [https]`, which is the mirror hosted in Ohio by Case.
   See @sec-rprofile for details on how to set your default CRAN repository.
 :::
 
-We'll install additional packages later in @sec-installRpackages.
+We'll install additional packages later.
 
 
 Accessing R in the basic R terminal is fairly limited, so we can close out of the program (or enter the `q()` command).  R will ask you if you'd like to save the workspace image - just click "No".

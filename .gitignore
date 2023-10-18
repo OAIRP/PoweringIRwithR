@@ -49,5 +49,6 @@ rsconnect/
 
 /.quarto/
 
-# zip
+# downloaded files
 *.zip
+*.xlsx

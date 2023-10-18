@@ -1,5 +1,6 @@
 ---
 title: "New Quarto Project"
+toc: false
 ---
 
 ## Quarto {.unnumbered}

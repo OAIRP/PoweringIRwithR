@@ -6,17 +6,238 @@
 
 ## Importing data
 
-### From a local file
+### By file format
 
-### From an online file
+#### Comma-separated values (`.csv`)
+
+#### Excel files (`.xlsx`)
+
+```{R}
+library("readxl")
+```
+
+### By file location
+
+#### From a local file
+
+#### From an online file
+
+```{R}
+#| output: false
+library("curl")
+```
 
 ### From a database
 
 
 ## Tidy data
 
-## In Practice: Working with IPEDS data
+```{R}
+#| output: false
+library("tidyverse")
+```
+
+## In Practice: Dataset #1 -- IPEDS data {#sec-dataset1}
+
+
+### Dataset #1 complete code
+
+
+## In Practice: Dataset #2 -- Occupation Projections data {#sec-dataset2}
+
+For our second example dataset, we'll work with Occupational Projections data from the Ohio Department of Jobs and Family Services, Bureau of Labor Statistics.  The Long-Term Projections data by JobsOhio region and Metropolitan Statistical Area (MSA) can be found at <https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>.  As interest in post-graduate outcomes increases throughout higher education, institutional researchers are increasingly working with labor market data.
+
+We'll begin with the Central Ohio Excel file.  If you copy the URL, you'll get ,<https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx>.
+
+::: {.callout-note}
+If you hover over the file links, you'll notice that they share a common URL stem (`https://ohiolmi.com/_docs/PROJ/JobsOhio/`), which will be helpful to use in parameterized reports, covered in @sec-reports.
+:::
+
+Let's store that URL to make it easier to use:
+
+```{R}
+projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
+```
+
+We'll pull down the file with curl:
+
+```{R}
+curl_download(projections_url, "projectionsdata.xlsx")
+```
+
+Next we'll try to import the file as a data object, and then check the results with `summary()` and `glimpse()`:
+
+```{R}
+projections_data <- read_xlsx("projectionsdata.xlsx")
+glimpse(projections_data)
+summary(projections_data)
+```
+
+That returned a bunch of junk, because there are multiple header rows in the file.  Luckily, there's an optional parameter we can add to `read_xlsx` to skip to the line we want (line 6 has the headers we want), which we can read about in the [`readxl` documentation](https://readxl.tidyverse.org/reference/read_excel.html).
+
+```{R}
+projections_data <- read_xlsx("projectionsdata.xlsx", skip = 5)
+glimpse(projections_data)
+summary(projections_data)
+```
+
+It seems we have a little more data cleaning to do.  We need to change the types of a few columns^[By default, the tidyverse `read_` functions guess at column types by examining the fields, but it is imperfect.], rename a few columns, and do some filtering to remove the summary occupations.  Let's use additional parameters in `read_xlsx` to define types and column names.  By providing the column names instead of importing them, we need to change the `skip = ` option to 6 instead of 5.
+
+::: {.callout-note}
+There's often more than one way to do something.  Instead of providing column names on the import (and changing the skip parameter), we could rename the columns with the `rename()` function after import.
+:::
+
+```{R}
+#| warning: false
+projections_data <- read_xlsx(
+    "projectionsdata.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+)
+
+glimpse(projections_data)
+summary(projections_data)
+```
+
+Next, let's filter the dataset to remove those summary occupations and any notes at the end.
+
+Summary occupations are coded with SOC codes ending in "0000", so we can quickly identify them.  In Excel, we'd likely use the `MID()` or `RIGHT()` commands to pull out that sequence.  In R's tidyverse package, we can use `str_sub()`, which works very similar to these, extracting a subset of the string field based on character position.  Negative values mean work from the end.
+
+Any rows with anything other than the SOC code in the SOC column should be ignored.  Since SOC codes are 7 characters long, we'll try to use that.  In Excel, we'd use `LEN()` to get the length, while here we'll use `str_length()` from the tidyverse package.  Note that in R, equals and not equals (`==` and `!=`) are different than in Excel (`=` and `<>`)
+
+```{R}
+projections_data <- projections_data |>
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        )
+
+glimpse(projections_data)
+summary(projections_data)
+```
+
+And finally, we need to adjust the wage column.  It seems that there is a mix of hourly and annual wage figures in this column.  Let's convert all of them to annual wages as a new variable, by multiplying any values below $200/hr by 2,080 hours/yr.  We'll do this by using `mutate()` to create the new variable, and define it using a `case_when()`.^[`case_when()` is inspired by the SQL `CASE` statement, and is more elegant than nested `IF()` functions you may be used to using in Excel.] 
+
+
+```{R}
+projections_data <- projections_data |>
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    )
+
+glimpse(projections_data)
+summary(projections_data)
+```
+
+And now we have a clean dataset!  We'll use this further in @sec-analysis and @sec-reports, so let's show what it looks like all together.
+
+### Dataset #2 complete code
+
+```{R}
+#| eval: false
+# load libraries
+library("readxl")
+library("curl")
+library("tidyverse")
+
+# define file url
+projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
+
+# download file
+curl_download(projections_url, "projectionsdata.xlsx")
+
+# read file with approrpiate settings
+projections_data <- read_xlsx(
+    "projectionsdata.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+    ) |>
+
+    # remove summary occupations and notes/blank rows
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        ) |>
+        
+    # create annual wage column so values are consistent
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    )
+    
+```
 
 ## Exercises {.unnumbered}
+
+### Exercise 1
+
+We used functions from several tidyverse packages.  Especially when learning, it's nice to have quick references.  Tidyverse has a series of official cheat sheets that you'll likely find useful.  Take a look:
+
+| package | what this package is about | site | cheat sheet |
+|---------|----------------------------|------|-------------|
+| readxl | data import (esp. Excel files) | [site](https://readxl.tidyverse.org/) | [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf) |
+| dplyr | data transformation | [site](https://dplyr.tidyverse.org) | [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf) |
+| stringr | working with text | [site](https://stringr.tidyverse.org/) | [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/strings.pdf) |
+| factors | categorical data | [site](https://forcats.tidyverse.org) | [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/factors.pdf) |
+
 
 ## Extra: Exporting data {.unnumbered}

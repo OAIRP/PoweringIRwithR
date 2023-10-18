@@ -113,10 +113,11 @@ You can review additional [Execution Options](https://quarto.org/docs/computatio
 
 ## In Practice: A full report build
 
-
+***needs content***
 
 ## Parameterizing your report
 
+***needs content***
 
 ## Exercises {.unnumbered}
 
@@ -129,6 +130,7 @@ Practice using markdown.  How would you:
 * Add an image?
 * Create a numbered list?
 
+Take a look at the RStudio cheat sheet for [Quarto](https://github.com/rstudio/cheatsheets/blob/main/quarto.pdf) and the cheet sheet for [rmarkdown](), specifically the section to the far right titled "Write with Markdown."^[Quarto is an evolution of rmarkdown, adding additional functionality and programming languages.]
 
 ### Exercise 2
 
