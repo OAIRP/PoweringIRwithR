@@ -113,13 +113,530 @@ You can review additional [Execution Options](https://quarto.org/docs/computatio
 
 ## In Practice: A full report build
 
-***needs content***
+Now let's build a full report, working with the data we've cleaned and analyzed in @sec-dataset1 and @sec-analysis, `projections_data`.  If we pull the code together, we should have:
 
-You should see it render like it does in [Appendix B](examplefullquartoreport.qmd)
+```` markdown
+```{{R}}
+# load libraries
+library("readxl")
+library("curl")
+library("tidyverse")
+
+# define file url
+projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
+
+# download file
+curl_download(projections_url, "projectionsdata.xlsx")
+
+# read file with approrpiate settings
+projections_data <- read_xlsx(
+    "projectionsdata.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+    ) |>
+
+    # remove summary occupations and notes/blank rows
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        ) |>
+        
+    # create annual wage column so values are consistent
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    ) |>
+
+    # create turnover rate variable
+    mutate(
+        turnover_rate = (Exits + Transfers) / Current_jobs
+        )
+    
+# run linear regression model to predict turnover rate using annual wage
+projections_model <- lm(turnover_rate ~ log(annual_wage), 
+                            data = projections_data,
+                            na.action = na.exclude)
+
+# add the residuals back to projections_data
+projections_data <- projections_data |>
+    mutate(residuals = residuals(projections_model))
+```
+````
+
+### Starting a new report
+
+Now we're going to start a new Quarto file (`.qmd`).  We'll start with the header but add a title that describes our report, then add a short introduction to the report describing the data source we're using, and then add the code from above with the execution option `include: false` so that it is only used to prepare the R objects we'll use.
+
+```` markdown
+---
+title: "Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio"
+---
+
+Source: ODJFS Bureau of Labor Market Information, Long-Term Occupational Projections 
+for the Central Ohio JobsOhio region, 2020-2030. 
+<https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>
+
+```{{R}}
+#| include: false
+# load libraries
+library("readxl")
+library("curl")
+library("tidyverse")
+
+# define file url
+projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
+
+# download file
+curl_download(projections_url, "projectionsdata.xlsx")
+
+# read file with approrpiate settings
+projections_data <- read_xlsx(
+    "projectionsdata.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+    ) |>
+
+    # remove summary occupations and notes/blank rows
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        ) |>
+        
+    # create annual wage column so values are consistent
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    ) |>
+
+    # create turnover rate variable
+    mutate(
+        turnover_rate = (Exits + Transfers) / Current_jobs
+        )
+    
+# run linear regression model to predict turnover rate using annual wage
+projections_model <- lm(turnover_rate ~ log(annual_wage), 
+                            data = projections_data,
+                            na.action = na.exclude)
+
+# add the residuals back to projections_data
+projections_data <- projections_data |>
+    mutate(residuals = residuals(projections_model))
+```
+````
+
+### Adding content
+
+Now we'll need to call upon a few libraries that we'll use to prepare data tables for a report.  We'll need `knitr` to use code to build tables for the report and `scales` to format raw numbers appropriately.^[`scales` is actually used by `ggplot2`, but we'll load it just in case.]
+
+::: {callout.tip}
+Though we're using only data tables for this report, you can build a report with graphs like those you built in @sec-analysis in much the same way.  See the [Quarto guide](https://quarto.org/docs/computations/r.html) for more details.
+:::
+
+We'll use the `label_` functions from `scales` to create new display variables we'll use in our printed tables.  Those `label_` functions work similarly to Microsoft Excel's `TEXT()` functions.  We'll include the `include: false` option again since we don't need this code or any output in our report, just to continue to build out the R data objects we're using.
+
+```` markdown
+```{{R}}
+#| include: false
+library("knitr")
+library("scales")
+projections_data <- projections_data |>
+    mutate(
+        Current_jobs_displ = label_number(big.mark = ",")(Current_jobs),
+        Change_pct_displ = label_percent(accuracy = .1)(Change_pct),
+        Tot_openings_displ = label_number(big.mark = ",")(Tot_openings),
+        annual_wage_displ = label_dollar()(annual_wage),
+        turnover_rate_displ = label_percent(accuracy = .1)(turnover_rate)
+    )
+
+```
+````
+
+Let's build out our first section.  We'll make a summary table of the 15 largest occupations, displaying the occupation name, code, current number of jobs, 10-yr change, annual openings, median earnings, and turnover rate.
+
+We'll start with a section header name (preceded by `##`).  Next we'll open a code block, and specify the `echo: false` execution option so that only the result appears in the report, not the code.
+
+Then we'll use `slice_max()` to pull the 15 largest occupations (by passing the `Current_jobs` variable and an `n = 15` parameter).  We'll sort (arrange) those occupations in decending order using `arrange()` but using `-` ahead of the variable name to indicate the sort should be descending, then use `select()` to keep only those variables used in the report.  If we were using Pivot Tables in Microsoft Excel, these steps would be equivalent to filtering and sorting on row values.
+
+Finally, we'll call the `kable` function from the `knitr` package to build a nice table designed to be read by humans.  Within that function we'll specify how the columns will align (using `align = `) and give proper column headings (using `col.names = `).
+
+```` markdown
+## Largest 15 occupations
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_max(Current_jobs, n = 15) |>
+    arrange(-Current_jobs) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+````
+
+::: {callout.note}
+We're only modifying `projections_data` temporarily, not storing the result back as `projections_data`.  This allows us to build additional similar tables quickly.
+:::
+
+For the fastest-growing and lowest-turnover, we'll focus on modifying the `slice_` and `arrange` lines of code:
+
+````
+## 15 fastest-growing occupations
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_max(Change_pct, n = 15) |>
+    arrange(-Change_pct) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## 15 occupations with the lowest turnover rates
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_min(turnover_rate, n = 15) |>
+    arrange(turnover_rate) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+````
+
+Lastly, we'll make use of the analysis we ran in @sec-analysis.  We'll generate a table with the lowest turnover rates relative to median earnings by using the `residuals` that we received from our regression model.
+
+```` markdown
+## 15 occupations with the lowest turnover rates relative to median earnings
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_min(residuals, n = 15) |>
+    arrange(residuals) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+````
+
+### Full render
+
+Run the report.  You should see it render and pull together the four tables we worked on above.  Check your work against [Appendix B](examplefullquartoreport.qmd)
 
 ## Parameterizing your report
 
-***needs content***
+Let's prepare the report to run with different options by modifying just a few sections of the code.
+
+The key here is to use Quarto's powerful [**parameters**](https://quarto.org/docs/computations/parameters.html) capability.  We can set parameters in the Quarto document header, and then reference them in our R code blocks.
+
+In the Quarto document header, we'll add the `params:` option, followed by parameter names and values:
+
+```` markdown
+---
+title: "Report: The largest, fastest-growing, and lowest-turnover occupations in our region"
+params:
+    region: Southeast
+    top_n: 10
+---
+````
+
+We'll then change pieces of our code to call those parameters.  We call them by using `params$region` and `params$top_n`.^[`params` is an R data object being passed by Quarto, and `$` tells R to pull out specific variables (columns) from that object.]  
+
+Outside of our code blocks, like in headers and regular text we can call the parameters using special inline code:`` `r params$value` ``.^[Inline code can also be used to call summary figures in your text paragraphs.  We did this for the guide in @sec-analysis in the section about `summary()`.]
+
+We'll need to:
+
+1. Change the reference to the region in the "Source:" paragraph;
+2. Modify the `projections_url` line using `str_c` so that we include the region;
+3. Change the `15` in every header; and
+4. Change the `15` in the `slice_` functions in each code block.
+
+If successful, we'll be able to run the report for a specified region (that matches the ODJFS projections URL) and a specified limit for the number of occupations returned for the tables.  We'll change from Central Ohio to Southeast Ohio and from 15 occupations to 10 occupations to test our code.
+
+```` markdown
+---
+title: "Report: The largest, fastest-growing, and lowest-turnover occupations in our region"
+params:
+    region: Southeast
+    top_n: 10
+---
+
+Source: ODJFS Bureau of Labor Market Information, 
+Long-Term Occupational Projections for the `r params$region` Ohio JobsOhio region, 2020-2030. 
+<https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>
+
+```{{R}}
+#| include: false
+# load libraries
+library("readxl")
+library("curl")
+library("tidyverse")
+
+# define file url
+projections_url <- str_c(
+                    "https://ohiolmi.com/_docs/PROJ/JobsOhio/",
+                    params$region,
+                    ".xlsx"
+)
+
+# download file
+curl_download(projections_url, "projectionsdata2.xlsx")
+
+# read file with approrpiate settings
+projections_data <- read_xlsx(
+    "projectionsdata2.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+    ) |>
+
+    # remove summary occupations and notes/blank rows
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        ) |>
+        
+    # create annual wage column so values are consistent
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    ) 
+    
+```
+
+```{{R}}
+#| include: false
+projections_data <- projections_data |>
+    mutate(
+        turnover_rate = (Exits + Transfers) / Current_jobs
+        )
+
+projections_model <- lm(turnover_rate ~ log(annual_wage), 
+                            data = projections_data,
+                            na.action = na.exclude)
+
+projections_data <- projections_data |>
+    mutate(residuals = residuals(projections_model))
+```
+
+```{{R}}
+#| include: false
+library("knitr")
+library("scales")
+projections_data <- projections_data |>
+    mutate(
+        Current_jobs_displ = label_number(big.mark = ",")(Current_jobs),
+        Change_pct_displ = label_percent(accuracy = .1)(Change_pct),
+        Tot_openings_displ = label_number(big.mark = ",")(Tot_openings),
+        annual_wage_displ = label_dollar()(annual_wage),
+        turnover_rate_displ = label_percent(accuracy = .1)(turnover_rate)
+    )
+
+```
+
+
+## Largest `r params$top_n` occupations
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_max(Current_jobs, n = params$top_n) |>
+    arrange(-Current_jobs) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## `r params$top_n` fastest-growing occupations
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_max(Change_pct, n = params$top_n) |>
+    arrange(-Change_pct) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## `r params$top_n` occupations with the lowest turnover rates
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_min(turnover_rate, n = params$top_n) |>
+    arrange(turnover_rate) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## `r params$top_n` occupations with the lowest turnover rates relative to median earnings
+
+```{{R}}
+#| echo: false
+projections_data |>
+    slice_min(residuals, n = params$top_n) |>
+    arrange(residuals) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+````
+
+Once again, you can check your code against [Appendix C](exampleparameterizedreport.qmd).
 
 ## Exercises {.unnumbered}
 

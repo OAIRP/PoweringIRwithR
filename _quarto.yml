@@ -30,6 +30,7 @@ book:
   appendices:
     - examplebasicquarto.qmd
     - examplefullquartoreport.qmd
+    - exampleparameterizedreport.qmd
   page-navigation: true
   reader-mode: true
   page-footer:

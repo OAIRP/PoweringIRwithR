@@ -45,7 +45,7 @@ library("tidyverse")
 
 ## In Practice: Dataset #2 -- Occupation Projections data {#sec-dataset2}
 
-For our second example dataset, we'll work with Occupational Projections data from the Ohio Department of Jobs and Family Services, Bureau of Labor Statistics.  The Long-Term Projections data by JobsOhio region and Metropolitan Statistical Area (MSA) can be found at <https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>.  As interest in post-graduate outcomes increases throughout higher education, institutional researchers are increasingly working with labor market data.
+For our second example dataset, we'll work with Occupational Projections data from the Ohio Department of Jobs and Family Services, Bureau of Labor Market Information.  The Long-Term Projections data by JobsOhio region and Metropolitan Statistical Area (MSA) can be found at <https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>.  As interest in post-graduate outcomes increases throughout higher education, institutional researchers are increasingly working with labor market data.
 
 We'll begin with the Central Ohio Excel file.  If you copy the URL, you'll get ,<https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx>.
 

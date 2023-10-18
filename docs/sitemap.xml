@@ -2,50 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/index.html</loc>
-    <lastmod>2023-10-18T04:19:09.218Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.453Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/intro.html</loc>
-    <lastmod>2023-10-18T04:19:09.229Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.462Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/workingwithdata.html</loc>
-    <lastmod>2023-10-18T04:19:09.239Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.475Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/analysis.html</loc>
-    <lastmod>2023-10-18T04:19:09.244Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.480Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/reports.html</loc>
-    <lastmod>2023-10-18T04:19:09.253Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.505Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/collaboration.html</loc>
-    <lastmod>2023-10-18T04:19:09.257Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.510Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/references.html</loc>
-    <lastmod>2023-10-18T04:19:09.260Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.513Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/examplebasicquarto.html</loc>
-    <lastmod>2023-10-18T04:19:09.263Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.515Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/examplefullquartoreport.html</loc>
-    <lastmod>2023-10-18T04:19:09.274Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.527Z</lastmod>
+  </url>
+  <url>
+    <loc>https://oairp.github.io/PoweringIRwithR/exampleparameterizedreport.html</loc>
+    <lastmod>2023-10-18T05:52:41.534Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/about.html</loc>
-    <lastmod>2023-10-18T04:19:05.434Z</lastmod>
+    <lastmod>2023-10-18T05:52:37.011Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/acknowledgements.html</loc>
-    <lastmod>2023-10-18T04:19:05.800Z</lastmod>
+    <lastmod>2023-10-18T05:52:37.375Z</lastmod>
   </url>
   <url>
     <loc>https://oairp.github.io/PoweringIRwithR/Powering-Institutional-Research-with-R.epub</loc>
-    <lastmod>2023-10-18T04:19:08.994Z</lastmod>
+    <lastmod>2023-10-18T05:52:41.187Z</lastmod>
   </url>
 </urlset>

@@ -1,10 +1,78 @@
 ---
-title: "Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio"
+title: "Report: The largest, fastest-growing, and lowest-turnover occupations in our region"
+params:
+    region: Southeast
+    top_n: 10
 ---
 
-Source: ODJFS Bureau of Labor Market Information, Long-Term Occupational Projections for the Central Ohio JobsOhio region, 2020-2030. <https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>
+Source: ODJFS Bureau of Labor Market Information, Long-Term Occupational Projections for the `r params$region` Ohio JobsOhio region, 2020-2030. <https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23>
 
-{{< include cleanoccupationsdata.qmd >}}
+```{R}
+#| include: false
+# load libraries
+library("readxl")
+library("curl")
+library("tidyverse")
+
+# define file url
+projections_url <- str_c(
+                    "https://ohiolmi.com/_docs/PROJ/JobsOhio/",
+                    params$region,
+                    ".xlsx"
+)
+
+# download file
+curl_download(projections_url, "projectionsdata2.xlsx")
+
+# read file with approrpiate settings
+projections_data <- read_xlsx(
+    "projectionsdata2.xlsx",
+    skip = 6,
+    col_names = c(
+        "SOC",
+        "Occupation",
+        "Current_jobs",
+        "Projected_jobs",
+        "Change_num",
+        "Change_pct",
+        "Growth",
+        "Exits",
+        "Transfers",
+        "Tot_openings",
+        "Wage",
+        "Notes"
+    ),
+    col_types = c(
+        "text",
+        "text",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "numeric",
+        "text"
+    )
+    ) |>
+
+    # remove summary occupations and notes/blank rows
+    filter(
+        str_sub(SOC, -4, -1) != "0000",
+        str_length(SOC) == 7
+        ) |>
+        
+    # create annual wage column so values are consistent
+    mutate(
+        annual_wage = case_when(
+            Wage < 200 ~ Wage * 2080,
+            .default = Wage
+        )
+    ) 
+    
+```
 
 ```{R}
 #| include: false
@@ -37,12 +105,12 @@ projections_data <- projections_data |>
 ```
 
 
-## Largest 15 occupations {.unnumbered}
+## Largest `r params$top_n` occupations {.unnumbered}
 
 ```{R}
 #| echo: false
 projections_data |>
-    slice_max(Current_jobs, n = 15) |>
+    slice_max(Current_jobs, n = params$top_n) |>
     arrange(-Current_jobs) |>
     select(
         Occupation, SOC, Current_jobs_displ, Change_pct_displ,
@@ -57,12 +125,12 @@ projections_data |>
         )
 ```
 
-## 15 fastest-growing occupations {.unnumbered}
+## `r params$top_n` fastest-growing occupations {.unnumbered}
 
 ```{R}
 #| echo: false
 projections_data |>
-    slice_max(Change_pct, n = 15) |>
+    slice_max(Change_pct, n = params$top_n) |>
     arrange(-Change_pct) |>
     select(
         Occupation, SOC, Current_jobs_displ, Change_pct_displ,
@@ -77,12 +145,12 @@ projections_data |>
         )
 ```
 
-## 15 occupations with the lowest turnover rates {.unnumbered}
+## `r params$top_n` occupations with the lowest turnover rates {.unnumbered}
 
 ```{R}
 #| echo: false
 projections_data |>
-    slice_min(turnover_rate, n = 15) |>
+    slice_min(turnover_rate, n = params$top_n) |>
     arrange(turnover_rate) |>
     select(
         Occupation, SOC, Current_jobs_displ, Change_pct_displ,
@@ -97,12 +165,12 @@ projections_data |>
         )
 ```
 
-## 15 occupations with the lowest turnover rates relative to median earnings {.unnumbered}
+## `r params$top_n` occupations with the lowest turnover rates relative to median earnings {.unnumbered}
 
 ```{R}
 #| echo: false
 projections_data |>
-    slice_min(residuals, n = 15) |>
+    slice_min(residuals, n = params$top_n) |>
     arrange(residuals) |>
     select(
         Occupation, SOC, Current_jobs_displ, Change_pct_displ,

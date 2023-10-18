@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Powering Institutional Research with R - Appendix B — Largest 15 occupations in our region</title>
+<title>Powering Institutional Research with R - Appendix B — Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./exampleparameterizedreport.html" rel="next">
 <link href="./examplebasicquarto.html" rel="prev">
 <link href="./favicon.ico" rel="icon">
 <script src="site_libs/quarto-html/quarto.js"></script>
@@ -62,12 +63,13 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Powering Institutional Research with R - Appendix B — Largest 15 occupations in our region">
+<meta property="og:title" content="Powering Institutional Research with R - Appendix B — Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://oairp.github.io/PoweringIRwithR/cover.png">
 <meta property="og:site-name" content="Powering Institutional Research with R">
 <meta property="og:image:height" content="1055">
 <meta property="og:image:width" content="815">
-<meta name="citation_title" content="Appendix B — Largest 15 occupations in our region">
+<meta name="citation_title" content="Appendix B — Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio">
 <meta name="citation_fulltext_html_url" content="https://oairp.github.io/PoweringIRwithR//examplefullquartoreport.html">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
@@ -87,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./examplebasicquarto.html">Appendices</a></li><li class="breadcrumb-item"><a href="./examplefullquartoreport.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Largest 15 occupations in our region</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./examplebasicquarto.html">Appendices</a></li><li class="breadcrumb-item"><a href="./examplefullquartoreport.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -204,7 +206,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./examplefullquartoreport.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Largest 15 occupations in our region</span></span></a>
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./exampleparameterizedreport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Report: The largest, fastest-growing, and lowest-turnover occupations in our region</span></span></a>
   </div>
 </li>
       </ul>
@@ -219,9 +227,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fastest-growing-occupations-in-our-region" id="toc-fastest-growing-occupations-in-our-region" class="nav-link active" data-scroll-target="#fastest-growing-occupations-in-our-region"><span class="header-section-number">B.1</span> 15 fastest-growing occupations in our region</a></li>
-  <li><a href="#occupations-with-the-lowest-turnover-rates-in-our-region" id="toc-occupations-with-the-lowest-turnover-rates-in-our-region" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates-in-our-region"><span class="header-section-number">B.2</span> 15 occupations with the lowest turnover rates in our region</a></li>
-  <li><a href="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" id="toc-occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region"><span class="header-section-number">B.3</span> 15 occupations with the lowest turnover rates relative to median earnings in our region</a></li>
+  <li><a href="#largest-15-occupations" id="toc-largest-15-occupations" class="nav-link active" data-scroll-target="#largest-15-occupations">Largest 15 occupations</a></li>
+  <li><a href="#fastest-growing-occupations" id="toc-fastest-growing-occupations" class="nav-link" data-scroll-target="#fastest-growing-occupations">15 fastest-growing occupations</a></li>
+  <li><a href="#occupations-with-the-lowest-turnover-rates" id="toc-occupations-with-the-lowest-turnover-rates" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates">15 occupations with the lowest turnover rates</a></li>
+  <li><a href="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings" id="toc-occupations-with-the-lowest-turnover-rates-relative-to-median-earnings" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings">15 occupations with the lowest turnover rates relative to median earnings</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -230,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Appendix B — Largest 15 occupations in our region</h1>
+<h1 class="title">Appendix B — Report: The largest, fastest-growing, and lowest-turnover occupations in Central Ohio</h1>
 </div>
 
 
@@ -245,6 +254,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p>Source: ODJFS Bureau of Labor Market Information, Long-Term Occupational Projections for the Central Ohio JobsOhio region, 2020-2030. <a href="https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23" class="uri">https://ohiolmi.com/Home/Projections/ProjectionsHome_08.16.23</a></p>
+<section id="largest-15-occupations" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="largest-15-occupations">Largest 15 occupations</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -408,8 +420,9 @@ ul.task-list li input[type="checkbox"] {
 </table>
 </div>
 </div>
-<section id="fastest-growing-occupations-in-our-region" class="level2" data-number="B.1">
-<h2 data-number="B.1" class="anchored" data-anchor-id="fastest-growing-occupations-in-our-region"><span class="header-section-number">B.1</span> 15 fastest-growing occupations in our region</h2>
+</section>
+<section id="fastest-growing-occupations" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="fastest-growing-occupations">15 fastest-growing occupations</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -574,8 +587,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="occupations-with-the-lowest-turnover-rates-in-our-region" class="level2" data-number="B.2">
-<h2 data-number="B.2" class="anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates-in-our-region"><span class="header-section-number">B.2</span> 15 occupations with the lowest turnover rates in our region</h2>
+<section id="occupations-with-the-lowest-turnover-rates" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates">15 occupations with the lowest turnover rates</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -740,8 +753,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </section>
-<section id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" class="level2" data-number="B.3">
-<h2 data-number="B.3" class="anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region"><span class="header-section-number">B.3</span> 15 occupations with the lowest turnover rates relative to median earnings in our region</h2>
+<section id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings">15 occupations with the lowest turnover rates relative to median earnings</h2>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -1150,6 +1163,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./exampleparameterizedreport.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Report: The largest, fastest-growing, and lowest-turnover occupations in our region</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
