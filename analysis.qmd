@@ -28,7 +28,7 @@ Now let's use linear regression to build a simple model.  Let's see whether annu
 
 We'll first need to create an additonal variable to calculate the occupational turnover rate, which we'll use as our outcome variable.
 
-Then we'll use the `lm` function provided in base R.  We'll store the regression model as an R object, so we can work with it.
+Then we'll use the `lm` function provided in base R.  We'll store the regression model as an R object, so we can work with it.  We provide a description of the model in the format `outcome_variable ~ predictor1 (+ predictor2 ...)`.  We provide an optional parameter `na.action = na.exclude` to direct how missing values should be handled.
 
 ```{R}
 projections_data <- projections_data |>
@@ -37,7 +37,8 @@ projections_data <- projections_data |>
         )
 
 projections_model <- lm(turnover_rate ~ annual_wage, 
-                            data = projections_data, na.action=na.exclude)
+                            data = projections_data,
+                            na.action = na.exclude)
 
 summary(projections_model)
 ```
@@ -48,14 +49,15 @@ Keen-eyed readers will note that wages may not be sufficiently normal to use as 
 
 ```{R}
 projections_model <- lm(turnover_rate ~ log(annual_wage), 
-                            data = projections_data, na.action=na.exclude)
+                            data = projections_data,
+                            na.action = na.exclude)
 
 summary(projections_model)
 ```
 
 This correction seems to have improved our model considerably, as the model now explains even more of the variance in occupational turnover rate.
 
-The residuals may be of interest, so let's pull them back into our projections_data:
+The residuals may be of interest,^[So that we can use them in @sec-reports!] so let's pull them back into our projections_data:
 
 ```{R}
 projections_data <- projections_data |>
@@ -67,5 +69,12 @@ glimpse(projections_data)
 ## Data visualizations
 
 
-## Extras {.unnumbered}
+## Extra: logistic regression {.unnumbered}
 
+In institutional research working with student data, we often create binary variables like retention, persistence, transfer, and graduation.  To work with binary outcome variables like these, we need to use methods designed for working with binary outcome variables, like logistic regression.
+
+Luckily, R provides a package, `glm`, for generalized linear models like logistic regression.  `glm` includes a parameter `family`, for which providing `family = "binomial"` will provide for logistic regression.^[By default, this uses the logit link function, but using `family = binomial(link = "probit")` will change it to probit regression, etc.]
+
+## Extra: propensity score matching {.unnumbered}
+
+Another increasingly important technique for the IR toolbox is propensity score matching, which can be used to create comparison groups for impact evaluation, taking into account factors that may be associated with the likelihood of participating in a program.  The `MatchIt` package provides the functions to carry out this approach, as well as vignettes that provide a good summary [@ho_matchit_2023].

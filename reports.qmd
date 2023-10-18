@@ -115,6 +115,8 @@ You can review additional [Execution Options](https://quarto.org/docs/computatio
 
 ***needs content***
 
+You should see it render like it does in [Appendix B](examplefullquartoreport.qmd)
+
 ## Parameterizing your report
 
 ***needs content***

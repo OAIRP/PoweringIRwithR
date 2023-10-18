@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -111,6 +130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="citation_reference" content="citation_title=R: A language and environment for statistical computing;,citation_author=R Core Team;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.R-project.org/;">
 <meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
 <meta name="citation_reference" content="citation_title=Readxl: Read excel files;,citation_author=Hadley Wickham;,citation_author=Jennifer Bryan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://CRAN.R-project.org/package=readxl;">
+<meta name="citation_reference" content="citation_title=MatchIt: Nonparametric Preprocessing for Parametric Causal Inference;,citation_abstract=Selects matched samples of the original treated and control groups with similar covariate distributions – can be used to match exactly on covariates, to match on propensity scores, or perform a variety of other matching procedures. The package also implements a series of recommendations offered in Ho, Imai, King, and Stuart (2007) &amp;amp;amp;lt;doi:10.1093/pan/mpl013&amp;gt;. (The ’gurobi’ package, which is not on CRAN, is optional and comes with an installation of the Gurobi Optimizer, available at &amp;lt;https://www.gurobi.com&amp;gt;.);,citation_author=Daniel Ho;,citation_author=Kosuke Imai;,citation_author=Gary King;,citation_author=Elizabeth Stuart;,citation_author=Alex Whitworth;,citation_author=Noah Greifer;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/web/packages/MatchIt/index.html;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -236,6 +256,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">New Quarto Project</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examplefullquartoreport.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Largest 15 occupations in our region</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -254,7 +280,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#inferential-statistics-linear-regression" id="toc-inferential-statistics-linear-regression" class="nav-link" data-scroll-target="#inferential-statistics-linear-regression">Inferential statistics: linear regression</a></li>
   </ul></li>
   <li><a href="#data-visualizations" id="toc-data-visualizations" class="nav-link" data-scroll-target="#data-visualizations"><span class="header-section-number">3.2</span> Data visualizations</a></li>
-  <li><a href="#extras" id="toc-extras" class="nav-link" data-scroll-target="#extras">Extras</a></li>
+  <li><a href="#extra-logistic-regression" id="toc-extra-logistic-regression" class="nav-link" data-scroll-target="#extra-logistic-regression">Extra: logistic regression</a></li>
+  <li><a href="#extra-propensity-score-matching" id="toc-extra-propensity-score-matching" class="nav-link" data-scroll-target="#extra-propensity-score-matching">Extra: propensity score matching</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -334,7 +361,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="inferential-statistics-linear-regression">Inferential statistics: linear regression</h3>
 <p>Now let’s use linear regression to build a simple model. Let’s see whether annual wages might predict the rate at which persons leave an occupation.</p>
 <p>We’ll first need to create an additonal variable to calculate the occupational turnover rate, which we’ll use as our outcome variable.</p>
-<p>Then we’ll use the <code>lm</code> function provided in base R. We’ll store the regression model as an R object, so we can work with it.</p>
+<p>Then we’ll use the <code>lm</code> function provided in base R. We’ll store the regression model as an R object, so we can work with it. We provide a description of the model in the format <code>outcome_variable ~ predictor1 (+ predictor2 ...)</code>. We provide an optional parameter <code>na.action = na.exclude</code> to direct how missing values should be handled.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
@@ -342,9 +369,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        )</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>projections_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(turnover_rate <span class="sc">~</span> annual_wage, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> projections_data, <span class="at">na.action=</span>na.exclude)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> projections_data,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">na.action =</span> na.exclude)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -372,9 +400,10 @@ F-statistic: 274.8 on 1 and 460 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>Keen-eyed readers will note that wages may not be sufficiently normal to use as a variable in linear regression and likely needs a data transformation. Variables with quantity often need a log transform to be treated as sufficiently normal. We can make a quick adjustment to our code for this, without even needing a new variable:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>projections_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(turnover_rate <span class="sc">~</span> <span class="fu">log</span>(annual_wage), </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> projections_data, <span class="at">na.action=</span>na.exclude)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">data =</span> projections_data,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">na.action =</span> na.exclude)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -399,7 +428,7 @@ F-statistic: 409.3 on 1 and 460 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 <p>This correction seems to have improved our model considerably, as the model now explains even more of the variance in occupational turnover rate.</p>
-<p>The residuals may be of interest, so let’s pull them back into our projections_data:</p>
+<p>The residuals may be of interest,<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> so let’s pull them back into our projections_data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">residuals =</span> <span class="fu">residuals</span>(projections_model))</span>
@@ -430,16 +459,29 @@ $ residuals      &lt;dbl&gt; 0.0258700295, 0.0182162354, -0.0453703761, 0.031599
 <section id="data-visualizations" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="data-visualizations"><span class="header-section-number">3.2</span> Data visualizations</h2>
 </section>
-<section id="extras" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="extras">Extras</h2>
+<section id="extra-logistic-regression" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="extra-logistic-regression">Extra: logistic regression</h2>
+<p>In institutional research working with student data, we often create binary variables like retention, persistence, transfer, and graduation. To work with binary outcome variables like these, we need to use methods designed for working with binary outcome variables, like logistic regression.</p>
+<p>Luckily, R provides a package, <code>glm</code>, for generalized linear models like logistic regression. <code>glm</code> includes a parameter <code>family</code>, for which providing <code>family = "binomial"</code> will provide for logistic regression.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
+</section>
+<section id="extra-propensity-score-matching" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="extra-propensity-score-matching">Extra: propensity score matching</h2>
+<p>Another increasingly important technique for the IR toolbox is propensity score matching, which can be used to create comparison groups for impact evaluation, taking into account factors that may be associated with the likelihood of participating in a program. The <code>MatchIt</code> package provides the functions to carry out this approach, as well as vignettes that provide a good summary <span class="citation" data-cites="ho_matchit_2023">(<a href="references.html#ref-ho_matchit_2023" role="doc-biblioref">Ho et al. 2023</a>)</span>.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-ho_matchit_2023" class="csl-entry" role="listitem">
+Ho, Daniel, Kosuke Imai, Gary King, Elizabeth Stuart, Alex Whitworth, and Noah Greifer. 2023. <span>“<span>MatchIt</span>: <span>Nonparametric</span> <span>Preprocessing</span> for <span>Parametric</span> <span>Causal</span> <span>Inference</span>.”</span> <a href="https://cran.r-project.org/web/packages/MatchIt/index.html">https://cran.r-project.org/web/packages/MatchIt/index.html</a>.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn1"><p>Though the summary occupation lines likely cover persons in all occupations, it seems an occupation has to have 100 or more workers to be included at a detail level in these reports.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>from growth ~4/yr, exits ~30/yr, and transfers ~52/yr. Exits are people in the occupation leaving the labor force (mainly retirements), while transfers are people moving into a different occupation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>So that we can use them in <a href="reports.html"><span>Chapter&nbsp;4</span></a>!<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>By default, this uses the logit link function, but using <code>family = binomial(link = "probit")</code> will change it to probit regression, etc.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.333">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Powering Institutional Research with R - Appendix B — Largest 15 occupations in our region</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./examplebasicquarto.html" rel="prev">
+<link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta property="og:title" content="Powering Institutional Research with R - Appendix B — Largest 15 occupations in our region">
+<meta property="og:image" content="https://oairp.github.io/PoweringIRwithR/cover.png">
+<meta property="og:site-name" content="Powering Institutional Research with R">
+<meta property="og:image:height" content="1055">
+<meta property="og:image:width" content="815">
+<meta name="citation_title" content="Appendix B — Largest 15 occupations in our region">
+<meta name="citation_fulltext_html_url" content="https://oairp.github.io/PoweringIRwithR//examplefullquartoreport.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Literate programming;,citation_author=Donald E. Knuth;,citation_publication_date=1984-05;,citation_cover_date=1984-05;,citation_year=1984;,citation_fulltext_html_url=https://doi.org/10.1093/comjnl/27.2.97;,citation_issue=2;,citation_doi=10.1093/comjnl/27.2.97;,citation_issn=0010-4620;,citation_volume=27;,citation_journal_title=Comput. J.;,citation_publisher=Oxford University Press, Inc.;">
+<meta name="citation_reference" content="citation_title=R for data science;,citation_author=Hadley Wickham;,citation_author=Mine Çetinkaya-Rundel;,citation_author=Garrett Grolemund;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://r4ds.hadley.nz/;">
+<meta name="citation_reference" content="citation_title=R: A language and environment for statistical computing;,citation_author=R Core Team;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://www.R-project.org/;">
+<meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
+<meta name="citation_reference" content="citation_title=Readxl: Read excel files;,citation_author=Hadley Wickham;,citation_author=Jennifer Bryan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://CRAN.R-project.org/package=readxl;">
+<meta name="citation_reference" content="citation_title=MatchIt: Nonparametric Preprocessing for Parametric Causal Inference;,citation_abstract=Selects matched samples of the original treated and control groups with similar covariate distributions – can be used to match exactly on covariates, to match on propensity scores, or perform a variety of other matching procedures. The package also implements a series of recommendations offered in Ho, Imai, King, and Stuart (2007) &amp;amp;amp;lt;doi:10.1093/pan/mpl013&amp;gt;. (The ’gurobi’ package, which is not on CRAN, is optional and comes with an installation of the Gurobi Optimizer, available at &amp;lt;https://www.gurobi.com&amp;gt;.);,citation_author=Daniel Ho;,citation_author=Kosuke Imai;,citation_author=Gary King;,citation_author=Elizabeth Stuart;,citation_author=Alex Whitworth;,citation_author=Noah Greifer;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/web/packages/MatchIt/index.html;">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./examplebasicquarto.html">Appendices</a></li><li class="breadcrumb-item"><a href="./examplefullquartoreport.html"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Largest 15 occupations in our region</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Powering Institutional Research with R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/oairp/PoweringIRwithR" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <a href="./Powering-Institutional-Research-with-R.epub" title="Download ePub" class="quarto-navigation-tool px-1" aria-label="Download ePub"><i class="bi bi-journal"></i></a>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.facebook.com/sharer/sharer.php?u=|url|">
+              <i class="bi bi-bi-facebook pe-1"></i>
+            Facebook
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Software setup and overview</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./workingwithdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Importing and cleaning data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Statistical analysis &amp; data visualizations</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./reports.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Building parameterized reports</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./collaboration.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Collaborating on code</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examplebasicquarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">New Quarto Project</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examplefullquartoreport.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Largest 15 occupations in our region</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#fastest-growing-occupations-in-our-region" id="toc-fastest-growing-occupations-in-our-region" class="nav-link active" data-scroll-target="#fastest-growing-occupations-in-our-region"><span class="header-section-number">B.1</span> 15 fastest-growing occupations in our region</a></li>
+  <li><a href="#occupations-with-the-lowest-turnover-rates-in-our-region" id="toc-occupations-with-the-lowest-turnover-rates-in-our-region" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates-in-our-region"><span class="header-section-number">B.2</span> 15 occupations with the lowest turnover rates in our region</a></li>
+  <li><a href="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" id="toc-occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" class="nav-link" data-scroll-target="#occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region"><span class="header-section-number">B.3</span> 15 occupations with the lowest turnover rates relative to median earnings in our region</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Appendix B — Largest 15 occupations in our region</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 49%">
+<col style="width: 5%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Occupation</th>
+<th style="text-align: left;">SOC</th>
+<th style="text-align: right;">Current jobs</th>
+<th style="text-align: right;">10-yr change</th>
+<th style="text-align: right;">Annual openings</th>
+<th style="text-align: right;">Median earnings</th>
+<th style="text-align: right;">Turnover rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Laborers and Freight, Stock, and Material Movers, Hand</td>
+<td style="text-align: left;">53-7062</td>
+<td style="text-align: right;">34,936</td>
+<td style="text-align: right;">13.5%</td>
+<td style="text-align: right;">5,350</td>
+<td style="text-align: right;">$37,066</td>
+<td style="text-align: right;">14.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Customer Service Representatives</td>
+<td style="text-align: left;">43-4051</td>
+<td style="text-align: right;">33,376</td>
+<td style="text-align: right;">-1.3%</td>
+<td style="text-align: right;">4,120</td>
+<td style="text-align: right;">$37,440</td>
+<td style="text-align: right;">12.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Retail Salespersons</td>
+<td style="text-align: left;">41-2031</td>
+<td style="text-align: right;">27,404</td>
+<td style="text-align: right;">-1.3%</td>
+<td style="text-align: right;">3,733</td>
+<td style="text-align: right;">$27,893</td>
+<td style="text-align: right;">13.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fast Food and Counter Workers</td>
+<td style="text-align: left;">35-3023</td>
+<td style="text-align: right;">27,269</td>
+<td style="text-align: right;">9.9%</td>
+<td style="text-align: right;">6,071</td>
+<td style="text-align: right;">$22,422</td>
+<td style="text-align: right;">21.3%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Registered Nurses</td>
+<td style="text-align: left;">29-1141</td>
+<td style="text-align: right;">26,388</td>
+<td style="text-align: right;">14.8%</td>
+<td style="text-align: right;">1,859</td>
+<td style="text-align: right;">$75,046</td>
+<td style="text-align: right;">5.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Stockers and Order Fillers</td>
+<td style="text-align: left;">53-7065</td>
+<td style="text-align: right;">24,654</td>
+<td style="text-align: right;">8.5%</td>
+<td style="text-align: right;">4,180</td>
+<td style="text-align: right;">$36,067</td>
+<td style="text-align: right;">16.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Home Health and Personal Care Aides</td>
+<td style="text-align: left;">31-1120</td>
+<td style="text-align: right;">23,796</td>
+<td style="text-align: right;">36.2%</td>
+<td style="text-align: right;">4,251</td>
+<td style="text-align: right;">$24,003</td>
+<td style="text-align: right;">14.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Office Clerks, General</td>
+<td style="text-align: left;">43-9061</td>
+<td style="text-align: right;">19,984</td>
+<td style="text-align: right;">-0.6%</td>
+<td style="text-align: right;">2,257</td>
+<td style="text-align: right;">$37,710</td>
+<td style="text-align: right;">11.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Software Developers and Software Quality Assurance Analysts and Testers</td>
+<td style="text-align: left;">15-1256</td>
+<td style="text-align: right;">18,223</td>
+<td style="text-align: right;">9.9%</td>
+<td style="text-align: right;">1,562</td>
+<td style="text-align: right;">$102,939</td>
+<td style="text-align: right;">7.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Project Management Specialists and Business Operations Specialists, All Other</td>
+<td style="text-align: left;">13-1198</td>
+<td style="text-align: right;">17,598</td>
+<td style="text-align: right;">4.0%</td>
+<td style="text-align: right;">1,366</td>
+<td style="text-align: right;">$74,672</td>
+<td style="text-align: right;">7.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cashiers</td>
+<td style="text-align: left;">41-2011</td>
+<td style="text-align: right;">17,377</td>
+<td style="text-align: right;">-11.2%</td>
+<td style="text-align: right;">2,770</td>
+<td style="text-align: right;">$22,963</td>
+<td style="text-align: right;">17.1%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Janitors and Cleaners, Except Maids and Housekeeping Cleaners</td>
+<td style="text-align: left;">37-2011</td>
+<td style="text-align: right;">17,091</td>
+<td style="text-align: right;">4.2%</td>
+<td style="text-align: right;">2,383</td>
+<td style="text-align: right;">$29,432</td>
+<td style="text-align: right;">13.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Miscellaneous Assemblers and Fabricators</td>
+<td style="text-align: left;">51-2090</td>
+<td style="text-align: right;">16,599</td>
+<td style="text-align: right;">-0.9%</td>
+<td style="text-align: right;">1,793</td>
+<td style="text-align: right;">$36,982</td>
+<td style="text-align: right;">10.9%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Waiters and Waitresses</td>
+<td style="text-align: left;">35-3031</td>
+<td style="text-align: right;">15,688</td>
+<td style="text-align: right;">14.5%</td>
+<td style="text-align: right;">3,474</td>
+<td style="text-align: right;">$20,883</td>
+<td style="text-align: right;">20.7%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Heavy and Tractor-Trailer Truck Drivers</td>
+<td style="text-align: left;">53-3032</td>
+<td style="text-align: right;">15,020</td>
+<td style="text-align: right;">11.4%</td>
+<td style="text-align: right;">1,899</td>
+<td style="text-align: right;">$48,693</td>
+<td style="text-align: right;">11.5%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="fastest-growing-occupations-in-our-region" class="level2" data-number="B.1">
+<h2 data-number="B.1" class="anchored" data-anchor-id="fastest-growing-occupations-in-our-region"><span class="header-section-number">B.1</span> 15 fastest-growing occupations in our region</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 6%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Occupation</th>
+<th style="text-align: left;">SOC</th>
+<th style="text-align: right;">Current jobs</th>
+<th style="text-align: right;">10-yr change</th>
+<th style="text-align: right;">Annual openings</th>
+<th style="text-align: right;">Median earnings</th>
+<th style="text-align: right;">Turnover rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Ushers, Lobby Attendants, and Ticket Takers</td>
+<td style="text-align: left;">39-3031</td>
+<td style="text-align: right;">608</td>
+<td style="text-align: right;">58.9%</td>
+<td style="text-align: right;">216</td>
+<td style="text-align: right;">$23,920</td>
+<td style="text-align: right;">29.6%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nurse Practitioners</td>
+<td style="text-align: left;">29-1171</td>
+<td style="text-align: right;">1,771</td>
+<td style="text-align: right;">53.4%</td>
+<td style="text-align: right;">212</td>
+<td style="text-align: right;">$103,230</td>
+<td style="text-align: right;">6.6%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nonfarm Animal Caretakers</td>
+<td style="text-align: left;">39-2021</td>
+<td style="text-align: right;">1,619</td>
+<td style="text-align: right;">41.2%</td>
+<td style="text-align: right;">354</td>
+<td style="text-align: right;">$23,067</td>
+<td style="text-align: right;">17.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cooks, Restaurant</td>
+<td style="text-align: left;">35-2014</td>
+<td style="text-align: right;">6,119</td>
+<td style="text-align: right;">41.0%</td>
+<td style="text-align: right;">1,316</td>
+<td style="text-align: right;">$29,307</td>
+<td style="text-align: right;">17.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Occupational Therapy Assistants</td>
+<td style="text-align: left;">31-2011</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">40.8%</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">$62,358</td>
+<td style="text-align: right;">14.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fitness Trainers and Aerobics Instructors</td>
+<td style="text-align: left;">39-9031</td>
+<td style="text-align: right;">2,137</td>
+<td style="text-align: right;">40.0%</td>
+<td style="text-align: right;">479</td>
+<td style="text-align: right;">$31,907</td>
+<td style="text-align: right;">18.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Medical and Health Services Managers</td>
+<td style="text-align: left;">11-9111</td>
+<td style="text-align: right;">3,463</td>
+<td style="text-align: right;">37.8%</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: right;">$99,341</td>
+<td style="text-align: right;">9.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Home Health and Personal Care Aides</td>
+<td style="text-align: left;">31-1120</td>
+<td style="text-align: right;">23,796</td>
+<td style="text-align: right;">36.2%</td>
+<td style="text-align: right;">4,251</td>
+<td style="text-align: right;">$24,003</td>
+<td style="text-align: right;">14.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Preschool Teachers, Except Special Education</td>
+<td style="text-align: left;">25-2011</td>
+<td style="text-align: right;">3,789</td>
+<td style="text-align: right;">36.1%</td>
+<td style="text-align: right;">581</td>
+<td style="text-align: right;">$29,037</td>
+<td style="text-align: right;">11.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Interpreters and Translators</td>
+<td style="text-align: left;">27-3091</td>
+<td style="text-align: right;">2,124</td>
+<td style="text-align: right;">34.7%</td>
+<td style="text-align: right;">307</td>
+<td style="text-align: right;">$38,979</td>
+<td style="text-align: right;">11.0%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Physician Assistants</td>
+<td style="text-align: left;">29-1071</td>
+<td style="text-align: right;">706</td>
+<td style="text-align: right;">34.0%</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">$102,482</td>
+<td style="text-align: right;">6.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Speech-Language Pathologists</td>
+<td style="text-align: left;">29-1127</td>
+<td style="text-align: right;">1,257</td>
+<td style="text-align: right;">33.6%</td>
+<td style="text-align: right;">129</td>
+<td style="text-align: right;">$79,269</td>
+<td style="text-align: right;">6.9%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Physical Therapist Assistants</td>
+<td style="text-align: left;">31-2021</td>
+<td style="text-align: right;">985</td>
+<td style="text-align: right;">33.3%</td>
+<td style="text-align: right;">169</td>
+<td style="text-align: right;">$62,566</td>
+<td style="text-align: right;">13.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Epidemiologists</td>
+<td style="text-align: left;">19-1041</td>
+<td style="text-align: right;">177</td>
+<td style="text-align: right;">32.8%</td>
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">$77,750</td>
+<td style="text-align: right;">8.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Logisticians</td>
+<td style="text-align: left;">13-1081</td>
+<td style="text-align: right;">1,767</td>
+<td style="text-align: right;">30.4%</td>
+<td style="text-align: right;">229</td>
+<td style="text-align: right;">$77,459</td>
+<td style="text-align: right;">9.9%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="occupations-with-the-lowest-turnover-rates-in-our-region" class="level2" data-number="B.2">
+<h2 data-number="B.2" class="anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates-in-our-region"><span class="header-section-number">B.2</span> 15 occupations with the lowest turnover rates in our region</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Occupation</th>
+<th style="text-align: left;">SOC</th>
+<th style="text-align: right;">Current jobs</th>
+<th style="text-align: right;">10-yr change</th>
+<th style="text-align: right;">Annual openings</th>
+<th style="text-align: right;">Median earnings</th>
+<th style="text-align: right;">Turnover rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chiropractors</td>
+<td style="text-align: left;">29-1011</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">15.5%</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">$61,027</td>
+<td style="text-align: right;">2.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Obstetricians and Gynecologists</td>
+<td style="text-align: left;">29-1218</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">0.0%</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">$169,666</td>
+<td style="text-align: right;">2.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Surgeons, Except Ophthalmologists</td>
+<td style="text-align: left;">29-1248</td>
+<td style="text-align: right;">396</td>
+<td style="text-align: right;">1.0%</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Anesthesiologists</td>
+<td style="text-align: left;">29-1211</td>
+<td style="text-align: right;">363</td>
+<td style="text-align: right;">5.0%</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">General Internal Medicine Physicians</td>
+<td style="text-align: left;">29-1216</td>
+<td style="text-align: right;">506</td>
+<td style="text-align: right;">3.0%</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">$177,050</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Psychiatrists</td>
+<td style="text-align: left;">29-1223</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">18.5%</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dentists, General</td>
+<td style="text-align: left;">29-1021</td>
+<td style="text-align: right;">741</td>
+<td style="text-align: right;">12.2%</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">$167,814</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Physicians, All Other; and Ophthalmologists, Except Pediatric</td>
+<td style="text-align: left;">29-1228</td>
+<td style="text-align: right;">2,142</td>
+<td style="text-align: right;">10.1%</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">$77,896</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Family Medicine Physicians</td>
+<td style="text-align: left;">29-1215</td>
+<td style="text-align: right;">333</td>
+<td style="text-align: right;">9.6%</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">$179,150</td>
+<td style="text-align: right;">3.0%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Optometrists</td>
+<td style="text-align: left;">29-1041</td>
+<td style="text-align: right;">302</td>
+<td style="text-align: right;">14.6%</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">$102,523</td>
+<td style="text-align: right;">3.3%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Veterinarians</td>
+<td style="text-align: left;">29-1131</td>
+<td style="text-align: right;">800</td>
+<td style="text-align: right;">17.4%</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">$99,486</td>
+<td style="text-align: right;">3.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pharmacists</td>
+<td style="text-align: left;">29-1051</td>
+<td style="text-align: right;">2,341</td>
+<td style="text-align: right;">2.2%</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">$128,357</td>
+<td style="text-align: right;">3.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Physical Therapists</td>
+<td style="text-align: left;">29-1123</td>
+<td style="text-align: right;">1,604</td>
+<td style="text-align: right;">21.8%</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">$99,341</td>
+<td style="text-align: right;">4.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Judges, Magistrate Judges, and Magistrates</td>
+<td style="text-align: left;">23-1023</td>
+<td style="text-align: right;">446</td>
+<td style="text-align: right;">3.4%</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">$81,765</td>
+<td style="text-align: right;">4.7%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Administrative Law Judges, Adjudicators, and Hearing Officers</td>
+<td style="text-align: left;">23-1021</td>
+<td style="text-align: right;">399</td>
+<td style="text-align: right;">-0.8%</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">$63,419</td>
+<td style="text-align: right;">4.8%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region" class="level2" data-number="B.3">
+<h2 data-number="B.3" class="anchored" data-anchor-id="occupations-with-the-lowest-turnover-rates-relative-to-median-earnings-in-our-region"><span class="header-section-number">B.3</span> 15 occupations with the lowest turnover rates relative to median earnings in our region</h2>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 43%">
+<col style="width: 5%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Occupation</th>
+<th style="text-align: left;">SOC</th>
+<th style="text-align: right;">Current jobs</th>
+<th style="text-align: right;">10-yr change</th>
+<th style="text-align: right;">Annual openings</th>
+<th style="text-align: right;">Median earnings</th>
+<th style="text-align: right;">Turnover rate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chiropractors</td>
+<td style="text-align: left;">29-1011</td>
+<td style="text-align: right;">387</td>
+<td style="text-align: right;">15.5%</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">$61,027</td>
+<td style="text-align: right;">2.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Psychiatric Technicians</td>
+<td style="text-align: left;">29-2053</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: right;">24.5%</td>
+<td style="text-align: right;">41</td>
+<td style="text-align: right;">$29,661</td>
+<td style="text-align: right;">7.8%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Emergency Medical Technicians and Paramedics</td>
+<td style="text-align: left;">29-2040</td>
+<td style="text-align: right;">939</td>
+<td style="text-align: right;">7.9%</td>
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">$36,941</td>
+<td style="text-align: right;">6.7%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Floral Designers</td>
+<td style="text-align: left;">27-1023</td>
+<td style="text-align: right;">297</td>
+<td style="text-align: right;">-17.5%</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">$28,704</td>
+<td style="text-align: right;">8.1%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Physicians, All Other; and Ophthalmologists, Except Pediatric</td>
+<td style="text-align: left;">29-1228</td>
+<td style="text-align: right;">2,142</td>
+<td style="text-align: right;">10.1%</td>
+<td style="text-align: right;">83</td>
+<td style="text-align: right;">$77,896</td>
+<td style="text-align: right;">2.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exercise Physiologists</td>
+<td style="text-align: left;">29-1128</td>
+<td style="text-align: right;">188</td>
+<td style="text-align: right;">16.5%</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">$37,024</td>
+<td style="text-align: right;">6.9%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pharmacy Technicians</td>
+<td style="text-align: left;">29-2052</td>
+<td style="text-align: right;">3,103</td>
+<td style="text-align: right;">3.9%</td>
+<td style="text-align: right;">234</td>
+<td style="text-align: right;">$36,650</td>
+<td style="text-align: right;">7.2%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Veterinary Technologists and Technicians</td>
+<td style="text-align: left;">29-2056</td>
+<td style="text-align: right;">1,023</td>
+<td style="text-align: right;">15.0%</td>
+<td style="text-align: right;">92</td>
+<td style="text-align: right;">$36,421</td>
+<td style="text-align: right;">7.5%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dietetic Technicians</td>
+<td style="text-align: left;">29-2051</td>
+<td style="text-align: right;">186</td>
+<td style="text-align: right;">14.0%</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">$36,566</td>
+<td style="text-align: right;">7.5%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Legislators</td>
+<td style="text-align: left;">11-1031</td>
+<td style="text-align: right;">336</td>
+<td style="text-align: right;">10.7%</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">$37,738</td>
+<td style="text-align: right;">7.4%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Administrative Law Judges, Adjudicators, and Hearing Officers</td>
+<td style="text-align: left;">23-1021</td>
+<td style="text-align: right;">399</td>
+<td style="text-align: right;">-0.8%</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">$63,419</td>
+<td style="text-align: right;">4.8%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ophthalmic Medical Technicians</td>
+<td style="text-align: left;">29-2057</td>
+<td style="text-align: right;">559</td>
+<td style="text-align: right;">21.5%</td>
+<td style="text-align: right;">56</td>
+<td style="text-align: right;">$36,650</td>
+<td style="text-align: right;">7.9%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Respiratory Therapists</td>
+<td style="text-align: left;">29-1126</td>
+<td style="text-align: right;">1,057</td>
+<td style="text-align: right;">28.9%</td>
+<td style="text-align: right;">86</td>
+<td style="text-align: right;">$62,130</td>
+<td style="text-align: right;">5.3%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Merchandise Displayers and Window Trimmers</td>
+<td style="text-align: left;">27-1026</td>
+<td style="text-align: right;">1,371</td>
+<td style="text-align: right;">4.4%</td>
+<td style="text-align: right;">132</td>
+<td style="text-align: right;">$30,285</td>
+<td style="text-align: right;">9.2%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Couriers and Messengers</td>
+<td style="text-align: left;">43-5021</td>
+<td style="text-align: right;">582</td>
+<td style="text-align: right;">-5.8%</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">$30,597</td>
+<td style="text-align: right;">9.3%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./examplebasicquarto.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">New Quarto Project</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Proudly supported by <a href="https://www.oairp.org/"><img src="https://oairp.org/resources/Pictures/oairp-lite.png" height="20"></a></div>   
+    <div class="nav-footer-center">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="./about.html">About the authors</a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="./acknowledgements.html">Acknowledgements</a>
+  </li>  
+</ul>
+    </div>
+    <div class="nav-footer-right">This guide was built with <a href="https://quarto.org">Quarto</a></div>
+  </div>
+</footer>
+
+
+
+</body></html>

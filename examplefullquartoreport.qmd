@@ -1,0 +1,116 @@
+---
+Title: "A summary of the largest, fastest-growing, and lowest-turnover occupations in our region"
+---
+
+{{< include cleanoccupationsdata.qmd >}}
+
+```{R}
+#| include: false
+projections_data <- projections_data |>
+    mutate(
+        turnover_rate = (Exits + Transfers) / Current_jobs
+        )
+
+projections_model <- lm(turnover_rate ~ log(annual_wage), 
+                            data = projections_data,
+                            na.action = na.exclude)
+
+projections_data <- projections_data |>
+    mutate(residuals = residuals(projections_model))
+```
+
+```{R}
+#| include: false
+library("knitr")
+library("scales")
+projections_data <- projections_data |>
+    mutate(
+        Current_jobs_displ = label_number(big.mark = ",")(Current_jobs),
+        Change_pct_displ = label_percent(accuracy = .1)(Change_pct),
+        Tot_openings_displ = label_number(big.mark = ",")(Tot_openings),
+        annual_wage_displ = label_dollar()(annual_wage),
+        turnover_rate_displ = label_percent(accuracy = .1)(turnover_rate)
+    )
+
+```
+
+
+## Largest 15 occupations in our region
+
+```{R}
+#| echo: false
+projections_data |>
+    slice_max(Current_jobs, n = 15) |>
+    arrange(-Current_jobs) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## 15 fastest-growing occupations in our region
+
+```{R}
+#| echo: false
+projections_data |>
+    slice_max(Change_pct, n = 15) |>
+    arrange(-Change_pct) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## 15 occupations with the lowest turnover rates in our region
+
+```{R}
+#| echo: false
+projections_data |>
+    slice_min(turnover_rate, n = 15) |>
+    arrange(turnover_rate) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
+
+## 15 occupations with the lowest turnover rates relative to median earnings in our region
+
+```{R}
+#| echo: false
+projections_data |>
+    slice_min(residuals, n = 15) |>
+    arrange(residuals) |>
+    select(
+        Occupation, SOC, Current_jobs_displ, Change_pct_displ,
+        Tot_openings_displ, annual_wage_displ, turnover_rate_displ
+    ) |>
+    kable(
+        col.names = c(
+            "Occupation", "SOC", "Current jobs", "10-yr change",
+            "Annual openings", "Median earnings", "Turnover rate"
+        ),
+        align = c("l","l","r","r","r","r","r")
+        )
+```
