@@ -39,9 +39,210 @@ library("tidyverse")
 
 ## In Practice: Dataset #1 -- IPEDS data {#sec-dataset1}
 
+For working with our first dataset, we'll of course begin with data from the Integrated Postsecondary Education Data System (IPEDS).  Though many IR professionals are used to working with the web interface of the IPEDS data center, we also have the opportunity to interact with the complete data files, which are available as comma-separated values files (`.csv`) in a compressed format (`.zip`), or as Access databases.  We'll be working with the `.csv` files for now.^[Yes, there are a couple packages that are designed for accessing IPEDS data including [this one in CRAN](https://cran.r-project.org/web/packages/IPEDS/index.html) and [this one on GitHub](https://github.com/jbryer/ipeds).  But we're using the files directly from the IPEDS data center because we are focused on learning how to import and clean data.]
+
+If we go to the IPEDS Data Center and click on "Complete Data Files", we'll reach this page: <https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx>.  We can hover over the various file links and note that they share a similar stem and file format.  Let's set two variables to start: one to store this URL stem and one to store the latest year available:
+
+```{R}
+IPEDS_url <- "https://nces.ed.gov/ipeds/datacenter/data/"
+IPEDS_year <- 2022
+```
+
+Next we're going to load libraries we'll need to use.  `tidyverse` should be loaded already but we'll load it again.  The `curl` package will assist us in downloading files. 
+
+```{R}
+#| output: false
+# load libraries
+library("tidyverse")
+library("curl")
+```
+
+Let's use the simple `curl_download()` function from the `curl` package.  We need to provide it two parameters: a URL to download and a filename for the downloaded file.  We can build both of those by concatenating info to match the available links using the variables we stored above.  We'll grab the IPEDS Directory Information data, which comes from the Institutional Characteristics Header component ("HD"), and the Completions component data ("C").  We can create the filenames and URLs by concatenating text fields.  In Excel we would use `CONCATENATE()` or the special concatenation character (`&`), but using tidyverse we will use `str_c()`:
+
+```{R}
+#| freeze: true
+curl_download(
+  str_c(IPEDS_url, "HD", IPEDS_year, ".zip"),
+  destfile = str_c("HD", IPEDS_year, ".zip")
+)
+
+curl_download(
+  str_c(IPEDS_url, "C", IPEDS_year, "_A", ".zip"),
+  destfile = str_c("C", IPEDS_year, "_A", ".zip")
+)
+```
+
+Next we need to import the downloaded files into R and begin cleaning the data.  We'll start with the directory information data.  We'll begin using `read_csv()`, which we can use to read in the `.csv` file contained in the `.zip` file.  We'll store the data as `institutions`, then take a peek at the imported data using `glimse()`:
+
+```{R}
+institutions <- read_csv(
+    str_c("HD", IPEDS_year, ".zip")
+)
+
+glimpse(institutions)
+```
+
+That's a lot of data!  Since we're not using all of the variables, let's use select to pull out a subset of them.  We'll use the `select()` function to do this.
+
+::: {.callout-important}
+This is an important place to teach an R technique that makes code much easier and cleaner to write.  If you look at the documentation for different functions, you'll note that typically, the first parameter of a function is a data object to use.
+
+If we have several things we need to do with a data object, we could end up writing the name of the data object over, and over, and over, cluttering up our code.
+
+R uses a special character sequence `|>`, called the pipe, that takes the output of one command and uses it as the following command.  (Some older documentation uses the sequence `%>%`, which also works, but `|>` is now preferred.)
+:::
+
+```{R}
+institutions <- institutions |>
+    select(UNITID, INSTNM, OPEID, STABBR, SECTOR, HLOFFER)
+
+glimpse(institutions)
+```
+
+Let's move on to importing and cleaning the IPEDS Completions data.  We'll again use `read_csv()` to read in the data and store it in an object called `completions`.  Since we're familiar with the completions data, we know that we really only need major #1 and can filter out secondary majors.  We will ask `filter()` to keep only those rows equal to 1 (`== 1`).  Finally, similar to above, we only care about a few of the variables for now.  
+
+```{R}
+completions <- read_csv(
+    str_c("C", IPEDS_year, "_A.zip")
+    ) |>
+    filter(MAJORNUM == 1) |>
+    select(UNITID, CIPCODE, AWLEVEL, CTOTALT)
+
+glimpse(completions)
+```
+
+Now that we have clean directory info (`institutions`) and clean completions data (`completions`), let's combine them.  We'll use the `*_join()` functions from the `tidyverse` `dplyr` package.  This is like joining tables in SQL, or for those of you who use Excel like databases, like using `VLOOKUP()`.
+
+We'll store this combined dataset as `combined` for now.  We need to provide the two data objects we're joining, and the variable(s) we want to join on:
+
+```{R}
+combined <- left_join(
+    institutions,
+    completions,
+    by = "UNITID",
+    keep = TRUE
+)
+
+glimpse(combined)
+```
+
+::: {.callout-tip}
+Note that when we get to more complex functions that would create really long lines of code or nested functions, it's best to separate your code into multiple lines to keep it readable.  R will ignore the line breaks that you create just like it ignores spaces.
+:::
+
+The data set is combined and clean, but since it has a row for every credential (or at least unique combinations of level and CIP code) for every institution, it's pretty large.  We'll work with Ohio data so we can filter again to Ohio institutions:
+
+```{R}
+combined <- combined |>
+    filter(STABBR == "OH")
+
+glimpse(combined)
+```
+
+Much better.  But we have two more steps we'd like to do.  Note that many of the variables are repeated in the dataset.  We can use a special data type, factors, to clean up this data into categorical variables.  `tidyverse` includes a package, `forcats`, to help with working with categorical data using the factor data type.  Let's do this for `SECTOR`, `AWLEVEL`, and `CTOTALT`:
+
+```{R}
+combined <- combined |>
+    mutate(
+        SECTOR = as_factor(SECTOR),
+        HLOFFER = as_factor(HLOFFER),
+        AWLEVEL = as_factor(AWLEVEL)
+    )
+
+glimpse(combined)
+```
+
+Lastly, since we want to use the `SECTOR` variable in particular later, let's provide it with desciptions that are used in IPEDS:^[And included in the dictionary file or the web interface]
+
+```{R}
+combined <- combined |>
+    mutate(
+        SECTOR = fct_recode(
+            SECTOR,
+            "Administrative Unit" = "0",
+            "Public 4-year or above" = "1",
+            "Private nonprofit 4-year or above" = "2",
+            "Private for-profit 4-year or above" = "3",
+            "Public 2-year" = "4",
+            "Private nonprofit 2-year" = "5",
+            "Private for-profit 2-year" = "6",
+            "Public less-than-2-year" = "7",
+            "Private nonprofit less-than-2-year" = "8",
+            "Private for-profit less-than-2-year" = "9"
+        )
+    )
+```
+
+::: {.callout-note}
+Once you're comfortable with many of these cleaning steps, you can revisit the `readr` function options.  You can actually change column types, select variables, etc. all with optional arguments.
+:::
 
 ### Dataset #1 complete code
 
+```{R}
+#| eval: false
+# load libraries
+library("tidyverse")
+library("curl")
+
+# store IPEDS url & data year for use
+IPEDS_url <- "https://nces.ed.gov/ipeds/datacenter/data/"
+IPEDS_year <- 2022
+
+# download data
+curl_download(
+  str_c(IPEDS_url, "HD", IPEDS_year, ".zip"),
+  destfile = str_c("HD", IPEDS_year, ".zip")
+)
+
+curl_download(
+  str_c(IPEDS_url, "C", IPEDS_year, "_A", ".zip"),
+  destfile = str_c("C", IPEDS_year, "_A", ".zip")
+)
+
+# process institution directory information
+institutions <- read_csv(
+    str_c("HD", IPEDS_year, ".zip")
+    ) |>
+    select(UNITID, INSTNM, OPEID, STABBR, SECTOR, HLOFFER)
+
+# process completions data
+completions <- read_csv(
+    str_c("C", IPEDS_year, "_A.zip")
+    ) |>
+    filter(MAJORNUM == 1) |>
+    select(UNITID, CIPCODE, AWLEVEL, CTOTALT)
+
+# combine datasets, additional cleaning
+combined <- left_join(
+    institutions,
+    completions,
+    by = "UNITID",
+    keep = TRUE
+    ) |>
+    filter(STABBR == "OH") |> #filter to Ohio
+    mutate(
+        SECTOR = as_factor(SECTOR),
+        HLOFFER = as_factor(HLOFFER),
+        AWLEVEL = as_factor(AWLEVEL)
+    ) |>
+    mutate(
+        SECTOR = fct_recode(
+            SECTOR,
+            "Administrative Unit" = "0",
+            "Public 4-year or above" = "1",
+            "Private nonprofit 4-year or above" = "2",
+            "Private for-profit 4-year or above" = "3",
+            "Public 2-year" = "4",
+            "Private nonprofit 2-year" = "5",
+            "Private for-profit 2-year" = "6",
+            "Public less-than-2-year" = "7",
+            "Private nonprofit less-than-2-year" = "8",
+            "Private for-profit less-than-2-year" = "9"
+        )
+    )
+
+```
 
 ## In Practice: Dataset #2 -- Occupation Projections data {#sec-dataset2}
 
@@ -241,3 +442,9 @@ We used functions from several tidyverse packages.  Especially when learning, it
 
 
 ## Extra: Exporting data {.unnumbered}
+
+At the start of this chapter we covered importing data - but didn't cover exporting data.  Of course, while this guide will show you how far you can take R, it also can be just one small piece of your toolchain if you wish.  You could use R to do some cleaning, processing, and some analysis, and then export the data for use in another tool like a dashboard product.
+
+The `tidyverse` package `readr` includes a set of `write_` functions to export to CSV quickly. `write_csv_excel()` takes a data object input and a filename (e.g. `mydata.csv`) and builds out the file which can be read in Excel or other tools.
+
+We briefly reviewed accessing a database earlier in this chapter.  `DBI` provides `dbWriteTable()` to write a data table object as a database table.  You must provide the db connection object, a table name, and then the data object you're storing.  It can take an `append` argument if you want to simply add data to an existing table.

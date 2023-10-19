@@ -131,6 +131,7 @@ div.csl-indent {
 <meta name="citation_reference" content="citation_title=Welcome to the tidyverse;,citation_author=Hadley Wickham;,citation_author=Mara Averick;,citation_author=Jennifer Bryan;,citation_author=Winston Chang;,citation_author=Lucy D’Agostino McGowan;,citation_author=Romain François;,citation_author=Garrett Grolemund;,citation_author=Alex Hayes;,citation_author=Lionel Henry;,citation_author=Jim Hester;,citation_author=Max Kuhn;,citation_author=Thomas Lin Pedersen;,citation_author=Evan Miller;,citation_author=Stephan Milton Bache;,citation_author=Kirill Müller;,citation_author=Jeroen Ooms;,citation_author=David Robinson;,citation_author=Dana Paige Seidel;,citation_author=Vitalie Spinu;,citation_author=Kohske Takahashi;,citation_author=Davis Vaughan;,citation_author=Claus Wilke;,citation_author=Kara Woo;,citation_author=Hiroaki Yutani;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_issue=43;,citation_doi=10.21105/joss.01686;,citation_volume=4;,citation_journal_title=Journal of Open Source Software;">
 <meta name="citation_reference" content="citation_title=Readxl: Read excel files;,citation_author=Hadley Wickham;,citation_author=Jennifer Bryan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://CRAN.R-project.org/package=readxl;">
 <meta name="citation_reference" content="citation_title=MatchIt: Nonparametric Preprocessing for Parametric Causal Inference;,citation_abstract=Selects matched samples of the original treated and control groups with similar covariate distributions – can be used to match exactly on covariates, to match on propensity scores, or perform a variety of other matching procedures. The package also implements a series of recommendations offered in Ho, Imai, King, and Stuart (2007) &amp;amp;amp;lt;doi:10.1093/pan/mpl013&amp;gt;. (The ’gurobi’ package, which is not on CRAN, is optional and comes with an installation of the Gurobi Optimizer, available at &amp;lt;https://www.gurobi.com&amp;gt;.);,citation_author=Daniel Ho;,citation_author=Kosuke Imai;,citation_author=Gary King;,citation_author=Elizabeth Stuart;,citation_author=Alex Whitworth;,citation_author=Noah Greifer;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/web/packages/MatchIt/index.html;">
+<meta name="citation_reference" content="citation_title=The grammar of graphics;,citation_author=Leland Wilkinson;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -366,8 +367,364 @@ div.csl-indent {
 </section>
 <section id="sec-dataset1" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="sec-dataset1"><span class="header-section-number">2.4</span> In Practice: Dataset #1 – IPEDS data</h2>
+<p>For working with our first dataset, we’ll of course begin with data from the Integrated Postsecondary Education Data System (IPEDS). Though many IR professionals are used to working with the web interface of the IPEDS data center, we also have the opportunity to interact with the complete data files, which are available as comma-separated values files (<code>.csv</code>) in a compressed format (<code>.zip</code>), or as Access databases. We’ll be working with the <code>.csv</code> files for now.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>If we go to the IPEDS Data Center and click on “Complete Data Files”, we’ll reach this page: <a href="https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx" class="uri">https://nces.ed.gov/ipeds/datacenter/DataFiles.aspx</a>. We can hover over the various file links and note that they share a similar stem and file format. Let’s set two variables to start: one to store this URL stem and one to store the latest year available:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>IPEDS_url <span class="ot">&lt;-</span> <span class="st">"https://nces.ed.gov/ipeds/datacenter/data/"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>IPEDS_year <span class="ot">&lt;-</span> <span class="dv">2022</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we’re going to load libraries we’ll need to use. <code>tidyverse</code> should be loaded already but we’ll load it again. The <code>curl</code> package will assist us in downloading files.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"curl"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s use the simple <code>curl_download()</code> function from the <code>curl</code> package. We need to provide it two parameters: a URL to download and a filename for the downloaded file. We can build both of those by concatenating info to match the available links using the variables we stored above. We’ll grab the IPEDS Directory Information data, which comes from the Institutional Characteristics Header component (“HD”), and the Completions component data (“C”). We can create the filenames and URLs by concatenating text fields. In Excel we would use <code>CONCATENATE()</code> or the special concatenation character (<code>&amp;</code>), but using tidyverse we will use <code>str_c()</code>:</p>
+<div class="cell" data-freeze="true">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(IPEDS_url, <span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="fu">str_c</span>(<span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(IPEDS_url, <span class="st">"C"</span>, IPEDS_year, <span class="st">"_A"</span>, <span class="st">".zip"</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="fu">str_c</span>(<span class="st">"C"</span>, IPEDS_year, <span class="st">"_A"</span>, <span class="st">".zip"</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next we need to import the downloaded files into R and begin cleaning the data. We’ll start with the directory information data. We’ll begin using <code>read_csv()</code>, which we can use to read in the <code>.csv</code> file contained in the <code>.zip</code> file. We’ll store the data as <code>institutions</code>, then take a peek at the imported data using <code>glimse()</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>institutions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(<span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 6256 Columns: 73
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (23): INSTNM, IALIAS, ADDR, CITY, STABBR, ZIP, CHFNM, CHFTITLE, EIN, UEI...
+dbl (50): UNITID, FIPS, OBEREG, GENTELE, OPEFLAG, SECTOR, ICLEVEL, CONTROL, ...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(institutions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,256
+Columns: 73
+$ UNITID   &lt;dbl&gt; 100654, 100663, 100690, 100706, 100724, 100733, 100751, 10076…
+$ INSTNM   &lt;chr&gt; "Alabama A &amp; M University", "University of Alabama at Birming…
+$ IALIAS   &lt;chr&gt; "AAMU", "UAB", "Southern Christian University  Regions Univer…
+$ ADDR     &lt;chr&gt; "4900 Meridian Street", "Administration Bldg Suite 1070", "12…
+$ CITY     &lt;chr&gt; "Normal", "Birmingham", "Montgomery", "Huntsville", "Montgome…
+$ STABBR   &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "…
+$ ZIP      &lt;chr&gt; "35762", "35294-0110", "36117-3553", "35899", "36104-0271", "…
+$ FIPS     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ OBEREG   &lt;dbl&gt; 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5…
+$ CHFNM    &lt;chr&gt; "Dr. Daniel K. Wims", "Ray L. Watts", "Michael C.Turner", "Ch…
+$ CHFTITLE &lt;chr&gt; "President", "President", "President", "President", "Presiden…
+$ GENTELE  &lt;dbl&gt; 2.563725e+09, 2.059344e+09, 3.343874e+13, 2.568246e+09, 3.342…
+$ EIN      &lt;chr&gt; "636001109", "636005396", "237034324", "630520830", "63600110…
+$ UEIS     &lt;chr&gt; "JDVGS67MSLH7", "YND4PLMC9AN7", "RB27R4GLDKE7", "HB6KNGVNJRU1…
+$ OPEID    &lt;chr&gt; "00100200", "00105200", "02503400", "00105500", "00100500", "…
+$ OPEFLAG  &lt;dbl&gt; 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ WEBADDR  &lt;chr&gt; "www.aamu.edu/", "https://www.uab.edu/", "https://www.amridge…
+$ ADMINURL &lt;chr&gt; "https://www.aamu.edu/admissions-aid/index.html", "https://ww…
+$ FAIDURL  &lt;chr&gt; "https://www.aamu.edu/admissions-aid/financial-aid/", "https:…
+$ APPLURL  &lt;chr&gt; "https://www.aamu.edu/admissions-aid/undergraduate-admissions…
+$ NPRICURL &lt;chr&gt; "www.aamu.edu/admissions-aid/tuition-fees/net-price-calculato…
+$ VETURL   &lt;chr&gt; NA, "https://www.uab.edu/students/veterans", "https://www.amr…
+$ ATHURL   &lt;chr&gt; NA, "https://www.uab.edu/registrar/students", NA, "www.uah.ed…
+$ DISAURL  &lt;chr&gt; "https://www.aamu.edu/administrativeoffices/VADS/Pages/Disabi…
+$ SECTOR   &lt;dbl&gt; 1, 1, 2, 1, 1, 0, 1, 4, 1, 1, 1, 2, 4, 3, 4, 4, 2, 4, 9, 4, 4…
+$ ICLEVEL  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 2, 1, 2, 3, 2, 2…
+$ CONTROL  &lt;dbl&gt; 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 3, 1, 1, 2, 1, 3, 1, 1…
+$ HLOFFER  &lt;dbl&gt; 9, 9, 9, 9, 9, 9, 9, 3, 7, 9, 9, 5, 3, 9, 3, 3, 9, 3, 2, 3, 3…
+$ UGOFFER  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ GROFFER  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2…
+$ HDEGOFR1 &lt;dbl&gt; 12, 11, 12, 11, 11, 11, 11, 40, 20, 11, 11, 30, 40, 13, 40, 4…
+$ DEGGRANT &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1…
+$ HBCU     &lt;dbl&gt; 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2…
+$ HOSPITAL &lt;dbl&gt; 2, 1, 2, 2, 2, -2, 2, -2, 2, 2, 2, 2, -2, 2, -2, -2, 2, -2, -…
+$ MEDICAL  &lt;dbl&gt; 2, 1, 2, 2, 2, -2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ TRIBAL   &lt;dbl&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
+$ LOCALE   &lt;dbl&gt; 12, 12, 12, 12, 12, 13, 13, 32, 31, 12, 13, 12, 41, 12, 32, 3…
+$ OPENPUBL &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ ACT      &lt;chr&gt; "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "A", "…
+$ NEWID    &lt;dbl&gt; -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -…
+$ DEATHYR  &lt;dbl&gt; -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -…
+$ CLOSEDAT &lt;chr&gt; "-2", "-2", "-2", "-2", "-2", "-2", "-2", "-2", "-2", "-2", "…
+$ CYACTIVE &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ POSTSEC  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ PSEFLAG  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ PSET4FLG &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ RPTMTH   &lt;dbl&gt; 1, 1, 1, 1, 1, -2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, …
+$ INSTCAT  &lt;dbl&gt; 2, 2, 2, 2, 2, -2, 2, 4, 2, 2, 2, 2, 4, 2, 4, 4, 2, 4, 6, 4, …
+$ C21BASIC &lt;dbl&gt; 18, 15, 20, 15, 17, -2, 15, 5, 22, 18, 15, 21, 4, 22, 2, 4, 1…
+$ C21IPUG  &lt;dbl&gt; 16, 14, 20, 17, 13, -2, 17, 2, 16, 16, 17, 9, 2, 20, 1, 2, 19…
+$ C21IPGRD &lt;dbl&gt; 18, 14, 18, 17, 18, -2, 15, 0, 6, 4, 14, 0, 0, 7, 0, 0, 16, 0…
+$ C21UGPRF &lt;dbl&gt; 10, 9, 5, 15, 10, -2, 12, 1, 5, 7, 14, 12, 2, 7, 2, 2, 7, 2, …
+$ C21ENPRF &lt;dbl&gt; 4, 5, 6, 4, 3, -2, 4, 1, 3, 4, 4, 2, 1, 4, 1, 1, 5, 1, -2, 1,…
+$ C21SZSET &lt;dbl&gt; 14, 15, 6, 13, 14, -2, 16, 2, 9, 13, 15, 11, 2, 6, 2, 3, 10, …
+$ C18BASIC &lt;dbl&gt; 18, 15, 20, 16, 19, -2, 15, 2, 22, 18, 15, 21, 1, 20, 5, 5, 1…
+$ C15BASIC &lt;dbl&gt; 18, 15, 20, 16, 19, -2, 16, 1, 22, 18, 16, 21, 1, 22, 8, 1, 2…
+$ CCBASIC  &lt;dbl&gt; 18, 15, 21, 15, 18, -2, 16, 2, 22, 18, 16, 21, 2, 23, 2, 5, 2…
+$ CARNEGIE &lt;dbl&gt; 16, 15, 51, 16, 21, -2, 15, 40, 32, 21, 15, 31, 40, 40, 40, 4…
+$ LANDGRNT &lt;dbl&gt; 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2…
+$ INSTSIZE &lt;dbl&gt; 3, 5, 1, 3, 2, -2, 5, 2, 2, 3, 5, 1, 2, 1, 2, 3, 2, 2, 1, 2, …
+$ F1SYSTYP &lt;dbl&gt; 2, 1, 2, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1…
+$ F1SYSNAM &lt;chr&gt; "-2", "The University of Alabama System", "-2", "The Universi…
+$ F1SYSCOD &lt;dbl&gt; -2, 101050, -2, 101050, -2, 101050, 101050, 101030, -2, 10104…
+$ CBSA     &lt;dbl&gt; 26620, 13820, 33860, 26620, 33860, 46220, 46220, 10760, 26620…
+$ CBSATYPE &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 2, 2…
+$ CSA      &lt;dbl&gt; 290, 142, 388, 290, 388, -2, -2, 388, 290, 388, 194, 142, 194…
+$ COUNTYCD &lt;dbl&gt; 1089, 1073, 1101, 1089, 1101, 1125, 1125, 1123, 1083, 1101, 1…
+$ COUNTYNM &lt;chr&gt; "Madison County", "Jefferson County", "Montgomery County", "M…
+$ CNGDSTCD &lt;dbl&gt; 105, 107, 102, 105, 107, 107, 107, 103, 105, 102, 103, 107, 1…
+$ LONGITUD &lt;dbl&gt; -86.56850, -86.79935, -86.17401, -86.64045, -86.29568, -87.52…
+$ LATITUDE &lt;dbl&gt; 34.78337, 33.50570, 32.36261, 34.72456, 32.36432, 33.20701, 3…
+$ DFRCGID  &lt;dbl&gt; 107, 92, 125, 92, 98, -2, 91, 73, 134, 107, 91, 132, 70, 199,…
+$ DFRCUSCG &lt;dbl&gt; 1, 1, 2, 2, 1, -2, 1, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 1, 2, …</code></pre>
+</div>
+</div>
+<p>That’s a lot of data! Since we’re not using all of the variables, let’s use select to pull out a subset of them. We’ll use the <code>select()</code> function to do this.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This is an important place to teach an R technique that makes code much easier and cleaner to write. If you look at the documentation for different functions, you’ll note that typically, the first parameter of a function is a data object to use.</p>
+<p>If we have several things we need to do with a data object, we could end up writing the name of the data object over, and over, and over, cluttering up our code.</p>
+<p>R uses a special character sequence <code>|&gt;</code>, called the pipe, that takes the output of one command and uses it as the following command. (Some older documentation uses the sequence <code>%&gt;%</code>, which also works, but <code>|&gt;</code> is now preferred.)</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>institutions <span class="ot">&lt;-</span> institutions <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(UNITID, INSTNM, OPEID, STABBR, SECTOR, HLOFFER)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(institutions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 6,256
+Columns: 6
+$ UNITID  &lt;dbl&gt; 100654, 100663, 100690, 100706, 100724, 100733, 100751, 100760…
+$ INSTNM  &lt;chr&gt; "Alabama A &amp; M University", "University of Alabama at Birmingh…
+$ OPEID   &lt;chr&gt; "00100200", "00105200", "02503400", "00105500", "00100500", "0…
+$ STABBR  &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "A…
+$ SECTOR  &lt;dbl&gt; 1, 1, 2, 1, 1, 0, 1, 4, 1, 1, 1, 2, 4, 3, 4, 4, 2, 4, 9, 4, 4,…
+$ HLOFFER &lt;dbl&gt; 9, 9, 9, 9, 9, 9, 9, 3, 7, 9, 9, 5, 3, 9, 3, 3, 9, 3, 2, 3, 3,…</code></pre>
+</div>
+</div>
+<p>Let’s move on to importing and cleaning the IPEDS Completions data. We’ll again use <code>read_csv()</code> to read in the data and store it in an object called <code>completions</code>. Since we’re familiar with the completions data, we know that we really only need major #1 and can filter out secondary majors. We will ask <code>filter()</code> to keep only those rows equal to 1 (<code>== 1</code>). Finally, similar to above, we only care about a few of the variables for now.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>completions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(<span class="st">"C"</span>, IPEDS_year, <span class="st">"_A.zip"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(MAJORNUM <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(UNITID, CIPCODE, AWLEVEL, CTOTALT)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 300877 Columns: 64
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (32): CIPCODE, AWLEVEL, XCTOTALT, XCTOTALM, XCTOTALW, XCAIANT, XCAIANM, ...
+dbl (32): UNITID, MAJORNUM, CTOTALT, CTOTALM, CTOTALW, CAIANT, CAIANM, CAIAN...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(completions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 279,506
+Columns: 4
+$ UNITID  &lt;dbl&gt; 100654, 100654, 100654, 100654, 100654, 100654, 100654, 100654…
+$ CIPCODE &lt;chr&gt; "01.0999", "01.1001", "01.1001", "01.1001", "01.9999", "01.999…
+$ AWLEVEL &lt;chr&gt; "05", "05", "07", "17", "05", "07", "17", "05", "05", "07", "0…
+$ CTOTALT &lt;dbl&gt; 9, 7, 7, 3, 1, 8, 3, 8, 3, 12, 11, 17, 41, 16, 0, 1, 3, 1, 8, …</code></pre>
+</div>
+</div>
+<p>Now that we have clean directory info (<code>institutions</code>) and clean completions data (<code>completions</code>), let’s combine them. We’ll use the <code>*_join()</code> functions from the <code>tidyverse</code> <code>dplyr</code> package. This is like joining tables in SQL, or for those of you who use Excel like databases, like using <code>VLOOKUP()</code>.</p>
+<p>We’ll store this combined dataset as <code>combined</code> for now. We need to provide the two data objects we’re joining, and the variable(s) we want to join on:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    institutions,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    completions,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"UNITID"</span>,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">keep =</span> <span class="cn">TRUE</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 279,720
+Columns: 10
+$ UNITID.x &lt;dbl&gt; 100654, 100654, 100654, 100654, 100654, 100654, 100654, 10065…
+$ INSTNM   &lt;chr&gt; "Alabama A &amp; M University", "Alabama A &amp; M University", "Alab…
+$ OPEID    &lt;chr&gt; "00100200", "00100200", "00100200", "00100200", "00100200", "…
+$ STABBR   &lt;chr&gt; "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "AL", "…
+$ SECTOR   &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ HLOFFER  &lt;dbl&gt; 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9…
+$ UNITID.y &lt;dbl&gt; 100654, 100654, 100654, 100654, 100654, 100654, 100654, 10065…
+$ CIPCODE  &lt;chr&gt; "01.0999", "01.1001", "01.1001", "01.1001", "01.9999", "01.99…
+$ AWLEVEL  &lt;chr&gt; "05", "05", "07", "17", "05", "07", "17", "05", "05", "07", "…
+$ CTOTALT  &lt;dbl&gt; 9, 7, 7, 3, 1, 8, 3, 8, 3, 12, 11, 17, 41, 16, 0, 1, 3, 1, 8,…</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that when we get to more complex functions that would create really long lines of code or nested functions, it’s best to separate your code into multiple lines to keep it readable. R will ignore the line breaks that you create just like it ignores spaces.</p>
+</div>
+</div>
+<p>The data set is combined and clean, but since it has a row for every credential (or at least unique combinations of level and CIP code) for every institution, it’s pretty large. We’ll work with Ohio data so we can filter again to Ohio institutions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(STABBR <span class="sc">==</span> <span class="st">"OH"</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 12,521
+Columns: 10
+$ UNITID.x &lt;dbl&gt; 200590, 200590, 200590, 200590, 200590, 200590, 200590, 20059…
+$ INSTNM   &lt;chr&gt; "ETI Technical College", "ETI Technical College", "ETI Techni…
+$ OPEID    &lt;chr&gt; "03079000", "03079000", "03079000", "03079000", "03079000", "…
+$ STABBR   &lt;chr&gt; "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "…
+$ SECTOR   &lt;dbl&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ HLOFFER  &lt;dbl&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9…
+$ UNITID.y &lt;dbl&gt; 200590, 200590, 200590, 200590, 200590, 200590, 200590, 20059…
+$ CIPCODE  &lt;chr&gt; "22.0301", "46.0401", "48.0508", "51.0801", "51.0801", "51.38…
+$ AWLEVEL  &lt;chr&gt; "03", "02", "02", "02", "03", "03", "02", "02", "03", "02", "…
+$ CTOTALT  &lt;dbl&gt; 2, 7, 10, 11, 0, 15, 9, 0, 2, 37, 19, 9, 2, 10, 2, 39, 10, 10…</code></pre>
+</div>
+</div>
+<p>Much better. But we have two more steps we’d like to do. Note that many of the variables are repeated in the dataset. We can use a special data type, factors, to clean up this data into categorical variables. <code>tidyverse</code> includes a package, <code>forcats</code>, to help with working with categorical data using the factor data type. Let’s do this for <code>SECTOR</code>, <code>AWLEVEL</code>, and <code>CTOTALT</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">SECTOR =</span> <span class="fu">as_factor</span>(SECTOR),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">HLOFFER =</span> <span class="fu">as_factor</span>(HLOFFER),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">AWLEVEL =</span> <span class="fu">as_factor</span>(AWLEVEL)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(combined)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 12,521
+Columns: 10
+$ UNITID.x &lt;dbl&gt; 200590, 200590, 200590, 200590, 200590, 200590, 200590, 20059…
+$ INSTNM   &lt;chr&gt; "ETI Technical College", "ETI Technical College", "ETI Techni…
+$ OPEID    &lt;chr&gt; "03079000", "03079000", "03079000", "03079000", "03079000", "…
+$ STABBR   &lt;chr&gt; "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "OH", "…
+$ SECTOR   &lt;fct&gt; 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
+$ HLOFFER  &lt;fct&gt; 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9…
+$ UNITID.y &lt;dbl&gt; 200590, 200590, 200590, 200590, 200590, 200590, 200590, 20059…
+$ CIPCODE  &lt;chr&gt; "22.0301", "46.0401", "48.0508", "51.0801", "51.0801", "51.38…
+$ AWLEVEL  &lt;fct&gt; 03, 02, 02, 02, 03, 03, 02, 02, 03, 02, 03, 07, 17, 07, 06, 0…
+$ CTOTALT  &lt;dbl&gt; 2, 7, 10, 11, 0, 15, 9, 0, 2, 37, 19, 9, 2, 10, 2, 39, 10, 10…</code></pre>
+</div>
+</div>
+<p>Lastly, since we want to use the <code>SECTOR</code> variable in particular later, let’s provide it with desciptions that are used in IPEDS:<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> combined <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">SECTOR =</span> <span class="fu">fct_recode</span>(</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            SECTOR,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Administrative Unit"</span> <span class="ot">=</span> <span class="st">"0"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public 4-year or above"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit 4-year or above"</span> <span class="ot">=</span> <span class="st">"2"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit 4-year or above"</span> <span class="ot">=</span> <span class="st">"3"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public 2-year"</span> <span class="ot">=</span> <span class="st">"4"</span>,</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit 2-year"</span> <span class="ot">=</span> <span class="st">"5"</span>,</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit 2-year"</span> <span class="ot">=</span> <span class="st">"6"</span>,</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public less-than-2-year"</span> <span class="ot">=</span> <span class="st">"7"</span>,</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit less-than-2-year"</span> <span class="ot">=</span> <span class="st">"8"</span>,</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit less-than-2-year"</span> <span class="ot">=</span> <span class="st">"9"</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Once you’re comfortable with many of these cleaning steps, you can revisit the <code>readr</code> function options. You can actually change column types, select variables, etc. all with optional arguments.</p>
+</div>
+</div>
 <section id="dataset-1-complete-code" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-1-complete-code">Dataset #1 complete code</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"curl"</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># store IPEDS url &amp; data year for use</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>IPEDS_url <span class="ot">&lt;-</span> <span class="st">"https://nces.ed.gov/ipeds/datacenter/data/"</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>IPEDS_year <span class="ot">&lt;-</span> <span class="dv">2022</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># download data</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(IPEDS_url, <span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>),</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="fu">str_c</span>(<span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>)</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_c</span>(IPEDS_url, <span class="st">"C"</span>, IPEDS_year, <span class="st">"_A"</span>, <span class="st">".zip"</span>),</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="fu">str_c</span>(<span class="st">"C"</span>, IPEDS_year, <span class="st">"_A"</span>, <span class="st">".zip"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co"># process institution directory information</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>institutions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(<span class="st">"HD"</span>, IPEDS_year, <span class="st">".zip"</span>)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(UNITID, INSTNM, OPEID, STABBR, SECTOR, HLOFFER)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="co"># process completions data</span></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>completions <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_c</span>(<span class="st">"C"</span>, IPEDS_year, <span class="st">"_A.zip"</span>)</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(MAJORNUM <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(UNITID, CIPCODE, AWLEVEL, CTOTALT)</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="co"># combine datasets, additional cleaning</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>combined <span class="ot">&lt;-</span> <span class="fu">left_join</span>(</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>    institutions,</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    completions,</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">by =</span> <span class="st">"UNITID"</span>,</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">keep =</span> <span class="cn">TRUE</span></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(STABBR <span class="sc">==</span> <span class="st">"OH"</span>) <span class="sc">|&gt;</span> <span class="co">#filter to Ohio</span></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>        <span class="at">SECTOR =</span> <span class="fu">as_factor</span>(SECTOR),</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>        <span class="at">HLOFFER =</span> <span class="fu">as_factor</span>(HLOFFER),</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">AWLEVEL =</span> <span class="fu">as_factor</span>(AWLEVEL)</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">SECTOR =</span> <span class="fu">fct_recode</span>(</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>            SECTOR,</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Administrative Unit"</span> <span class="ot">=</span> <span class="st">"0"</span>,</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public 4-year or above"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit 4-year or above"</span> <span class="ot">=</span> <span class="st">"2"</span>,</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit 4-year or above"</span> <span class="ot">=</span> <span class="st">"3"</span>,</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public 2-year"</span> <span class="ot">=</span> <span class="st">"4"</span>,</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit 2-year"</span> <span class="ot">=</span> <span class="st">"5"</span>,</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit 2-year"</span> <span class="ot">=</span> <span class="st">"6"</span>,</span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Public less-than-2-year"</span> <span class="ot">=</span> <span class="st">"7"</span>,</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private nonprofit less-than-2-year"</span> <span class="ot">=</span> <span class="st">"8"</span>,</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Private for-profit less-than-2-year"</span> <span class="ot">=</span> <span class="st">"9"</span></span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="sec-dataset2" class="level2" data-number="2.5">
@@ -389,15 +746,15 @@ Note
 </div>
 <p>Let’s store that URL to make it easier to use:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>projections_url <span class="ot">&lt;-</span> <span class="st">"https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>projections_url <span class="ot">&lt;-</span> <span class="st">"https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We’ll pull down the file with curl:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(projections_url, <span class="st">"projectionsdata.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(projections_url, <span class="st">"projectionsdata.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next we’ll try to import the file as a data object, and then check the results with <code>summary()</code> and <code>glimpse()</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"projectionsdata.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"projectionsdata.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>New names:
 • `` -&gt; `...2`
@@ -412,7 +769,7 @@ Note
 • `` -&gt; `...11`
 • `` -&gt; `...12`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 501
 Columns: 12
@@ -429,7 +786,7 @@ $ ...10                                        &lt;chr&gt; NA, NA, NA, NA, "Tota
 $ ...11                                        &lt;chr&gt; NA, NA, NA, "Median Wage"…
 $ ...12                                        &lt;chr&gt; NA, NA, NA, NA, NA, NA, N…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> JobsOhio Regional Network - Central Region     ...2          
  Length:501                                 Length:501        
@@ -451,12 +808,12 @@ $ ...12                                        &lt;chr&gt; NA, NA, NA, NA, NA, N
 </div>
 <p>That returned a bunch of junk, because there are multiple header rows in the file. Luckily, there’s an optional parameter we can add to <code>read_xlsx</code> to skip to the line we want (line 6 has the headers we want), which we can read about in the <a href="https://readxl.tidyverse.org/reference/read_excel.html"><code>readxl</code> documentation</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"projectionsdata.xlsx"</span>, <span class="at">skip =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"projectionsdata.xlsx"</span>, <span class="at">skip =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>New names:
 • `` -&gt; `...12`</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 496
 Columns: 12
@@ -473,7 +830,7 @@ $ Total                &lt;dbl&gt; 139361, 6627, 103, 1374, 29, 160, 229, 36, 26
 $ `May 2021`           &lt;chr&gt; "22.4", "48.2", "80.739999999999995", "47.63", "3…
 $ ...12                &lt;chr&gt; NA, NA, NA, NA, "**", NA, NA, "^", "^", NA, NA, N…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     Code           Occupational Title    Annual            Projected      
  Length:496         Length:496         Length:496         Min.   :    104  
@@ -501,7 +858,7 @@ $ ...12                &lt;chr&gt; NA, NA, NA, NA, "**", NA, NA, "^", "^", NA, N
  NA's   :8         NA's   :8                                               </code></pre>
 </div>
 </div>
-<p>It seems we have a little more data cleaning to do. We need to change the types of a few columns<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, rename a few columns, and do some filtering to remove the summary occupations. Let’s use additional parameters in <code>read_xlsx</code> to define types and column names. By providing the column names instead of importing them, we need to change the <code>skip =</code> option to 6 instead of 5.</p>
+<p>It seems we have a little more data cleaning to do. We need to change the types of a few columns<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>, rename a few columns, and do some filtering to remove the summary occupations. Let’s use additional parameters in <code>read_xlsx</code> to define types and column names. By providing the column names instead of importing them, we need to change the <code>skip =</code> option to 6 instead of 5.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -516,40 +873,40 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"projectionsdata.xlsx"</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">6</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SOC"</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Occupation"</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Current_jobs"</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Projected_jobs"</span>,</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_num"</span>,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_pct"</span>,</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Growth"</span>,</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Exits"</span>,</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Transfers"</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tot_openings"</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wage"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Notes"</span></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">c</span>(</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"projectionsdata.xlsx"</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">6</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SOC"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Occupation"</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Current_jobs"</span>,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Projected_jobs"</span>,</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_num"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_pct"</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Growth"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Exits"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Transfers"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tot_openings"</span>,</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wage"</span>,</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Notes"</span></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">c</span>(</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 496
 Columns: 12
@@ -566,7 +923,7 @@ $ Tot_openings   &lt;dbl&gt; 139361, 6627, 103, 1374, 29, 160, 229, 36, 262, 252
 $ Wage           &lt;dbl&gt; 22.40, 48.20, 80.74, 47.63, 37738.00, 62.05, 61.39, 57.…
 $ Notes          &lt;chr&gt; NA, NA, NA, NA, "**", NA, NA, "^", "^", NA, NA, NA, NA,…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     SOC             Occupation         Current_jobs       Projected_jobs   
  Length:496         Length:496         Min.   :    102.0   Min.   :    104  
@@ -598,13 +955,13 @@ $ Notes          &lt;chr&gt; NA, NA, NA, NA, "**", NA, NA, "^", "^", NA, NA, NA,
 <p>Summary occupations are coded with SOC codes ending in “0000”, so we can quickly identify them. In Excel, we’d likely use the <code>MID()</code> or <code>RIGHT()</code> commands to pull out that sequence. In R’s tidyverse package, we can use <code>str_sub()</code>, which works very similar to these, extracting a subset of the string field based on character position. Negative values mean work from the end.</p>
 <p>Any rows with anything other than the SOC code in the SOC column should be ignored. Since SOC codes are 7 characters long, we’ll try to use that. In Excel, we’d use <code>LEN()</code> to get the length, while here we’ll use <code>str_length()</code> from the tidyverse package. Note that in R, equals and not equals (<code>==</code> and <code>!=</code>) are different than in Excel (<code>=</code> and <code>&lt;&gt;</code>)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_sub</span>(SOC, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">!=</span> <span class="st">"0000"</span>,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_length</span>(SOC) <span class="sc">==</span> <span class="dv">7</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_sub</span>(SOC, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">!=</span> <span class="st">"0000"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_length</span>(SOC) <span class="sc">==</span> <span class="dv">7</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 465
 Columns: 12
@@ -621,7 +978,7 @@ $ Tot_openings   &lt;dbl&gt; 103, 1374, 29, 160, 229, 36, 262, 252, 516, 103, 37
 $ Wage           &lt;dbl&gt; 80.74, 47.63, 37738.00, 62.05, 61.39, 57.62, 47.73, 63.…
 $ Notes          &lt;chr&gt; NA, NA, "**", NA, NA, "^", "^", NA, NA, NA, NA, NA, NA,…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     SOC             Occupation         Current_jobs   Projected_jobs 
  Length:465         Length:465         Min.   :  102   Min.   :  104  
@@ -649,17 +1006,17 @@ $ Notes          &lt;chr&gt; NA, NA, "**", NA, NA, "^", "^", NA, NA, NA, NA, NA,
                                    NA's   :3                             </code></pre>
 </div>
 </div>
-<p>And finally, we need to adjust the wage column. It seems that there is a mix of hourly and annual wage figures in this column. Let’s convert all of them to annual wages as a new variable, by multiplying any values below $200/hr by 2,080 hours/yr. We’ll do this by using <code>mutate()</code> to create the new variable, and define it using a <code>case_when()</code>.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>And finally, we need to adjust the wage column. It seems that there is a mix of hourly and annual wage figures in this column. Let’s convert all of them to annual wages as a new variable, by multiplying any values below $200/hr by 2,080 hours/yr. We’ll do this by using <code>mutate()</code> to create the new variable, and define it using a <code>case_when()</code>.<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">annual_wage =</span> <span class="fu">case_when</span>(</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>            Wage <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> Wage <span class="sc">*</span> <span class="dv">2080</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.default =</span> Wage</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> projections_data <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">annual_wage =</span> <span class="fu">case_when</span>(</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>            Wage <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> Wage <span class="sc">*</span> <span class="dv">2080</span>,</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">.default =</span> Wage</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 465
 Columns: 13
@@ -677,7 +1034,7 @@ $ Wage           &lt;dbl&gt; 80.74, 47.63, 37738.00, 62.05, 61.39, 57.62, 47.73,
 $ Notes          &lt;chr&gt; NA, NA, "**", NA, NA, "^", "^", NA, NA, NA, NA, NA, NA,…
 $ annual_wage    &lt;dbl&gt; 167939.2, 99070.4, 37738.0, 129064.0, 127691.2, 119849.…</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(projections_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     SOC             Occupation         Current_jobs   Projected_jobs 
  Length:465         Length:465         Min.   :  102   Min.   :  104  
@@ -717,64 +1074,64 @@ $ annual_wage    &lt;dbl&gt; 167939.2, 99070.4, 37738.0, 129064.0, 127691.2, 119
 <section id="dataset-2-complete-code" class="level3">
 <h3 class="anchored" data-anchor-id="dataset-2-complete-code">Dataset #2 complete code</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"curl"</span>)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define file url</span></span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>projections_url <span class="ot">&lt;-</span> <span class="st">"https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="co"># download file</span></span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(projections_url, <span class="st">"projectionsdata.xlsx"</span>)</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># read file with approrpiate settings</span></span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"projectionsdata.xlsx"</span>,</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">6</span>,</span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SOC"</span>,</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Occupation"</span>,</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Current_jobs"</span>,</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Projected_jobs"</span>,</span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_num"</span>,</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_pct"</span>,</span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Growth"</span>,</span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Exits"</span>,</span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Transfers"</span>,</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tot_openings"</span>,</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wage"</span>,</span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Notes"</span></span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb30-30"><a href="#cb30-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">c</span>(</span>
-<span id="cb30-31"><a href="#cb30-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
-<span id="cb30-32"><a href="#cb30-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
-<span id="cb30-33"><a href="#cb30-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-34"><a href="#cb30-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-35"><a href="#cb30-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-36"><a href="#cb30-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-37"><a href="#cb30-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-38"><a href="#cb30-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-39"><a href="#cb30-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-40"><a href="#cb30-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-41"><a href="#cb30-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
-<span id="cb30-42"><a href="#cb30-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span></span>
-<span id="cb30-43"><a href="#cb30-43" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb30-44"><a href="#cb30-44" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
-<span id="cb30-45"><a href="#cb30-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-46"><a href="#cb30-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove summary occupations and notes/blank rows</span></span>
-<span id="cb30-47"><a href="#cb30-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
-<span id="cb30-48"><a href="#cb30-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_sub</span>(SOC, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">!=</span> <span class="st">"0000"</span>,</span>
-<span id="cb30-49"><a href="#cb30-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_length</span>(SOC) <span class="sc">==</span> <span class="dv">7</span></span>
-<span id="cb30-50"><a href="#cb30-50" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
-<span id="cb30-51"><a href="#cb30-51" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb30-52"><a href="#cb30-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create annual wage column so values are consistent</span></span>
-<span id="cb30-53"><a href="#cb30-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb30-54"><a href="#cb30-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">annual_wage =</span> <span class="fu">case_when</span>(</span>
-<span id="cb30-55"><a href="#cb30-55" aria-hidden="true" tabindex="-1"></a>            Wage <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> Wage <span class="sc">*</span> <span class="dv">2080</span>,</span>
-<span id="cb30-56"><a href="#cb30-56" aria-hidden="true" tabindex="-1"></a>            <span class="at">.default =</span> Wage</span>
-<span id="cb30-57"><a href="#cb30-57" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb30-58"><a href="#cb30-58" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load libraries</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"curl"</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="co"># define file url</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>projections_url <span class="ot">&lt;-</span> <span class="st">"https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co"># download file</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="fu">curl_download</span>(projections_url, <span class="st">"projectionsdata.xlsx"</span>)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="co"># read file with approrpiate settings</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>projections_data <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(</span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"projectionsdata.xlsx"</span>,</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">skip =</span> <span class="dv">6</span>,</span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_names =</span> <span class="fu">c</span>(</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SOC"</span>,</span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Occupation"</span>,</span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Current_jobs"</span>,</span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Projected_jobs"</span>,</span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_num"</span>,</span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Change_pct"</span>,</span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Growth"</span>,</span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Exits"</span>,</span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Transfers"</span>,</span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Tot_openings"</span>,</span>
+<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Wage"</span>,</span>
+<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a>        <span class="st">"Notes"</span></span>
+<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">col_types =</span> <span class="fu">c</span>(</span>
+<span id="cb51-31"><a href="#cb51-31" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
+<span id="cb51-32"><a href="#cb51-32" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>,</span>
+<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-41"><a href="#cb51-41" aria-hidden="true" tabindex="-1"></a>        <span class="st">"numeric"</span>,</span>
+<span id="cb51-42"><a href="#cb51-42" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span></span>
+<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb51-45"><a href="#cb51-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-46"><a href="#cb51-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># remove summary occupations and notes/blank rows</span></span>
+<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(</span>
+<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_sub</span>(SOC, <span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">!=</span> <span class="st">"0000"</span>,</span>
+<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">str_length</span>(SOC) <span class="sc">==</span> <span class="dv">7</span></span>
+<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">|&gt;</span></span>
+<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create annual wage column so values are consistent</span></span>
+<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">annual_wage =</span> <span class="fu">case_when</span>(</span>
+<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a>            Wage <span class="sc">&lt;</span> <span class="dv">200</span> <span class="sc">~</span> Wage <span class="sc">*</span> <span class="dv">2080</span>,</span>
+<span id="cb51-56"><a href="#cb51-56" aria-hidden="true" tabindex="-1"></a>            <span class="at">.default =</span> Wage</span>
+<span id="cb51-57"><a href="#cb51-57" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb51-58"><a href="#cb51-58" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -823,6 +1180,9 @@ $ annual_wage    &lt;dbl&gt; 167939.2, 99070.4, 37738.0, 129064.0, 127691.2, 119
 </section>
 <section id="extra-exporting-data" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="extra-exporting-data">Extra: Exporting data</h2>
+<p>At the start of this chapter we covered importing data - but didn’t cover exporting data. Of course, while this guide will show you how far you can take R, it also can be just one small piece of your toolchain if you wish. You could use R to do some cleaning, processing, and some analysis, and then export the data for use in another tool like a dashboard product.</p>
+<p>The <code>tidyverse</code> package <code>readr</code> includes a set of <code>write_</code> functions to export to CSV quickly. <code>write_csv_excel()</code> takes a data object input and a filename (e.g.&nbsp;<code>mydata.csv</code>) and builds out the file which can be read in Excel or other tools.</p>
+<p>We briefly reviewed accessing a database earlier in this chapter. <code>DBI</code> provides <code>dbWriteTable()</code> to write a data table object as a database table. You must provide the db connection object, a table name, and then the data object you’re storing. It can take an <code>append</code> argument if you want to simply add data to an existing table.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -834,8 +1194,10 @@ Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino 
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>By default, the tidyverse <code>read_</code> functions guess at column types by examining the fields, but it is imperfect.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p><code>case_when()</code> is inspired by the SQL <code>CASE</code> statement, and is more elegant than nested <code>IF()</code> functions you may be used to using in Excel.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Yes, there are a couple packages that are designed for accessing IPEDS data including <a href="https://cran.r-project.org/web/packages/IPEDS/index.html">this one in CRAN</a> and <a href="https://github.com/jbryer/ipeds">this one on GitHub</a>. But we’re using the files directly from the IPEDS data center because we are focused on learning how to import and clean data.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>And included in the dictionary file or the web interface<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>By default, the tidyverse <code>read_</code> functions guess at column types by examining the fields, but it is imperfect.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><code>case_when()</code> is inspired by the SQL <code>CASE</code> statement, and is more elegant than nested <code>IF()</code> functions you may be used to using in Excel.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 

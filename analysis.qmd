@@ -68,6 +68,13 @@ glimpse(projections_data)
 
 ## Data visualizations
 
+R can be used to create all kinds of graphs, utilizing the `ggplot2` package from `tidyverse`.  The `ggplot2` package is based on (and named after) a book, The Grammar of Graphics [@wilkinson2012grammar].  This is arguably one of the most complex packages, so you'll want to have the [site](https://ggplot2.tidyverse.org/) and [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf) available for review while you're learning it.
+
+In this section we'll work with the IPEDS data we cleaned in @sec-data.
+
+{{< include cleanipedsdata.qmd >}}
+
+
 
 ## Extra: logistic regression {.unnumbered}
 

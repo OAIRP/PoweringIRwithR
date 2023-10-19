@@ -1,0 +1,63 @@
+```{R}
+#| output: false
+# load libraries
+library("tidyverse")
+library("curl")
+
+# store IPEDS url & data year for use
+IPEDS_url <- "https://nces.ed.gov/ipeds/datacenter/data/"
+IPEDS_year <- 2022
+
+# download data
+curl_download(
+  str_c(IPEDS_url, "HD", IPEDS_year, ".zip"),
+  destfile = str_c("HD", IPEDS_year, ".zip")
+)
+
+curl_download(
+  str_c(IPEDS_url, "C", IPEDS_year, "_A", ".zip"),
+  destfile = str_c("C", IPEDS_year, "_A", ".zip")
+)
+
+# process institution directory information
+institutions <- read_csv(
+    str_c("HD", IPEDS_year, ".zip")
+    ) |>
+    select(UNITID, INSTNM, OPEID, STABBR, SECTOR, HLOFFER)
+
+# process completions data
+completions <- read_csv(
+    str_c("C", IPEDS_year, "_A.zip")
+    ) |>
+    filter(MAJORNUM == 1) |>
+    select(UNITID, CIPCODE, AWLEVEL, CTOTALT)
+
+# combine datasets, additional cleaning
+combined <- left_join(
+    institutions,
+    completions,
+    by = "UNITID",
+    keep = TRUE
+    ) |>
+    filter(STABBR == "OH") |> #filter to Ohio
+    mutate(
+        SECTOR = as_factor(SECTOR),
+        HLOFFER = as_factor(HLOFFER),
+        AWLEVEL = as_factor(AWLEVEL)
+    ) |>
+    mutate(
+        SECTOR = fct_recode(
+            SECTOR,
+            "Administrative Unit" = "0",
+            "Public 4-year or above" = "1",
+            "Private nonprofit 4-year or above" = "2",
+            "Private for-profit 4-year or above" = "3",
+            "Public 2-year" = "4",
+            "Private nonprofit 2-year" = "5",
+            "Private for-profit 2-year" = "6",
+            "Public less-than-2-year" = "7",
+            "Private nonprofit less-than-2-year" = "8",
+            "Private for-profit less-than-2-year" = "9"
+        )
+    )
+```
