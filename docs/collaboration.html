@@ -265,11 +265,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setting-up-github" id="toc-setting-up-github" class="nav-link active" data-scroll-target="#setting-up-github"><span class="header-section-number">5.1</span> Setting up GitHub</a></li>
   <li><a href="#an-overview-of-github" id="toc-an-overview-of-github" class="nav-link" data-scroll-target="#an-overview-of-github"><span class="header-section-number">5.2</span> An overview of GitHub</a></li>
   <li><a href="#sec-Gitsetup" id="toc-sec-Gitsetup" class="nav-link" data-scroll-target="#sec-Gitsetup"><span class="header-section-number">5.3</span> Setting up Git</a></li>
-  <li><a href="#sec-syncGitHub" id="toc-sec-syncGitHub" class="nav-link" data-scroll-target="#sec-syncGitHub"><span class="header-section-number">5.4</span> Syncing a project with GitHub</a>
-  <ul class="collapse">
-  <li><a href="#setting-up-a-project-started-on-github-to-sync-locally" id="toc-setting-up-a-project-started-on-github-to-sync-locally" class="nav-link" data-scroll-target="#setting-up-a-project-started-on-github-to-sync-locally">Setting up a project started on GitHub to sync locally</a></li>
-  <li><a href="#setting-up-a-project-started-locally-to-sync-with-github" id="toc-setting-up-a-project-started-locally-to-sync-with-github" class="nav-link" data-scroll-target="#setting-up-a-project-started-locally-to-sync-with-github">Setting up a project started locally to sync with GitHub</a></li>
-  </ul></li>
+  <li><a href="#sec-syncGitHub" id="toc-sec-syncGitHub" class="nav-link" data-scroll-target="#sec-syncGitHub"><span class="header-section-number">5.4</span> Syncing a project with GitHub</a></li>
   <li><a href="#the-basics-of-git-operations" id="toc-the-basics-of-git-operations" class="nav-link" data-scroll-target="#the-basics-of-git-operations"><span class="header-section-number">5.5</span> The basics of Git operations</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul class="collapse">
@@ -371,18 +367,62 @@ Note
 </section>
 <section id="sec-syncGitHub" class="level2" data-number="5.4">
 <h2 data-number="5.4" class="anchored" data-anchor-id="sec-syncGitHub"><span class="header-section-number">5.4</span> Syncing a project with GitHub</h2>
-<p><strong><em>needs content</em></strong></p>
-<section id="setting-up-a-project-started-on-github-to-sync-locally" class="level3">
-<h3 class="anchored" data-anchor-id="setting-up-a-project-started-on-github-to-sync-locally">Setting up a project started on GitHub to sync locally</h3>
-<p><strong><em>needs content</em></strong></p>
-</section>
-<section id="setting-up-a-project-started-locally-to-sync-with-github" class="level3">
-<h3 class="anchored" data-anchor-id="setting-up-a-project-started-locally-to-sync-with-github">Setting up a project started locally to sync with GitHub</h3>
-</section>
+<p>To use GitHub with your project, you’ll need to create a repository (repo) in GitHub and then begin working with it on your local computer.</p>
+<p>From your GitHub dashboard, you can click the <code>+</code> button in the top right, then click “New Repository”. Alternatively, from your profile, click “Repositories”, then click “New”.</p>
+<p>You’ll be presented with as screen with a few options:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="screenshots/github-newrepo.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">The GitHub “Create a new repository” screen.</figcaption>
+</figure>
+</div>
+<ul>
+<li><p>Who should be the owner of the repository, you or an organization you belong to? (You can change this later)</p></li>
+<li><p>What to name the repository? (You can change this later, but may not want to.)</p></li>
+<li><p>A description that will be presented on the repository screen</p></li>
+<li><p>Whether the repository should be public or private</p></li>
+<li><p>If you’d like to add any of three special files, which you can add later but may be helpful to begin with:</p>
+<ul>
+<li><p>A README.md file, which displays details about your project on the repo page,</p></li>
+<li><p>A <code>.gitignore</code> file to exclude common temporary files from Git and the sync with GitHub, with R as one of the template options, and</p></li>
+<li><p>A license, which controls how your code can be used. Not needed for a private repo, but you might want to consider using one for a public repo.</p></li>
+</ul></li>
+</ul>
+<p>Once you’ve created it, you’ll be taken to its page. Copy the URL for this page.</p>
+<p>Return to R Studio or Visual Studio Code.</p>
+<ul>
+<li><p>If you’re starting a new project from scratch:</p>
+<ul>
+<li><p>In R Studio, when you click “New Project” you will select Version Control &gt; Git &gt; Clone Git Repository. Provide the URL and the file location and name of the folder you’d like to create on your computer for your project.</p></li>
+<li><p>In Visual Studio Code, you should see the option to Clone Git Repository right on the Welcome page. If logged into GitHub in Visual Studio Code, you’ll be able to navigate to your repository.</p></li>
+</ul></li>
+<li><p>If you’re using an existing project:</p>
+<ul>
+<li><p>In R Studio, click Tools &gt; Version Control &gt; Project Setup. Select Git. R Studio will reload your project. In the top right pane, you’ll now see Git as a tab. Click it, then find “New Branch”. In there you’ll be able to select “Add remote” and enter your repository URL.</p></li>
+<li><p>In Visual Studio Code, click Source Control on the left pane, then</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="the-basics-of-git-operations" class="level2" data-number="5.5">
 <h2 data-number="5.5" class="anchored" data-anchor-id="the-basics-of-git-operations"><span class="header-section-number">5.5</span> The basics of Git operations</h2>
-<p><strong><em>needs content</em></strong></p>
+<p>When you make changes to your code that you’d like to save with version control, you’ll stage them with a short message describing your change. This is called a <strong>commit</strong>. Both R Studio and Visual Studio Code will visually indicate which files have changed since the last commits to those files, and you can peek into exactly what lines of code are changing and how. Because this complete history of changes is stored, you can revert to older versions of code if you ever need to.</p>
+<p>When you’re ready to sync with GitHub, you’ll first <strong>pull</strong> any changes to the repository, then <strong>push</strong> your changes. This combined action is called a <strong>sync</strong>.</p>
+<p>How often should you sync? As often as you’d like, but particularly when you’ve completed something that works. When building this guide, for example, we synced when we completed particular paragraphs and code blocks.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>.gitignore</code> file is used to exclude particular files from the Git (version control) operations and the sync with GitHub. We usually want to ignore any temporary files and any large files that could slow down syncs and eat up space online, particularly when they are not needed.</p>
+<p>Because we’re working with data, we often have larger data files in our project folder, like we did with the IPEDS and occupational projections data. Since our code begins a download of those datasets, we don’t need to be including the files with our code.</p>
+<p>The <code>.gitignore</code> template described above handles common data used by R Studio, but you may find that you need to add lines to the <code>.gitignore</code> to ignore any Excel and compressed data files by using <code>*.zip</code> and <code>*.xlsx</code>.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">

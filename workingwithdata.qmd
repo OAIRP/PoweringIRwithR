@@ -2,7 +2,7 @@
 
 ## Creating R data objects
 
-@tidyverse
+
 
 ## Importing data
 
@@ -31,6 +31,8 @@ library("curl")
 
 
 ## Tidy data
+
+@tidyverse
 
 ```{R}
 #| output: false
@@ -430,6 +432,10 @@ projections_data <- read_xlsx(
 ## Exercises {.unnumbered}
 
 ### Exercise 1
+
+Think about the kinds of data that you work with regularly.  Is it tidy?  How is it stored?  What functions will you need to use to work with it in R?
+
+### Exercise 2
 
 We used functions from several tidyverse packages.  Especially when learning, it's nice to have quick references.  Tidyverse has a series of official cheat sheets that you'll likely find useful.  Take a look:
 

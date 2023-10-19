@@ -5,6 +5,7 @@
 R was created as a statistics-focused programming language, so it's important to at least briefly showcase how R can be used to run statistical methods and quickly produce results that can then be visualized, used in reports, and stored for future use.  However, institutional researchers come from many different backgrounds, and we don't want to assume that all IR professionals reading this guide have the same level of knowledge of statistical methods.  We'll keep this section brief, but know that if a method exists, it likely has an implementation in R.
 
 In this section we'll build off of the occupational projections data that we worked with in @sec-dataset2, which is stored as the R data object `projections_data`.
+
 {{< include cleanoccupationsdata.qmd >}}
 
 ### Descriptive statistics
@@ -74,6 +75,22 @@ In this section we'll work with the IPEDS data we cleaned in @sec-data.
 
 {{< include cleanipedsdata.qmd >}}
 
+
+## Exercises {.unnumbered}
+
+### Exercise 1
+
+Describe how you would quickly examine and summarize a dataset.
+
+```{R}
+# code-fold: true
+# examine a dataset: glimpse()
+# summary descriptive statistics: summary()
+```
+
+### Exercise 2
+
+Open the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf).  Take a look in particular at the "Geoms" section.  What tipes of graphs do you think will be most useful in your work?
 
 
 ## Extra: logistic regression {.unnumbered}

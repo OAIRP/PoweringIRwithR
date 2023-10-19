@@ -1,5 +1,5 @@
 ```{R}
-#| output: false
+#| include: false
 # load libraries
 library("tidyverse")
 library("curl")

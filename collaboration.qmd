@@ -55,18 +55,62 @@ You'll want to associate the email address you use in Git with your GitHub accou
 
 ## Syncing a project with GitHub {#sec-syncGitHub}
 
-***needs content***
+To use GitHub with your project, you'll need to create a repository (repo) in GitHub and then begin working with it on your local computer.
 
-### Setting up a project started on GitHub to sync locally
+From your GitHub dashboard, you can click the `+` button in the top right, then click "New Repository".  Alternatively, from your profile, click "Repositories", then click "New".
 
-***needs content***
+You'll be presented with as screen with a few options:
 
-### Setting up a project started locally to sync with GitHub
+![The GitHub "Create a new repository" screen.](screenshots/github-newrepo.png)
 
+* Who should be the owner of the repository, you or an organization you belong to?  (You can change this later)
+
+* What to name the repository?  (You can change this later, but may not want to.)
+
+* A description that will be presented on the repository screen
+
+* Whether the repository should be public or private
+
+* If you'd like to add any of three special files, which you can add later but may be helpful to begin with:
+
+    + A README.md file, which displays details about your project on the repo page,
+
+    + A `.gitignore` file to exclude common temporary files from Git and the sync with GitHub, with R as one of the template options, and
+
+    + A license, which controls how your code can be used.  Not needed for a private repo, but you might want to consider using one for a public repo.
+
+Once you've created it, you'll be taken to its page.  Copy the URL for this page.
+
+Return to R Studio or Visual Studio Code.  
+
+* If you're starting a new project from scratch:
+
+    + In R Studio, when you click "New Project" you will select Version Control > Git > Clone Git Repository.  Provide the URL and the file location and name of the folder you'd like to create on your computer for your project.
+
+    + In Visual Studio Code, you should see the option to Clone Git Repository right on the Welcome page.  If logged into GitHub in Visual Studio Code, you'll be able to navigate to your repository.
+
+
+* If you're using an existing project:
+
+    + In R Studio, click Tools > Version Control > Project Setup.  Select Git.  R Studio will reload your project.  In the top right pane, you'll now see Git as a tab.  Click it, then find "New Branch".  In there you'll be able to select "Add remote" and enter your repository URL.
+
+    + In Visual Studio Code, click Source Control on the left pane, then 
 
 ## The basics of Git operations
 
-***needs content***
+When you make changes to your code that you'd like to save with version control, you'll stage them with a short message describing your change.  This is called a **commit**.  Both R Studio and Visual Studio Code will visually indicate which files have changed since the last commits to those files, and you can peek into exactly what lines of code are changing and how.  Because this complete history of changes is stored, you can revert to older versions of code if you ever need to.
+
+When you're ready to sync with GitHub, you'll first **pull** any changes to the repository, then **push** your changes.  This combined action is called a **sync**.
+
+How often should you sync?  As often as you'd like, but particularly when you've completed something that works.  When building this guide, for example, we synced when we completed particular paragraphs and code blocks.
+
+::: {.callout-warning}
+The `.gitignore` file is used to exclude particular files from the Git (version control) operations and the sync with GitHub.  We usually want to ignore any temporary files and any large files that could slow down syncs and eat up space online, particularly when they are not needed.
+
+Because we're working with data, we often have larger data files in our project folder, like we did with the IPEDS and occupational projections data.  Since our code begins a download of those datasets, we don't need to be including the files with our code.
+
+The `.gitignore` template described above handles common data used by R Studio, but you may find that you need to add lines to the `.gitignore` to ignore any Excel and compressed data files by using `*.zip` and `*.xlsx`.
+:::
 
 ::: {.callout-note}
 There are additional Git concepts that may be helpful if you are working in a larger team:

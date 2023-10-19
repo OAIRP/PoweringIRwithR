@@ -50,7 +50,6 @@ book:
   open-graph:
     image: cover.png
 
-
 citation:
   type: book
 google-scholar: true
