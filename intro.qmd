@@ -133,6 +133,12 @@ my_fav_number <- 2
 print(my_fav_number)
 ```
 
+::: {.callout-note}
+`print()` (and `library()`) are *functions* that take parameters (also called arguments).  These functions do something with what they are given.  You can think back to math class about functions: $f(x)$ is a function that is doing something with the value passed to it ($x$).
+
+You'll use functions with multiple parameters in @sec-data.  Typically, additional parameters add options on how the something is being done.
+:::
+
 Finally, let's add notes to ourselves so that we can remember what our code is doing.  To do this, we use **comments**.  In R, comments are denoted by the `#` symbol.  When R encounters a `#` symbol, everything in the same line after that symbol is ignored when running the code.  We always add a space between the `#` symbol and the text we'd like to use as a comment.
 
 We can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:
@@ -255,7 +261,7 @@ options(repos=c(CRAN="https://cran.case.edu/"))
 When done, save the file, then close all R terminals and reopen them.
 
 
-### R environment
+### R environment {#sec-renvironment}
 
 The R *environment* can store variables that you can call upon using special R functions.  It is a great way to keep keys and other secrets out of your code but still accessible.
 

@@ -2,25 +2,81 @@
 
 ## Creating R data objects
 
+We're able to work with data in R as objects.  You define an object by selecting a name, and assigning it some sort of value.  We'll illustrate this with a few different kinds of data, then later we'll instead work with reading in data from files.
 
+We assign an object a value using the `<-` sequence.  Let's try.  After assigning your new object a value, you can navigate to it in the R object viewer in your IDE (R Studio or Visual Studio Code).  To display in this guide, we'll use `print()`.
+
+```{R}
+myobject <- 2
+
+print(myobject)
+```
+
+We can store other kinds of data, like text, which is called a string.  Strings are always `"wrapped in quotes"` to be handled properly.
+
+```{R}
+mysecondobject <- "this is a string"
+
+print(mysecondobject)
+```
+
+And of course, we can store more complex datasets than single values.  We can create a list with the special combine `c()` function.  You can think of a list as a row of data:
+
+```{R}
+mythirdobject <- c(1, 2, 3)
+
+print(mythirdobject)
+```
+
+Our R object explorer might be starting to get a little cluttered with these example objects.  You can remove them in the GUI or you can run the `rm()` command to delete them:
+
+```{R}
+rm(myobject)
+rm(mysecondobject)
+rm(mythirdobject)
+```
 
 ## Importing data
 
+Now that we've learned how to work with R data objects, let's discuss working with actual data.  First, of course, we'll need to get the data into R.  How we get the data into R depends on how the data is stored and where the data is stored.  Let's consider each:
+
 ### By file format
 
-#### Comma-separated values (`.csv`)
+Most data files are stored in one of two common formats: Comma-separated values (`.csv`) and Microsoft Excel files (`.xlsx`).  There are great packages in R to handle these kinds of imports.
 
-#### Excel files (`.xlsx`)
+First, `readr`, includes functions to import data from those `.csv` files, primarily `read_csv()`.  You'll need to load the `readr` library, then pass it a filename or URL.
+
+::: {.callout-warning}
+Remember, you'll need to run `install.packages()` to install the package before you can load it.  See @sec-introduction for details on installing packages.
+:::
 
 ```{R}
+#| eval: false
+library("readr")
+
+mydata <- read_csv("mydatafile.csv")
+```
+
+For modern Excel files (`.xlsx`), we use `read_xlsx()` from the `readxl` package.
+
+```{R}
+#| output: false
 library("readxl")
 ```
 
+```{R}
+#| eval: false
+mydata <- read_xlsx("mydatafile.xlsx")
+```
+
+
 ### By file location
 
-#### From a local file
+The other important difference is where your data files reside.  If you have the data locally, you can move or copy the files into your project directory.  When they are in your project directory, you can simply pass the filename to the appropriate function (e.g. `read_csv()` or `read_xlsx()`).
 
-#### From an online file
+If the file exists on the internet, you may be able to pass the URL (in `""` quotes) to a function like `read_csv()`.  You can also use the `curl` package to download the file using `curl_download()` and set a filename for the location on your computer, then follow the instructions for a local file above.
+
+The `curl` package can also be used to work with FTP/SFTP servers.  Since you'll need to pass credentials to the server in code, you'll want to look into the R environment file as detailed in @sec-renvironment.
 
 ```{R}
 #| output: false
@@ -29,15 +85,31 @@ library("curl")
 
 ### From a database
 
+If your data is stored in a database, it's likely that you'll be able to connect to your database using R.  The [`DBI` package](https://dbi.r-dbi.org/) details how to connect to your database, either by using ODBC or by specifying a driver.  The `DBI` package includes such functions as `dbReadTable()` to read in a data table and `dbGetQuery()` to run a query and grab the result.
+
+### From an Application Program Interface (API)
+
+If the data can be provided from a webservice, it's likely that you can use R to engage with the data.  This is beyond the scope of this guide, but packages exist for many popular public data sources that have APIs - for example, you can use [the `tidycensus` package](https://walker-data.com/tidycensus/) to access the [Census Bureau data APIs](https://www.census.gov/data/developers/data-sets.html).
 
 ## Tidy data
 
-@tidyverse
+For much of our data cleaning, manipulation, and analysis in R we're going to use a collection of packages known as `tidyverse` [@tidyverse].  The `readr` package described above is actually part of the compilation!  This set of packages is designed to for data science, with a common design and underlying data structures.  We can load the entire collection with just one command:
 
 ```{R}
 #| output: false
 library("tidyverse")
 ```
+
+`tidyverse` is named after a concept of what it means to have **tidy data**, which @wickham_tidy_2014 defines as:
+
+1. Each variable is a column; each column is a variable.
+2. Each observation is a row; each row is an observation.
+3. Each value is a cell; each cell is a single value.
+
+As institutional researchers, we do come across data that do not meet those requirements from time to time, especially when collected by humans, such as data coded as `semester 1`, `semester 2`, etc.  `tidyverse` includes functions, like `pivot_longer()` and `pivot_wider()`.  @wickham2023r has a great overview of these concepts and functions.
+
+For this guide, we'll work with data that comes from adminstrative data sources, and already meets the tidy data standards, as it was collected and processed in machine readable formats.  That doesn't mean it won't need some cleaning, of course.
+
 
 ## In Practice: Dataset #1 -- IPEDS data {#sec-dataset1}
 

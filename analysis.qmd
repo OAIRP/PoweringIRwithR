@@ -75,6 +75,180 @@ In this section we'll work with the IPEDS data we cleaned in @sec-data.
 
 {{< include cleanipedsdata.qmd >}}
 
+### Visualization #1
+
+For our first visualization, we'll keep the data simple.  We just want to create a bar chart summarizing the number of postsecondary institutions in Ohio by sector.
+
+We first need to aggregate the data a bit.  We'll use `summarize()` and `group_by()`.  These functions act like steps in a Excel pivot table, with `group_by()` selecting which variables should be grouped in rows, and `summarize()` taking aggregations like `mean()` to calculate values.
+
+```{R}
+sector_counts <- combined |>
+    group_by(SECTOR) |>
+    summarize(
+        unique_inst = n_distinct(UNITID.x)
+    )
+```
+
+A plot in `ggplot2` includes three basic parts: the dataset you're using, the a definition of the coordinate system and aesthetics, and the geometry (shapes) that you want to display.  We use `+` to add on the geometry layer (and any further optional layers).
+
+```{R}
+sector_counts |> # start with the summarized data
+    # use an x,y coordinate system with SECTOR and unique_inst
+    ggplot(aes(x = SECTOR, y = unique_inst)) +
+    # apply bar shapes by using values in the data
+    geom_col()
+```
+
+This isn't very pretty, but we can make some adjustments.  First, we should consider the order of our chart, which we can rearrange using `reorder()` and providing a field and order (`-` for descending):
+
+```{R}
+sector_counts |> # start with the summarized data
+    # use an x,y coordinate system with SECTOR and unique_inst
+    ggplot(aes(x = reorder(SECTOR, -unique_inst), y = unique_inst)) +
+    # apply bar shapes by using values in the data
+    geom_col()
+```
+
+Now let's start to label it.  We would like both data labels and axes labels, as well as a title:
+
+```{R}
+sector_counts |> # start with the summarized data
+    # use an x,y coordinate system with SECTOR and unique_inst
+    ggplot(aes(x = reorder(SECTOR, -unique_inst), y = unique_inst)) +
+    # apply bar shapes by using values in the data
+    geom_col() +
+    # add data labels
+    geom_text(aes(label = unique_inst), vjust = -0.5, size = 3) +
+    # label axes and provide title
+    labs(
+        title = "Distribution of Ohio Institutions by Sector",
+        x = "Sector",
+        y = "Number of institutions"
+    )
+```
+
+Now let's pretty it up.  We need to adjust the x axis labels, and change up the colors.  We can change the bar color with an optional `fill` parameter to `geom_col()`, and adjust the labels and background with a `theme` layer:
+
+```{R}
+sector_counts |> # start with the summarized data
+    # use an x,y coordinate system with SECTOR and unique_inst
+    ggplot(aes(x = reorder(SECTOR, -unique_inst), y = unique_inst)) +
+    # apply bar shapes by using values in the data, use blue color
+    geom_col(fill = "blue") +
+    # add data labels
+    geom_text(aes(label = unique_inst), vjust = -0.5, size = 3) +
+    # label axes and provide title
+    labs(
+        title = "Distribution of Ohio Institutions by Sector",
+        x = "Sector",
+        y = "Number of institutions"
+    ) +
+    theme(
+        axis.text.x = element_text(angle = 40, hjust = 1, size = 6),
+        panel.background = element_blank()
+    )
+```
+
+That's much nicer!  Let's make a few more adjustments.  We can specify a particular shade of blue with an exact hex code.  [Columbus State Community College](https://www.cscc.edu/employee/communications/marketing/branding.shtml) uses a blue of R:0 G:114 B:152, which is a hex code of `#007298`.  Then we'll add a caption (in the labels layer `labs()`), a box around the chart (a new `geom_rect()` layer), and add additional `theme()` options:
+
+```{R}
+sector_counts |> # start with the summarized data
+    # use an x,y coordinate system with SECTOR and unique_inst
+    ggplot(aes(x = reorder(SECTOR, -unique_inst), y = unique_inst)) +
+    # apply bar shapes by using values in the data, use blue color
+    geom_col(fill = "#007298", color = "black") +
+    # add data labels
+    geom_text(aes(label = unique_inst), vjust = -0.5, size = 3) +
+    # label axes and provide title
+    labs(
+        title = "Distribution of Ohio Institutions by Sector",
+        x = "Sector",
+        y = "Number of institutions",
+        # new caption
+        caption = "Data Source: IPEDS Data Center"
+    ) +
+    theme(
+        axis.text.x = element_text(angle = 40, hjust = 1, size = 6),
+        panel.background = element_blank(),
+        axis.title.x = element_text(margin = margin(t = 10), color = "black"),
+        axis.title.y = element_text(margin = margin(t = 10), color = "black"),
+        axis.text = element_text(color = "black")
+    ) +
+    # add box around chart
+    geom_rect(
+        aes(xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf),
+        color = "black",
+        fill = NA,
+        alpha = 0
+        )
+```
+
+### Visualization #2
+
+Next, we'll illustrate how to create a different style of chart that may be helpful with more complex data.  We'll continue to use the IPEDS dataset, but now we'll work with the completions data.
+
+First we'll again want to summarize the data.  Let's get the sum of awards (`CTOTALT`) by `CIPCODE` within `SECTOR`, focusing only on the public sector.  We also need to make a slight adjustment to CIPCODE since there is a total code (99).
+
+```{R}
+#| warning: false
+sector_awards <- combined |>
+    filter(
+        CIPCODE != 99, # remove special code for totals at award level
+        str_sub(SECTOR, 1, 6) == "Public"  # focus only on public sector for now
+        ) |>
+    group_by(SECTOR, CIPCODE) |>
+    summarize(TotalAwards = sum(CTOTALT))
+```
+
+Since there are a lot of CIP codes, we likely want to take a look at the top CIP codes by number of awards.  We'll use `slice_max()` to pick the top 5 CIP codes:
+
+```{R}
+top_awards <- sector_awards |>
+    slice_max(order_by = TotalAwards, n = 5)
+
+top_awards
+```
+
+Now we'll create a more complex visual, still using the bar chart.  We'll work off of the `top_awards` we just created.  We'll start with the bar chart mostly as before in Visualization #1, with the exception of allowing the bars to be colored differently by sector.
+
+Next we'll add data labels to the bars, much like in Visualization #1.
+
+Then we'll add a new feature: `facet`.  By adding a `facet_wrap` layer, we'll actually create a multiple plot arrangement.  Since total numbers of awards may vary considerably between the sectors, we'll let the y-axes be independent.
+
+Following, we'll label teh plot with a title and axes labels.
+
+We'll use a `theme` layer again to modify the look, including applying a `classic` theme this time.  We'll also specify a custom color pallette.
+
+```{R}
+top_awards |>
+    ggplot(aes(x = TotalAwards, y = reorder(CIPCODE, -TotalAwards))) +
+    # apply bar geometry but allow colors to vary by sector
+    geom_col(aes(fill = SECTOR)) +
+    # add data labels
+    geom_text(aes(label = TotalAwards), hjust = -0.25, size = 3, color = "black") +
+    # add facet layer
+    facet_wrap(
+        ~SECTOR,
+        scales = "free_y"
+    ) +
+    # axes labes and title
+    labs(
+        title = "Top 5 CIP codes by awards conferred, public institutions",
+        x = "Awards conferred",
+        y = "CIP code",
+        caption = "Data Source: IPEDS Data Center"
+    ) +
+    # apply theming
+    theme_classic() +
+    theme(
+        axis.text = element_text(size = 8, color = "black"),
+        legend.position = "none"
+    ) +
+    # apply color palette
+    scale_fill_manual(values = c("#003E52", "#99DAEA", "#646569"))
+```
+
+Now you have a taste of the complexity that you can add with `ggplot2`!
 
 ## Exercises {.unnumbered}
 
@@ -83,7 +257,7 @@ In this section we'll work with the IPEDS data we cleaned in @sec-data.
 Describe how you would quickly examine and summarize a dataset.
 
 ```{R}
-# code-fold: true
+#| code-fold: true
 # examine a dataset: glimpse()
 # summary descriptive statistics: summary()
 ```

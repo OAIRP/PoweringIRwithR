@@ -117,6 +117,8 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="Powering Institutional Research with R - 1&nbsp; Software setup and overview">
 <meta property="og:description" content="">
@@ -134,6 +136,7 @@ div.csl-indent {
 <meta name="citation_reference" content="citation_title=Readxl: Read excel files;,citation_author=Hadley Wickham;,citation_author=Jennifer Bryan;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://CRAN.R-project.org/package=readxl;">
 <meta name="citation_reference" content="citation_title=MatchIt: Nonparametric Preprocessing for Parametric Causal Inference;,citation_abstract=Selects matched samples of the original treated and control groups with similar covariate distributions – can be used to match exactly on covariates, to match on propensity scores, or perform a variety of other matching procedures. The package also implements a series of recommendations offered in Ho, Imai, King, and Stuart (2007) &amp;amp;amp;lt;doi:10.1093/pan/mpl013&amp;gt;. (The ’gurobi’ package, which is not on CRAN, is optional and comes with an installation of the Gurobi Optimizer, available at &amp;lt;https://www.gurobi.com&amp;gt;.);,citation_author=Daniel Ho;,citation_author=Kosuke Imai;,citation_author=Gary King;,citation_author=Elizabeth Stuart;,citation_author=Alex Whitworth;,citation_author=Noah Greifer;,citation_publication_date=2023-10;,citation_cover_date=2023-10;,citation_year=2023;,citation_fulltext_html_url=https://cran.r-project.org/web/packages/MatchIt/index.html;">
 <meta name="citation_reference" content="citation_title=The grammar of graphics;,citation_author=Leland Wilkinson;,citation_publication_date=2012;,citation_cover_date=2012;,citation_year=2012;">
+<meta name="citation_reference" content="citation_title=Tidy Data;,citation_abstract=A huge amount of effort is spent cleaning data to get it ready for analysis, but there has been little research on how to make data cleaning as easy and effective as possible. This paper tackles a small, but important, component of data cleaning: data tidying. Tidy datasets are easy to manipulate, model and visualize, and have a specific structure: each variable is a column, each observation is a row, and each type of observational unit is a table. This framework makes it easy to tidy messy datasets because only a small set of tools are needed to deal with a wide range of un-tidy datasets. This structure also makes it easier to develop tidy tools for data analysis, tools that both input and output tidy datasets. The advantages of a consistent data structure and matching tools are demonstrated with a case study free from mundane data manipulation chores.;,citation_author=Hadley Wickham;,citation_publication_date=2014;,citation_cover_date=2014;,citation_year=2014;,citation_fulltext_html_url=https://www.jstatsoft.org/index.php/jss/article/view/v059i10;,citation_issue=10;,citation_doi=10.18637/jss.v059.i10;,citation_volume=59;,citation_journal_title=Journal of Statistical Software;">
 </head>
 
 <body class="nav-sidebar floating">
@@ -306,7 +309,7 @@ div.csl-indent {
   <li><a href="#extra-r-profile-and-environment" id="toc-extra-r-profile-and-environment" class="nav-link" data-scroll-target="#extra-r-profile-and-environment">Extra: R Profile and Environment</a>
   <ul class="collapse">
   <li><a href="#sec-rprofile" id="toc-sec-rprofile" class="nav-link" data-scroll-target="#sec-rprofile">R profile</a></li>
-  <li><a href="#r-environment" id="toc-r-environment" class="nav-link" data-scroll-target="#r-environment">R environment</a></li>
+  <li><a href="#sec-renvironment" id="toc-sec-renvironment" class="nav-link" data-scroll-target="#sec-renvironment">R environment</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/oairp/PoweringIRwithR/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
@@ -509,6 +512,20 @@ Important
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(my_fav_number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>print()</code> (and <code>library()</code>) are <em>functions</em> that take parameters (also called arguments). These functions do something with what they are given. You can think back to math class about functions: <span class="math inline">\(f(x)\)</span> is a function that is doing something with the value passed to it (<span class="math inline">\(x\)</span>).</p>
+<p>You’ll use functions with multiple parameters in <a href="workingwithdata.html"><span>Chapter&nbsp;2</span></a>. Typically, additional parameters add options on how the something is being done.</p>
+</div>
+</div>
 <p>Finally, let’s add notes to ourselves so that we can remember what our code is doing. To do this, we use <strong>comments</strong>. In R, comments are denoted by the <code>#</code> symbol. When R encounters a <code>#</code> symbol, everything in the same line after that symbol is ignored when running the code. We always add a space between the <code>#</code> symbol and the text we’d like to use as a comment.</p>
 <p>We can use comments at the end of a line of code to describe what is happening in that line, and we can write a comment as a whole line in the code to show what is happening in sections of code:</p>
 <div class="cell">
@@ -632,8 +649,8 @@ Tip
 </div>
 <p>When done, save the file, then close all R terminals and reopen them.</p>
 </section>
-<section id="r-environment" class="level3">
-<h3 class="anchored" data-anchor-id="r-environment">R environment</h3>
+<section id="sec-renvironment" class="level3">
+<h3 class="anchored" data-anchor-id="sec-renvironment">R environment</h3>
 <p>The R <em>environment</em> can store variables that you can call upon using special R functions. It is a great way to keep keys and other secrets out of your code but still accessible.</p>
 <p>The <code>usethis</code> package can be used to easily edit your R environment:</p>
 <div class="cell">

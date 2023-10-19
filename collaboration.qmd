@@ -94,7 +94,8 @@ Return to R Studio or Visual Studio Code.
 
     + In R Studio, click Tools > Version Control > Project Setup.  Select Git.  R Studio will reload your project.  In the top right pane, you'll now see Git as a tab.  Click it, then find "New Branch".  In there you'll be able to select "Add remote" and enter your repository URL.
 
-    + In Visual Studio Code, click Source Control on the left pane, then 
+    + In Visual Studio Code, click Source Control on the left pane, then the three dots (`...`), then Remote > Add Remote.
+
 
 ## The basics of Git operations
 
@@ -107,7 +108,7 @@ How often should you sync?  As often as you'd like, but particularly when you've
 ::: {.callout-warning}
 The `.gitignore` file is used to exclude particular files from the Git (version control) operations and the sync with GitHub.  We usually want to ignore any temporary files and any large files that could slow down syncs and eat up space online, particularly when they are not needed.
 
-Because we're working with data, we often have larger data files in our project folder, like we did with the IPEDS and occupational projections data.  Since our code begins a download of those datasets, we don't need to be including the files with our code.
+Because we're working with data, we often have larger data files in our project folder, like we did with the IPEDS and occupational projections data.  Since our code begins a download of those datasets, we don't need to be including these files in the sync.
 
 The `.gitignore` template described above handles common data used by R Studio, but you may find that you need to add lines to the `.gitignore` to ignore any Excel and compressed data files by using `*.zip` and `*.xlsx`.
 :::
