@@ -27,7 +27,7 @@ Here we can quickly identify some important information about the dataset:
 
 Now let's use linear regression to build a simple model.  Let's see whether annual wages might predict the rate at which persons leave an occupation. 
 
-We'll first need to create an additonal variable to calculate the occupational turnover rate, which we'll use as our outcome variable.
+We'll first need to create an additional variable to calculate the occupational turnover rate, which we'll use as our outcome variable.
 
 Then we'll use the `lm` function provided in base R.  We'll store the regression model as an R object, so we can work with it.  We provide a description of the model in the format `outcome_variable ~ predictor1 (+ predictor2 ...)`.  We provide an optional parameter `na.action = na.exclude` to direct how missing values should be handled.
 
@@ -79,7 +79,7 @@ In this section we'll work with the IPEDS data we cleaned in @sec-data.
 
 For our first visualization, we'll keep the data simple.  We just want to create a bar chart summarizing the number of postsecondary institutions in Ohio by sector.
 
-We first need to aggregate the data a bit.  We'll use `summarize()` and `group_by()`.  These functions act like steps in a Excel pivot table, with `group_by()` selecting which variables should be grouped in rows, and `summarize()` taking aggregations like `mean()` to calculate values.
+We first need to aggregate the data a bit.  We'll use `summarize()` and `group_by()`.  These functions act like steps in an Excel pivot table, with `group_by()` selecting which variables should be grouped in rows, and `summarize()` taking aggregations like `mean()` to calculate values.
 
 ```{R}
 sector_counts <- combined |>
@@ -89,7 +89,7 @@ sector_counts <- combined |>
     )
 ```
 
-A plot in `ggplot2` includes three basic parts: the dataset you're using, the a definition of the coordinate system and aesthetics, and the geometry (shapes) that you want to display.  We use `+` to add on the geometry layer (and any further optional layers).
+A plot in `ggplot2` includes three basic parts: the dataset you're using, the definition of the coordinate system and aesthetics, and the geometry (shapes) that you want to display.  We use `+` to add on the geometry layer (and any further optional layers).
 
 ```{R}
 sector_counts |> # start with the summarized data
@@ -215,9 +215,9 @@ Next we'll add data labels to the bars, much like in Visualization #1.
 
 Then we'll add a new feature: `facet`.  By adding a `facet_wrap` layer, we'll actually create a multiple plot arrangement.  Since total numbers of awards may vary considerably between the sectors, we'll let the y-axes be independent.
 
-Following, we'll label teh plot with a title and axes labels.
+Following, we'll label the plot with a title and axes labels.
 
-We'll use a `theme` layer again to modify the look, including applying a `classic` theme this time.  We'll also specify a custom color pallette.
+We'll use a `theme` layer again to modify the look, including applying a `classic` theme this time.  We'll also specify a custom color palette.
 
 ```{R}
 top_awards |>
@@ -231,7 +231,7 @@ top_awards |>
         ~SECTOR,
         scales = "free_y"
     ) +
-    # axes labes and title
+    # axes labels and title
     labs(
         title = "Top 5 CIP codes by awards conferred, public institutions",
         x = "Awards conferred",
@@ -264,7 +264,7 @@ Describe how you would quickly examine and summarize a dataset.
 
 ### Exercise 2
 
-Open the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf).  Take a look in particular at the "Geoms" section.  What tipes of graphs do you think will be most useful in your work?
+Open the [`ggplot2` cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf).  Take a look in particular at the "Geoms" section.  What types of graphs do you think will be most useful in your work?
 
 
 ## Extra: logistic regression {.unnumbered}

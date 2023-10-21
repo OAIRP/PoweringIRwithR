@@ -128,7 +128,7 @@ projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
 # download file
 curl_download(projections_url, "projectionsdata.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata.xlsx",
     skip = 6,
@@ -218,7 +218,7 @@ projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
 # download file
 curl_download(projections_url, "projectionsdata.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata.xlsx",
     skip = 6,
@@ -313,7 +313,7 @@ Let's build out our first section.  We'll make a summary table of the 15 largest
 
 We'll start with a section header name (preceded by `##`).  Next we'll open a code block, and specify the `echo: false` execution option so that only the result appears in the report, not the code.
 
-Then we'll use `slice_max()` to pull the 15 largest occupations (by passing the `Current_jobs` variable and an `n = 15` parameter).  We'll sort (arrange) those occupations in decending order using `arrange()` but using `-` ahead of the variable name to indicate the sort should be descending, then use `select()` to keep only those variables used in the report.  If we were using Pivot Tables in Microsoft Excel, these steps would be equivalent to filtering and sorting on row values.
+Then we'll use `slice_max()` to pull the 15 largest occupations (by passing the `Current_jobs` variable and an `n = 15` parameter).  We'll sort (arrange) those occupations in descending order using `arrange()` but using `-` ahead of the variable name to indicate the sort should be descending, then use `select()` to keep only those variables used in the report.  If we were using Pivot Tables in Microsoft Excel, these steps would be equivalent to filtering and sorting on row values.
 
 Finally, we'll call the `kable` function from the `knitr` package to build a nice table designed to be read by humans.  Within that function we'll specify how the columns will align (using `align = `) and give proper column headings (using `col.names = `).
 
@@ -474,7 +474,7 @@ projections_url <- str_c(
 # download file
 curl_download(projections_url, "projectionsdata2.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata2.xlsx",
     skip = 6,
@@ -653,7 +653,7 @@ Take a look at the RStudio cheat sheet for [Quarto](https://github.com/rstudio/c
 
 ### Exercise 2
 
-Branstorm a few different ways you might use parameters to create a series of reports that utilize much of the same code.
+Brainstorm a few different ways you might use parameters to create a series of reports that utilize much of the same code.
 
 ## Extra: Other Quarto document types {.unnumbered}
 

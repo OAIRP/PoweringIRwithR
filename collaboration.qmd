@@ -137,7 +137,7 @@ Log into GitHub and navigate to the [PoweringIRwithR repository](https://github.
 
 ### Exercise 2
 
-Search [`"institutional research"` on GitHub](https://github.com/search?q=%22institutional+research%22&type=repositories).  Find something intersting!
+Search [`"institutional research"` on GitHub](https://github.com/search?q=%22institutional+research%22&type=repositories).  Find something interesting!
 
 
 ## Extra: About GitHub Pages {.unnumbered}
