@@ -24,7 +24,7 @@ projections_url <- str_c(
 # download file
 curl_download(projections_url, "projectionsdata2.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata2.xlsx",
     skip = 6,

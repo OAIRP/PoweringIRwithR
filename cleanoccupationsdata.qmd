@@ -11,7 +11,7 @@ projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
 # download file
 curl_download(projections_url, "projectionsdata.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata.xlsx",
     skip = 6,

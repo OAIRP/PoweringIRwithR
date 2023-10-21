@@ -108,7 +108,7 @@ library("tidyverse")
 
 As institutional researchers, we do come across data that do not meet those requirements from time to time, especially when collected by humans, such as data coded as `semester 1`, `semester 2`, etc.  `tidyverse` includes functions, like `pivot_longer()` and `pivot_wider()`.  @wickham2023r has a great overview of these concepts and functions.
 
-For this guide, we'll work with data that comes from adminstrative data sources, and already meets the tidy data standards, as it was collected and processed in machine readable formats.  That doesn't mean it won't need some cleaning, of course.
+For this guide, we'll work with data that comes from administrative data sources, and already meets the tidy data standards, as it was collected and processed in machine readable formats.  That doesn't mean it won't need some cleaning, of course.
 
 
 ## In Practice: Dataset #1 -- IPEDS data {#sec-dataset1}
@@ -146,7 +146,7 @@ curl_download(
 )
 ```
 
-Next we need to import the downloaded files into R and begin cleaning the data.  We'll start with the directory information data.  We'll begin using `read_csv()`, which we can use to read in the `.csv` file contained in the `.zip` file.  We'll store the data as `institutions`, then take a peek at the imported data using `glimse()`:
+Next we need to import the downloaded files into R and begin cleaning the data.  We'll start with the directory information data.  We'll begin using `read_csv()`, which we can use to read in the `.csv` file contained in the `.zip` file.  We'll store the data as `institutions`, then take a peek at the imported data using `glimpse()`:
 
 ```{R}
 institutions <- read_csv(
@@ -226,7 +226,7 @@ combined <- combined |>
 glimpse(combined)
 ```
 
-Lastly, since we want to use the `SECTOR` variable in particular later, let's provide it with desciptions that are used in IPEDS:^[And included in the dictionary file or the web interface]
+Lastly, since we want to use the `SECTOR` variable in particular later, let's provide it with descriptions that are used in IPEDS:^[And included in the dictionary file or the web interface]
 
 ```{R}
 combined <- combined |>
@@ -451,7 +451,7 @@ projections_url <- "https://ohiolmi.com/_docs/PROJ/JobsOhio/Central.xlsx"
 # download file
 curl_download(projections_url, "projectionsdata.xlsx")
 
-# read file with approrpiate settings
+# read file with appropriate settings
 projections_data <- read_xlsx(
     "projectionsdata.xlsx",
     skip = 6,
